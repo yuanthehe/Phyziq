@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
-  get 'user/new'
+  root '/'
 
-  get 'user/create'
-
-  get 'user/update'
-
-  get 'user/destroy'
+  resources :users
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
