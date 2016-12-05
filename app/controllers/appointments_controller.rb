@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  def news
+  def new
   end
 
   def create
