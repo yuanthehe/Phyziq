@@ -1,7 +1,7 @@
 <h1>Index!</h1>\
 
-<ul>
-<li><%= User.index each do%>
-
+<div class="trainer_list">
+<% User.index each do |t|%>
+<li><%=link_to "#{t.name}", "/users/#{t.id}" %></li>
 <% end %>
-</ul>
+</div>
