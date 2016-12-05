@@ -15,9 +15,9 @@ class UsersController < ApplicationController
 
     if @user.save
       if @user.trainer == true
-        redirect_to user_url(@user), notice: "New trainer!"
+        redirect_to user_url(@user)
       else
-        redirect_to users_url, notice: "New trainee!"
+        redirect_to users_url
       end
     else
       render 'new'
