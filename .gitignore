@@ -1,0 +1,4 @@
+tmp/*
+*.log
+.DS-Store
+*.sqlite3
