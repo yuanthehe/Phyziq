@@ -5,7 +5,7 @@ class UserController < ApplicationController
   def create
   end
 
-  def update
+  def edit
   end
 
   def destroy
