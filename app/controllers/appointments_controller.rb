@@ -1,5 +1,5 @@
-class UserController < ApplicationController
-  def new
+class AppointmentsController < ApplicationController
+  def news
   end
 
   def create
