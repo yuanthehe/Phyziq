@@ -12,4 +12,3 @@ class User < ApplicationRecord
 	validates :password_confirmation, presence: true, on: :create
 
 end
-end
