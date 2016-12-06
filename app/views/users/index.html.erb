@@ -1,9 +1,0 @@
-<h1>Index!</h1>\
-
-<div class="trainer_list">
-<% @user.each do |t|%>
-  <% if t.trainer == true %>
-  <li><%=link_to "#{t.name}", "/users/#{t.id}" %></li>
-  <% end %>
-<% end %>
-</div>
