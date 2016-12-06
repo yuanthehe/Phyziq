@@ -15,11 +15,14 @@ class UsersController < ApplicationController
 
     if @user.save
       if @user.trainer == true
+        flash[:alert] = "Trainer signed up!"
         redirect_to user_url(@user)
       else
+        flash[:alert] = "Trainee signed up!"
         redirect_to users_url
       end
     else
+      flash[:alert] = "Failed to signed up!"
       render 'new'
     end
   end
@@ -54,6 +57,6 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :trainer)
+    params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
 end
