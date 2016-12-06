@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :appointments
-  resources :user_sessions, only [:new, :create, :destroy]
+  resources :user_sessions, only: [:new, :create, :destroy]
 
   get 'login' => 'user_sessions#new', :as => :login
   get 'logout' => 'user_sessions#destroy', as: => :logout
