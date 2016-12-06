@@ -1,1 +1,27 @@
-<h1 class="profile">Profile</h1>
+<h1 class="user_welcome">Welcome <%= @user.name %>!</h1>
+
+<div class="user_profile">
+  <p class="edit_link"><%= link_to "EDIT", "/users/#{@user.id}/edit" %></p>
+  <div class="user_info">
+    <p>User: <div class="display"><%= @user.name %></div></p>
+    <p>Email: <div class="display"><%= @user.email %></div></p>
+    <p>Phone: <div class="display"><%= @user.address %></div></p>
+  </div>
+</div>
+
+
+  <div class="active_appointments">
+    <h2>Upcoming Appointments</h2>
+    <div class="appointments_table">
+      <% if @user.trainer == true %>
+      <% @user.appointments.each do |reservation| %>
+      <div class="display"><%= reservation.restaurant.name %></div>
+        <% if reservation.user != nil %>
+        <p><%= reservation.size %> guests ON <%= reservation.when %></p>
+        <% else %>
+         <div class="display">No appointments yet!<br/>Why don't you make one?</div>
+        <% end %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
