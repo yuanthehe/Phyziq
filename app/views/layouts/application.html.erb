@@ -2,13 +2,23 @@
 <html>
   <head>
     <title>Phyziq</title>
-    <%= csrf_meta_tags %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
   </head>
 
   <body>
+    <header class="site-header">
+      <h1 class="logo">Phyziq</h1>
+
+      <nav class="site-nav">
+        <%= link_to "Home", users_url %> |
+        <%= link_to "Sign Up", new_user_path %> |
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>
