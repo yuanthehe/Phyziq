@@ -14,9 +14,11 @@ class UsersController < ApplicationController
 
     if @user.save
       if @user.trainer == true
+        auto_login(@user)
         flash[:alert] = "Trainer signed up!"
         redirect_to user_url(@user)
       else
+        auto_login(@user)
         flash[:alert] = "Trainee signed up!"
         redirect_to users_url
       end
