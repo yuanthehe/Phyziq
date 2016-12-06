@@ -1,1 +1,11 @@
 <h1 class="profile">Profile</h1>
+<%= form_for(@appointment) do |f| %>
+<% end %>
+<div class="field">
+  <%= f.label :time %></br>
+  <%= f.text_field :time, placeholder: "Enter desired time" %>
+</div>
+
+<div class="submit"></br>
+  <%= submit_tag "Request appointment" %>
+</div>
