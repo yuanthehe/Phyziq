@@ -6,7 +6,14 @@ Rails.application.routes.draw do
   resources :appointments
   resources :user_sessions, only: [:new, :create, :destroy]
 
-  get 'login' => 'user_sessions#new', :as => :login
-  post 'logout' => 'user_sessions#destroy', :as => :logout
+  # get 'login' => 'user_sessions#new', :as => :login
+  # post 'logout' => 'user_sessions#destroy', :as => :logout
+
+
+  post "oauth/callback" => "oauths#callback"
+  get "oauth/callback" => "oauths#callback" # for use with Github
+  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
+  delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
+  # root 'todos#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
