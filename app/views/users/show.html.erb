@@ -8,20 +8,3 @@
     <p>Phone: <div class="display"><%= @user.address %></div></p>
   </div>
 </div>
-
-
-  <div class="active_appointments">
-    <h2>Upcoming Appointments</h2>
-    <div class="appointments_table">
-      <% if @user.trainer == true %>
-      <% @user.appointments.each do |reservation| %>
-      <div class="display"><%= reservation.restaurant.name %></div>
-        <% if reservation.user != nil %>
-        <p><%= reservation.size %> guests ON <%= reservation.when %></p>
-        <% else %>
-         <div class="display">No appointments yet!<br/>Why don't you make one?</div>
-        <% end %>
-      <% end %>
-      <% end %>
-    </div>
-  </div>
