@@ -2,18 +2,15 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
+Rails.application.config.sorcery.submodules = [:remember_me]
 Rails.application.config.sorcery.submodules = [:external]
-
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
-  config.external_providers = [:google]
-  config.google.key = "969431139863-eleubhdaicasbt6m4vjovq3ot8e906pc.apps.googleusercontent.com"
-  config.google.secret = "rHJYGKcabfVEqKbkW6j_hUo9"
-  config.google.callback_url = "http://phyziq.com:3000/oauth/callback?provider=google"
-  config.google.user_info_mapping = {:email => "email", :username => "name"}
-
-
-
+ config.external_providers = [:google]
+ config.google.key = "969431139863-eleubhdaicasbt6m4vjovq3ot8e906pc.apps.googleusercontent.com"
+ config.google.secret = "rHJYGKcabfVEqKbkW6j_hUo9"
+ config.google.callback_url = "http://phyziq.com:3000/oauth/callback?provider=google"
+ config.google.user_info_mapping = {:email => "email", :username => "name"}
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.
@@ -136,7 +133,10 @@ Rails.application.config.sorcery.configure do |config|
   # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
   #
-  #
+  # config.google.key = ""
+  # config.google.secret = ""
+  # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
+  # config.google.user_info_mapping = {:email => "email", :username => "name"}
   #
   # config.vk.key = ""
   # config.vk.secret = ""
@@ -178,17 +178,19 @@ Rails.application.config.sorcery.configure do |config|
 
   # --- user config ---
   config.user_config do |user|
+
+    user.authentications_class = Authentication
     # -- core --
     # specify username attributes, for example: [:username, :email].
     # Default: `[:email]`
     #
-    user.username_attribute_names = '[:name]'
+    # user.username_attribute_names =
 
 
     # change *virtual* password attribute, the one which is used until an encrypted one is generated.
     # Default: `:password`
     #
-    # user.password_attribute_name = ':password_digest'
+    # user.password_attribute_name =
 
 
     # downcase the username before trying to authenticate, default is false
@@ -200,25 +202,25 @@ Rails.application.config.sorcery.configure do |config|
     # change default email attribute.
     # Default: `:email`
     #
-    user.email_attribute_name = ':email'
+    # user.email_attribute_name =
 
 
     # change default crypted_password attribute.
     # Default: `:crypted_password`
     #
-    user.crypted_password_attribute_name = ':crypted_password'
+    # user.crypted_password_attribute_name =
 
 
     # what pattern to use to join the password with the salt
     # Default: `""`
     #
-    user.salt_join_token = '""'
+    # user.salt_join_token =
 
 
     # change default salt attribute.
     # Default: `:salt`
     #
-    user.salt_attribute_name =':salt'
+    # user.salt_attribute_name =
 
 
     # how many times to apply encryption to the password.
@@ -441,13 +443,13 @@ Rails.application.config.sorcery.configure do |config|
     # Class which holds the various external provider data for this user.
     # Default: `nil`
     #
-    user.authentications_class = Authentication 
+    # user.authentications_class =
 
 
     # User's identifier in authentications class.
     # Default: `:user_id`
     #
-    # user.authentications_user_id_attribute_name = ':user_id'
+    # user.authentications_user_id_attribute_name =
 
 
     # Provider's identifier in authentications class.

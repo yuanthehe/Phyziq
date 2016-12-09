@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   resources :appointments
   resources :user_sessions, only: [:new, :create, :destroy]
 
-  # get 'login' => 'user_sessions#new', :as => :login
-  # post 'logout' => 'user_sessions#destroy', :as => :logout
+  get 'login' => 'user_sessions#new', :as => :login
+  get 'logout' => 'user_sessions#destroy', :as => :logout
 
 
   post "oauth/callback" => "oauths#callback"
