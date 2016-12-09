@@ -25,6 +25,8 @@ class OauthsController < ApplicationController
         flash[:notice] = "Account linked from #{provider.titleize}!"
         redirect_to user_path(@user)
       else
+        @user = create_from(provider)
+        @user.google_access_token = @access_token.token
         flash[:alert] = 'You are required to link your Google account before you can use this feature. You can do this by clicking "Link your Google account" after you sign in.'
         redirect_to "http://google.com"
       end

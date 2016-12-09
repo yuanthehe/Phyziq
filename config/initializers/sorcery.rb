@@ -7,9 +7,9 @@ Rails.application.config.sorcery.submodules = [:external]
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
  config.external_providers = [:google]
- config.google.key = "969431139863-eleubhdaicasbt6m4vjovq3ot8e906pc.apps.googleusercontent.com"
- config.google.secret = "rHJYGKcabfVEqKbkW6j_hUo9"
- config.google.callback_url = "http://phyziq.com:3000/oauth/callback?provider=google"
+ config.google.key = "#{Rails.application.secrets.sorcery_google_key}"
+ config.google.secret = "#{Rails.application.secrets.sorcery_google_secret}"
+ config.google.callback_url = "#{Rails.application.secrets.sorcery_google_callback_url}"
  config.google.user_info_mapping = {:email => "email", :username => "name"}
   # -- core --
   # What controller action to call for non-authenticated users. You can also
