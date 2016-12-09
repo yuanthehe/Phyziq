@@ -2,15 +2,15 @@
 # The default is nothing which will include only core features (password encryption, login/logout).
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
-Rails.application.config.sorcery.submodules = [:remember_me]
-Rails.application.config.sorcery.submodules = [:external]
+Rails.application.config.sorcery.submodules = [:remember_me, :external]
+
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
  config.external_providers = [:google]
  config.google.key = "#{Rails.application.secrets.sorcery_google_key}"
  config.google.secret = "#{Rails.application.secrets.sorcery_google_secret}"
  config.google.callback_url = "#{Rails.application.secrets.sorcery_google_callback_url}"
- config.google.user_info_mapping = {:email => "email", :username => "name"}
+ config.google.user_info_mapping = {:email => "email", :name => "name"}
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.
