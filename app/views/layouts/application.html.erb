@@ -17,7 +17,7 @@
       <nav class="site-nav">
         <%= link_to "Home", users_url %> |
           <% if current_user %>
-            <%= link_to "Logout", delete_oauth_path(:google), method: :delete  %> |
+            <%= link_to 'Logout', logout_path %> |
             <%= link_to "Profile", "/users/#{session[:user_id]}" %> |
           <% else %>
             <%= link_to "Sign Up", new_user_path %> |

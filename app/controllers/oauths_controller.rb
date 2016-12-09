@@ -25,7 +25,7 @@ class OauthsController < ApplicationController
         flash[:notice] = "Account linked from #{provider.titleize}!"
         redirect_to user_path(@user)
       else
-        flash[:alert] = 'You are required to link your GitHub account before you can use this feature. You can do this by clicking "Link your Github account" after you sign in.'
+        flash[:alert] = 'You are required to link your Google account before you can use this feature. You can do this by clicking "Link your Google account" after you sign in.'
         redirect_to "http://google.com"
       end
     end
