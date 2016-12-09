@@ -13,6 +13,7 @@ class OauthsController < ApplicationController
 
     if @user = login_from(provider)
       # user has already linked their account with github
+      # @user.google_access_token = @access_token.token
       flash[:notice] = "Logged in using #{provider.titleize}!"
       redirect_to root_path
     else
@@ -28,7 +29,6 @@ class OauthsController < ApplicationController
         redirect_to user_path(@user)
       else
         @user = create_from(:google)
-        @user.google_access_token = @access_token.token
         flash[:alert] = 'You are required to link your Google account before you can use this feature. You can do this by clicking "Link your Google account" after you sign in.'
         redirect_to "http://google.com"
       end
@@ -60,7 +60,7 @@ class OauthsController < ApplicationController
       # If you want to store the user's Github login, which is required in order to interact with their Github account, uncomment the next line.
       # You will also need to add a 'github_login' string column to the users table.
       #
-      @user.update_attribute(:google_login, @user_hash[:user_info]['login'])
+      # @user.update_attribute(:google_login, @user_hash[:user_info]['login'])
       flash[:notice] = "You have successfully linked your Google account."
     else
       flash[:alert] = "There was a problem linking your Google account."
