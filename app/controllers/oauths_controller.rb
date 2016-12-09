@@ -1,5 +1,5 @@
 class OauthsController < ApplicationController
-  # skip_before_filter :require_login
+  #skip_before_filter :require_login
   before_filter :require_login, only: :destroy
   # sends the user on a trip to the provider,
   # and after authorizing there back to the callback url.
@@ -10,6 +10,7 @@ class OauthsController < ApplicationController
   def callback
     # this will be set to 'github' when user is logging in via Github
     provider = auth_params[:provider]
+
     if @user = login_from(provider)
       # user has already linked their account with github
       flash[:notice] = "Logged in using #{provider.titleize}!"
@@ -21,11 +22,12 @@ class OauthsController < ApplicationController
       # this section will need to be changed to be more like the wiki page that was
       # linked earlier.
       if logged_in?
-        link_account(:provider)
+        # link_account(provider)
+        link_account(:google)
         flash[:notice] = "Account linked from #{provider.titleize}!"
         redirect_to user_path(@user)
       else
-        @user = create_from(provider)
+        @user = create_from(:google)
         @user.google_access_token = @access_token.token
         flash[:alert] = 'You are required to link your Google account before you can use this feature. You can do this by clicking "Link your Google account" after you sign in.'
         redirect_to "http://google.com"
@@ -41,6 +43,7 @@ class OauthsController < ApplicationController
   # link_to 'unlink', delete_oauth_path('github'), method: :delete
   def destroy
     provider = params[:provider]
+
     authentication = current_user.authentications.find_by_provider(provider)
     if authentication.present?
       authentication.destroy
@@ -50,6 +53,7 @@ class OauthsController < ApplicationController
     end
     redirect_to root_path
   end
+
   private
   def link_account(provider)
     if @user = add_provider_to_user(provider)
