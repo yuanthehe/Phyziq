@@ -9,7 +9,6 @@ class OauthsController < ApplicationController
   # this is where all of the magic happens
   def callback
     # this will be set to 'github' when user is logging in via Github
-    byebug
     provider = auth_params[:provider]
 
     if @user = login_from(provider)
