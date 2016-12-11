@@ -24,7 +24,7 @@ class OauthsController < ApplicationController
       # linked earlier.
       if logged_in?
         # link_account(provider)
-        link_account(:google)
+        link_account(provider)
         flash[:notice] = "Account linked from #{provider.titleize}!"
         redirect_to user_path(@user)
       else
