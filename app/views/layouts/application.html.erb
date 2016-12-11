@@ -19,6 +19,7 @@
           <% if current_user %>
             <%= link_to 'Logout', logout_path %> |
             <%= link_to "Profile", "/users/#{session[:user_id]}" %> |
+            <%= link_to "Settings", "/users/#{session[:user_id]}/edit" %>
           <% else %>
             <%= link_to "Sign Up", new_user_path %> |
             <%= link_to "Login", auth_at_provider_path(:google) %>
