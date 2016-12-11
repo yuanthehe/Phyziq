@@ -1,6 +1,6 @@
 class OauthsController < ApplicationController
   #skip_before_filter :require_login
-  before_action :require_login, only: :destroy
+  before_filter :require_login, only: :destroy
   # sends the user on a trip to the provider,
   # and after authorizing there back to the callback url.
   def oauth
@@ -9,6 +9,7 @@ class OauthsController < ApplicationController
   # this is where all of the magic happens
   def callback
     # this will be set to 'github' when user is logging in via Github
+    byebug
     provider = auth_params[:provider]
 
     if @user = login_from(provider)
@@ -28,7 +29,7 @@ class OauthsController < ApplicationController
         flash[:notice] = "Account linked from #{provider.titleize}!"
         redirect_to user_path(@user)
       else
-        @user = create_from(:google)
+        # @user = create_from(:google)
         flash[:alert] = 'You are required to link your Google account before you can use this feature. You can do this by clicking "Link your Google account" after you sign in.'
         redirect_to "http://google.com"
       end
@@ -66,6 +67,7 @@ class OauthsController < ApplicationController
       flash[:alert] = "There was a problem linking your Google account."
     end
   end
+
   def auth_params
     params.permit(:code, :provider)
   end
