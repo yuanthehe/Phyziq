@@ -7,11 +7,24 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
+      # Rails.logger.debug params.inspect
+      if params[:search]
+        category = Category.find_by(:genre => params[:search])
+        if category
+          @user = category.users
+        else
+          if @user.count == 1
+            redirect_to users_url(@user.first)
+          end
+        end
+      else
+        @user = User.all
+      end
+    end
   end
 
   def create
     @user = User.new(user_params)
-
     if @user.save
       if @user.trainer == true
         auto_login(@user)
@@ -60,4 +73,4 @@ private
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
-end
+# end
