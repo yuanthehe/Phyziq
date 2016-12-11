@@ -1,13 +1,15 @@
 <div class="login_form">
   <h1>Log in</h1>
 
-  <%= form_tag sessions_path do %>
+  <%= form_tag user_sessions_path do %>
+  <p>Email</p>
     <div class="field">
-      <% label_tag :email %><br/>
+      <% label_tag :email %>
       <%= text_field_tag :email, params[:email], placeholder: "Enter your email"%>
     </div>
+    <p>Password</p>
     <div class="field">
-      <% label_tag :password %><br/>
+      <% label_tag :password %>
       <%= password_field_tag :password, placeholder: "" %>
     </div>
     <div class="actions"><%= submit_tag "Log in" %></div>
