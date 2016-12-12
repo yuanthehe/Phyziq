@@ -9,7 +9,7 @@ class OauthsController < ApplicationController
   # this is where all of the magic happens
   def callback
     provider = params[:provider]
-
+    # @access_token =
     if @user = login_from(:google)
       # user has already linked their account with google
       # @user.google_access_token = @access_token.token
