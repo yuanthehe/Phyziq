@@ -1,4 +1,8 @@
-<h1 class="user_welcome">Welcome <%= @user.name %>!</h1>
+<% if current_user == @user %>
+  <h1 class="user_welcome">Welcome <%= @user.name %>!</h1>
+<% else %>
+  <h1 class="user_header"><%= @user.name %>'s page</h1>
+<% end %>
 
 <div class="user_profile">
   <p class="edit_link"><%= link_to "EDIT", "/users/#{@user.id}/edit" %></p>
