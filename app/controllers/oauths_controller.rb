@@ -4,14 +4,14 @@ class OauthsController < ApplicationController
   # sends the user on a trip to the provider,
   # and after authorizing there back to the callback url.
   def oauth
-    login_at(auth_params[:provider])
+    login_at(params[:provider])
   end
   # this is where all of the magic happens
   def callback
-    provider = auth_params[:provider]
+    provider = params[:provider]
 
-    if @user = login_from(provider)
-      # user has already linked their account with github
+    if @user = login_from(:google)
+      # user has already linked their account with google
       # @user.google_access_token = @access_token.token
       flash[:notice] = "Logged in using #{provider.titleize}!"
       redirect_to root_path
@@ -28,6 +28,7 @@ class OauthsController < ApplicationController
       #   redirect_to user_path(@user)
       # else
       @user = create_from(:google)
+      auto_login(@user)
       flash[:alert] = 'Google account successfully linked.'
       redirect_to user_url(@user)
       # end
@@ -53,8 +54,8 @@ class OauthsController < ApplicationController
     logout
     redirect_to root_path
   end
-
-  private
+end
+  # private
   # def link_account(provider)
   #   if @user = add_provider_to_user(provider)
   #     If you want to store the user's Github login, which is required in order to interact with their Github account, uncomment the next line.
@@ -67,7 +68,7 @@ class OauthsController < ApplicationController
   #   end
   # end
 
-  def auth_params
-    params.permit(:provider, :code)
-  end
-end
+#   def auth_params
+#     params.permit(:provider, :code)
+#   end
+# end
