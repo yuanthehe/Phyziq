@@ -58,6 +58,6 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :address, :trainer, :google_login, :password, :password_confirmation)
   end
 end

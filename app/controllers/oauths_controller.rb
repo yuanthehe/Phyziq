@@ -24,8 +24,8 @@ class OauthsController < ApplicationController
       # linked earlier.
       if logged_in?
         # link_account(provider)
-        link_account(:google)
-        flash[:notice] = "Account linked from #{provider.titleize}!"
+        link_account(provider)
+        flash.now[:notice] = "Account linked from #{provider.titleize}!"
         redirect_to user_path(@user)
       else
         # @user = create_from(:google)
@@ -68,6 +68,6 @@ class OauthsController < ApplicationController
   end
 
   def auth_params
-    params.permit(:code, :provider)
+    params.permit(:provider, :code)
   end
 end
