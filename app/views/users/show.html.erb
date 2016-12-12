@@ -13,10 +13,11 @@
   <% if logged_in? %>
     Currently logged in as: <%= current_user.email %> |
     <% if current_user.has_linked_google? %>
-      <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %>
+      Account linked with Google!
+      <!-- <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %> -->
     <% else %>
-      <%= link_to 'Link your Google account', auth_at_provider_path(:provider => :google) %>
-    <% end %> |
-    <%= link_to 'Logout', :logout %>
+      <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
+    <% end %>
+    <!-- <%= link_to 'Logout', :logout %> -->
   <% end %>
 </div>
