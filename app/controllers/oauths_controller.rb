@@ -8,7 +8,6 @@ class OauthsController < ApplicationController
   end
   # this is where all of the magic happens
   def callback
-    # this will be set to 'github' when user is logging in via Github
     provider = auth_params[:provider]
 
     if @user = login_from(provider)
@@ -23,9 +22,9 @@ class OauthsController < ApplicationController
       # this section will need to be changed to be more like the wiki page that was
       # linked earlier.
       if logged_in?
-        # link_account(provider)
+        # link_account(:google)
         link_account(provider)
-        flash.now[:notice] = "Account linked from #{provider.titleize}!"
+        flash[:notice] = "Account linked from #{provider.titleize}!"
         redirect_to user_path(@user)
       else
         # @user = create_from(:google)
