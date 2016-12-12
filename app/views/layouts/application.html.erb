@@ -18,11 +18,11 @@
         <%= link_to "Home", users_url %> |
           <% if current_user %>
             <%= link_to "Profile", "/users/#{session[:user_id]}" %> |
-            <%= link_to "Settings", "/users/#{session[:user_id]}/edit" %>
+            <%= link_to "Settings", "/users/#{session[:user_id]}/edit" %> |
               <% if current_user.has_linked_google? %>
                 <%= link_to 'Logout from Google', delete_oauth_path('google'), method: :delete %>
               <% else %>
-                <%= link_to 'Logout', :logout %> |
+                <%= link_to 'Logout', :logout %>
               <% end %>
           <% else %>
             <%= link_to "Sign Up", new_user_path %> |
