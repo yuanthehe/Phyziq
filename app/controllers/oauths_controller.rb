@@ -9,11 +9,11 @@ class OauthsController < ApplicationController
   # this is where all of the magic happens
   def callback
     provider = params[:provider]
-    # @access_token =
+    
     if @user = login_from(:google)
       # user has already linked their account with google
       # @user.google_access_token = @access_token.token
-      flash[:notice] = "Logged in using #{provider.titleize}!"
+      flash[:alert] = "Logged in using #{provider.titleize}!"
       redirect_to root_path
     else
       # User has not linked their account with Github yet. If they are logged in,
@@ -47,7 +47,7 @@ class OauthsController < ApplicationController
     authentication = current_user.authentications.find_by_provider(provider)
     if authentication.present?
       authentication.destroy
-      flash[:notice] = "You have successfully unlinked your #{provider.titleize} account."
+      flash[:alert] = "You have successfully unlinked your #{provider.titleize} account."
     else
       flash[:alert] = "You do not currently have a linked #{provider.titleize} account."
     end
