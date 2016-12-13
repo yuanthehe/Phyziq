@@ -30,11 +30,6 @@ class UsersController < ApplicationController
 
   def show
     #  @user = User.find(params[:id])
-    # client = Signet::OAuth2::Client.new(access_token: session[:access_token])
-    # client.expires_in = Time.now + 1_000_000
-    # service = Google::Apis::CalendarV3::CalendarService.new
-    # service.authorization = client
-    # @calendar_list = service.list_calendar_lists
   end
 
   def edit

@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
 
   get 'google_api_calendars/redirect'
-
   get 'google_api_calendars/callback'
-
   get 'google_api_calendars/calendars'
 
   root "users#index"
