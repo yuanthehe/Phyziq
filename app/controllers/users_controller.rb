@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :load_user, only: [:show, :edit, :destroy, :update]
+  before_action :redirect, :callback, only: [:show]
 
   def new
     @user = User.new
@@ -30,6 +31,12 @@ class UsersController < ApplicationController
 
   def show
     #  @user = User.find(params[:id])
+    client = Signet::OAuth2::Client.new(access_token: session[:access_token])
+
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+    @calendar_list = service.list_calendar_lists #call something more useful (Docs)
   end
 
   def edit
@@ -55,6 +62,32 @@ private
 
   def load_user
     @user = User.find(params[:id])
+  end
+
+  #Obtain an authorization code
+  def redirect
+    client = Signet::OAuth2::Client.new({
+      client_id: '594082341199-3s945r2lnn0iff8e7h5ocvg9lbebvdt9.apps.googleusercontent.com',
+      client_secret: 'zuFIsXuwu66bVwRTqZ6o5hlg',
+      authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
+      scope: Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY,
+      redirect_uri: 'http://phyziq.com:3000/oauth2callback'
+    })
+    redirect_to client.authorization_uri.to_s
+  end
+
+  #Obtain an access token
+  def callback
+    client = Signet::OAuth2::Client.new({
+      client_id: '594082341199-3s945r2lnn0iff8e7h5ocvg9lbebvdt9.apps.googleusercontent.com',
+      client_secret: 'zuFIsXuwu66bVwRTqZ6o5hlg',
+      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+      redirect_uri: 'http://phyziq.com:3000/oauth2callback',
+      code: params[:code]
+    })
+    response = client.fetch_access_token!
+    session[:access_token] = response['access_token']
+    redirect_to url_for(:action => :calendars)
   end
 
   def user_params
