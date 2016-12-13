@@ -13,6 +13,14 @@
   </div>
 </div>
 
+<div class="user_calendar">
+  <ul>
+  <% @calendar_list.items.each do |calendar| %>
+    <li><%= calendar.summary %></li>
+  <% end %>
+  </ul>
+</div>
+
 <div style="text-align: left;">
   <% if logged_in? %>
     Currently logged in as: <%= current_user.email %> |
