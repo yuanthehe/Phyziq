@@ -1,9 +1,10 @@
 class User < ApplicationRecord
-  authenticates_with_sorcery!
+  authenticates_with_sorcery! do |config|
+    config.authentications_class = Authentication
+  end
 
-  # has_many :trainers, through: :appointments, source: :user
-  # has_many :trainees, through: :appointments, source: :user
-  #use attr for items want to track NOT in database
+  accepts_nested_attributes_for :authentications
+  authenticates_with_sorcery!
   has_many :authentications, :dependent => :destroy
 
   validates :name, :email, :address, presence: true

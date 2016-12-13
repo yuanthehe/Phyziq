@@ -20,3 +20,9 @@
     <%= link_to 'Logout', :logout %>
   <% end %>
 </div>
+
+<ul>
+<% calendar_list.items.each do |calendar| %>
+  <li><%= calendar.summary %></li>
+<% end %>
+</ul>

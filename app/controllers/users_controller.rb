@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    
+
     if @user.save
       if @user.trainer == true
         auto_login(@user)
@@ -43,7 +43,16 @@ class UsersController < ApplicationController
   end
 
   def show
-  #  @user = User.find(params[:id])
+    client = Signet::OAuth2::Client.new(access_token: session[:access_token])
+
+    client.expires_in = Time.now + 1_000_000
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+
+    service.authorization = client
+
+    @calendar_list = service.list_calendar_lists
+    # erb :index, locals: {calendar_list: service.list_calendar_lists }
   end
 
   def edit
@@ -74,4 +83,3 @@ private
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
-# end

@@ -17,12 +17,12 @@
       <nav class="site-nav">
         <%= link_to "Home", users_url %> |
           <% if current_user %>
-            <%= link_to 'Logout', logout_path %> |
+            <%= link_to 'Logout', :logout %> |
             <%= link_to "Profile", "/users/#{session[:user_id]}" %> |
             <%= link_to "Settings", "/users/#{session[:user_id]}/edit" %>
           <% else %>
             <%= link_to "Sign Up", new_user_path %> |
-            <%= link_to "Login", auth_at_provider_path(:google) %>
+            <%= link_to "Login", :login %>
           <% end %>
       </nav>
     </header>
