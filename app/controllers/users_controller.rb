@@ -80,7 +80,7 @@ class UsersController < ApplicationController
     })
     response = client.fetch_access_token!
     session[:access_token] = response['access_token']
-    redirect_to url_for(:action => :calendars)
+    redirect_to url_for(:action => :show)
   end
 
 private
