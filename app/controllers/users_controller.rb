@@ -43,6 +43,7 @@ class UsersController < ApplicationController
   end
 
   def show
+<<<<<<< HEAD
     client = Signet::OAuth2::Client.new(access_token: session[:access_token])
 
     client.expires_in = Time.now + 1_000_000
@@ -53,6 +54,9 @@ class UsersController < ApplicationController
 
     @calendar_list = service.list_calendar_lists
     # erb :index, locals: {calendar_list: service.list_calendar_lists }
+=======
+    #  @user = User.find(params[:id])
+>>>>>>> c6d30b9480d48a5b7a9358614342c0198acf7b81
   end
 
   def edit

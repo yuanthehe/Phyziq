@@ -1,4 +1,8 @@
-<h1 class="user_welcome">Welcome <%= @user.name %>!</h1>
+<% if current_user == @user %>
+  <h1 class="user_welcome">Welcome <%= @user.name %>!</h1>
+<% else %>
+  <h1 class="user_header"><%= @user.name %>'s page</h1>
+<% end %>
 
 <div class="user_profile">
   <p class="edit_link"><%= link_to "EDIT", "/users/#{@user.id}/edit" %></p>
@@ -9,15 +13,24 @@
   </div>
 </div>
 
+<div class="user_calendar">
+  <ul>
+  <% @calendar_list.items.each do |calendar| %>
+    <li><%= calendar.summary %></li>
+  <% end %>
+  </ul>
+</div>
+
 <div style="text-align: left;">
   <% if logged_in? %>
     Currently logged in as: <%= current_user.email %> |
     <% if current_user.has_linked_google? %>
-      <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %>
+      Account linked with Google!
+      <!-- <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %> -->
     <% else %>
-      <%= link_to 'Link your Google account', auth_at_provider_path(:provider => :google) %>
-    <% end %> |
-    <%= link_to 'Logout', :logout %>
+      <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
+    <% end %>
+    <!-- <%= link_to 'Logout', :logout %> -->
   <% end %>
 </div>
 
