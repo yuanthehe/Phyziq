@@ -1,5 +1,13 @@
 <h1>Index!</h1>
 
+<h2>Search trainers by category</h2>
+<div class="search_bar">
+  <%= form_tag(users_url, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by type", required: true %>
+  <%= submit_tag "Search" %>
+  <% end %>
+</div>
+
 <div class="trainer_list">
 <% @user.each do |t|%>
   <% if t.trainer == true %>
@@ -7,3 +15,4 @@
   <% end %>
 <% end %>
 </div>
+<p>
