@@ -1,6 +1,7 @@
 class GoogleApiCalendarsController < ApplicationController
   before_action :require_login
 
+  #Obtain an authorization code
   def redirect
     client = Signet::OAuth2::Client.new({
       client_id: ENV.fetch('GOOGLE_API_CLIENT_ID'),
@@ -12,6 +13,7 @@ class GoogleApiCalendarsController < ApplicationController
     redirect_to client.authorization_uri.to_s
   end
 
+  #Obtain an access token
   def callback
     client = Signet::OAuth2::Client.new({
       client_id: ENV.fetch('GOOGLE_API_CLIENT_ID'),
@@ -25,6 +27,10 @@ class GoogleApiCalendarsController < ApplicationController
     redirect_to url_for(:action => :calendars)
   end
 
+  # Call the Google Calendar API
   def calendars
+    client = Signet::OAuth2::Client.new(access_token: session[:access_token])
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+    @calendar_list = service.list_calendar_lists
   end
-end
