@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :load_user, only: [:show, :edit, :destroy, :update]
-  before_action :redirect, :callback, only: [:show]
 
   def new
     @user = User.new
@@ -58,17 +57,11 @@ class UsersController < ApplicationController
     redirect_to :new
   end
 
-private
-
-  def load_user
-    @user = User.find(params[:id])
-  end
-
   #Obtain an authorization code
   def redirect
     client = Signet::OAuth2::Client.new({
-      client_id: '594082341199-3s945r2lnn0iff8e7h5ocvg9lbebvdt9.apps.googleusercontent.com',
-      client_secret: 'zuFIsXuwu66bVwRTqZ6o5hlg',
+      client_id: ENV.fetch('SORCERY_GOOGLE_SECRET'),
+      client_secret: ENV.fetch('SORCERY_GOOGLE_SECRET'),
       authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY,
       redirect_uri: 'http://phyziq.com:3000/oauth2callback'
@@ -77,10 +70,10 @@ private
   end
 
   #Obtain an access token
-  def callback
+  def google_callback
     client = Signet::OAuth2::Client.new({
-      client_id: '594082341199-3s945r2lnn0iff8e7h5ocvg9lbebvdt9.apps.googleusercontent.com',
-      client_secret: 'zuFIsXuwu66bVwRTqZ6o5hlg',
+      client_id: ENV.fetch('SORCERY_GOOGLE_KEY'),
+      client_secret: ENV.fetch('SORCERY_GOOGLE_SECRET'),
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       redirect_uri: 'http://phyziq.com:3000/oauth2callback',
       code: params[:code]
@@ -90,7 +83,14 @@ private
     redirect_to url_for(:action => :calendars)
   end
 
+private
+
+  def load_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
+
 end
