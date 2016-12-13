@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'google_api_calendars/redirect'
+  get 'google_api_calendars/callback'
+  get 'google_api_calendars/calendars'
+
   root "users#index"
 
   resources :users
@@ -10,10 +14,11 @@ Rails.application.routes.draw do
   get 'logout' => 'user_sessions#destroy', :as => :logout
 
 
-  post "oauth/callback" => "oauths#callback"
-  get "oauth/callback" => "oauths#callback" # for use with Github
+  post "oauth2callback" => "oauths#callback"
+  get "oauth2callback" => "oauths#callback" # for use with Github
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
-  # root 'todos#index'
+
+  # get "https://www.googleapis.com/calendar/v3/calendars/calendarId/events"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

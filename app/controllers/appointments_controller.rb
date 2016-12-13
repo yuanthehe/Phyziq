@@ -10,7 +10,7 @@ class AppointmentsController < ApplicationController
       @appointment.trainee_id = @appointment.user.id
       redirect_to user_url(@appointment.user), notice: "Appointment request sent!"
     else
-      flash[:notice] = "Failed to process appointment request"
+      flash[:alert] = "Failed to process appointment request"
       render '/users'
     end
   end
