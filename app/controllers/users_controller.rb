@@ -20,7 +20,6 @@ class UsersController < ApplicationController
       else
         @user = User.all
       end
-    end
   end
 
   def create
@@ -73,4 +72,4 @@ private
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
-# end
+end
