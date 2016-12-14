@@ -1,35 +1,11 @@
 class OauthsController < ApplicationController
-<<<<<<< HEAD
-skip_before_filter :require_login
-
-  # sends the user to the provider,
-=======
   before_action :require_login, only: :destroy
   # sends the user on a trip to the provider,
->>>>>>> c6d30b9480d48a5b7a9358614342c0198acf7b81
   # and after authorizing there back to the callback url.
   def oauth
     login_at(params[:provider])
   end
-<<<<<<< HEAD
 
-  def callback
-    provider = params[:provider]
-    if @user = login_from(provider)
-      redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
-    else
-      begin
-        @user = create_from(provider)
-        reset_session # protect from session fixation attack
-        auto_login(@user)
-        redirect_to root_path, :notice => "Logged in from #{provider.titleize}!"
-      rescue
-        redirect_to root_path, :alert => "Failed to login from #{provider.titleize}!"
-      end
-    end
-  end
-=======
-  # this is where all of the magic happens
   def callback
     provider = params[:provider]
 
@@ -69,7 +45,6 @@ skip_before_filter :require_login
     end
     redirect_to root_path
   end
->>>>>>> c6d30b9480d48a5b7a9358614342c0198acf7b81
 end
 
 #   private

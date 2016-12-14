@@ -13,3 +13,53 @@
  *= require_tree .
  *= require_self
  */
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* =============================================================================
+  Grid
+  ============================================================================= */
+
+* {
+  font-family: 'Questrial', sans-serif;
+  }
+
+.logo_style {
+  display: block;
+  text-align: center;
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
+.site-nav {
+  display: block;
+  text-align: center;
+}
+
+footer {
+  float: left;
+  font-weight: 400px;
+}
