@@ -14,22 +14,23 @@ class OauthsController < ApplicationController
        # @user.google_access_token = @access_token.token
        flash[:alert] = "Logged in from Google!"
        redirect_to root_path
-    # else
+    else
       # User has not linked their account with Google yet. If they are logged in,
       # authorize the account to be linked. If they are not logged in, require them
       # to sign in. NOTE: If you wanted to allow the user to register using oauth,
       # this section will need to be changed to be more like the wiki page that was
       # linked earlier.
-      # if logged_in?
-      #   link_account(:google)
-      #   flash[:notice] = "Account linked from Google!"
-      #   redirect_to user_path(@user)
-    else
+      if logged_in?
+        link_account(:google)
+        flash[:notice] = "Account linked from Google!"
+        redirect_to user_path(@user)
+      else
         @user = create_from(:google)
         reset_session # protect from session fixation attack
         auto_login(@user)
         flash[:alert] = 'Google account successfully linked!'
         redirect_to user_url(@user)
+      end
     end
   end
 
@@ -53,7 +54,7 @@ end
 #       If you want to store the user's Github login, which is required in order to interact with their Github account, uncomment the next line.
 #       You will also need to add a 'github_login' string column to the users table.
 #
-#       @user.update_attribute(:google_login, @user_hash[:user_info]['login'])
+      # @user.update_attribute(:google_login, @user_hash[:user_info]['login'])
 #       flash[:notice] = "You have successfully linked your Google account."
 #     else
 #       flash[:alert] = "There was a problem linking your Google account."
