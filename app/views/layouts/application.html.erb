@@ -7,13 +7,17 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <header class="site-header">
-      <h1 class="logo">Phyziq</h1>
+    <div class="container">
+    <div class="logo_style">
+      <a href="/"><%= image_tag "phyziq-logo.png", :class => "logo" %></a>
+    </div>
 
+    <header class="site-header">
       <nav class="site-nav">
         <%= link_to "Home", users_url %> |
           <% if current_user %>
@@ -32,5 +36,10 @@
         <% end %>
     </header>
     <%= yield %>
+  </div>
   </body>
+
+  <footer>
+    ®2016 - dev team YKDK
+  </footer>
 </html>

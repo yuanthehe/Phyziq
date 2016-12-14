@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
     if @user.save
       if @user.trainer == true
         auto_login(@user)
@@ -52,7 +53,7 @@ class UsersController < ApplicationController
   end
 
   def update
-  #  @user = User.find(params[:id])
+   @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       redirect_to user_url
     else

@@ -1,9 +1,5 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
-
-  # has_many :trainers, through: :appointments, source: :user
-  # has_many :trainees, through: :appointments, source: :user
-  #use attr for items want to track NOT in database
   has_many :authentications, :dependent => :destroy
 
   validates :name, :email, :address, presence: true
