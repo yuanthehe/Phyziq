@@ -110,5 +110,4 @@ private
     redirect_to url_for(:action => :calendars)
   end
 
-
 end
