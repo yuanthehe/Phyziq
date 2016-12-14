@@ -87,8 +87,8 @@ private
   #Obtain an authorization code
   def redirect
     client = Signet::OAuth2::Client.new({
-      client_id: ENV.fetch('sorcery_google_key'),
-      client_secret: ENV.fetch('sorcery_google_secret'),
+      client_id: "#{Rails.application.secrets.sorcery_google_key}",
+      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
       authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY,
       redirect_uri: 'http://phyziq.com:3000/oauth2callback'
@@ -99,8 +99,8 @@ private
   #Obtain an access token
   def calendar_callback
     client = Signet::OAuth2::Client.new({
-      client_id: ENV.fetch('sorcery_google_key'),
-      client_secret: ENV.fetch('sorcery_google_secret'),
+      client_id: "#{Rails.application.secrets.sorcery_google_key}",
+      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       redirect_uri: 'http://phyziq.com:3000/oauth2callback',
       code: params[:code]
