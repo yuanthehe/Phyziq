@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :load_user, only: [:show, :edit, :destroy, :update]
+  # before_action :redirect, only: [:show]
+  # before_action :calendar_callback, only: [:show]
 
   def new
     @user = User.new
@@ -20,7 +22,6 @@ class UsersController < ApplicationController
       else
         @user = User.all
       end
-    end
   end
 
   def create
@@ -43,16 +44,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    client = Signet::OAuth2::Client.new(access_token: session[:access_token])
-
-    client.expires_in = Time.now + 1_000_000
-
-    service = Google::Apis::CalendarV3::CalendarService.new
-
-    service.authorization = client
-
-    @calendar_list = service.list_calendar_lists
-    # erb :index, locals: {calendar_list: service.list_calendar_lists }
+    # @user = User.find(params[:id])
+    @calendars = calendars
   end
 
   def edit
@@ -74,6 +67,19 @@ class UsersController < ApplicationController
     redirect_to :new
   end
 
+  def calendars
+    client = Signet::OAuth2::Client.new({
+      client_id: "#{Rails.application.secrets.sorcery_google_key}",
+      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+      access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+    @calendar_list = service.list_calendar_lists.inspect #call something more useful (Docs)
+  end
+
 private
 
   def load_user
@@ -83,3 +89,4 @@ private
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
+end

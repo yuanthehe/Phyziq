@@ -14,4 +14,5 @@ class User < ApplicationRecord
   def has_linked_google?
      authentications.where(provider: 'google').present?
   end
+
 end

@@ -13,6 +13,10 @@
   </div>
 </div>
 
+<div class="user_calendar">
+  <%= @calendars %>
+</div>
+
 <div style="text-align: left;">
   <% if logged_in? %>
     Currently logged in as: <%= current_user.email %> |
