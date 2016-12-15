@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @calendars = calendars
+    @event_list = event_list
   end
 
   def edit
@@ -66,6 +66,25 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to :new
   end
+
+  def event_list
+    client = Signet::OAuth2::Client.new({
+      client_id: "#{Rails.application.secrets.sorcery_google_key}",
+      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+      access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    result = service.list_events('primary')
+      result.items.map do |e|
+        e.summary
+      end
+
+  end
+
 
   def calendars
     client = Signet::OAuth2::Client.new({
