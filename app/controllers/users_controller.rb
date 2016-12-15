@@ -77,7 +77,7 @@ class UsersController < ApplicationController
     client.expires_in = Time.now + 1_000_000
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-    @calendar_list = service.list_calendar_lists.inspect #call something more useful (Docs)
+    @calendar_list = service.list_calendar_lists
   end
 
 private
