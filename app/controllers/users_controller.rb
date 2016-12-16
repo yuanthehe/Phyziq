@@ -9,16 +9,8 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
-      # Rails.logger.debug params.inspect
       if params[:search]
-        category = Category.find_by(:genre => params[:search])
-        if category
-          @user = category.users
-        else
-          if @user.count == 1
-            redirect_to users_url(@user.first)
-          end
-        end
+        @user = User.search(params[:search]).order("name ASC")
       else
         @user = User.all
       end
