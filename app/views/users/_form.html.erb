@@ -36,7 +36,7 @@
     <%= f.password_field :password_confirmation, placeholder: "Enter your password again" %>
   </div> -->
 
-<p>Are you a trainer?</p>
+  <p>Are you a trainer?</p>
   <div class="check_box">
     <%= f.check_box :trainer %>
   </div>
@@ -44,5 +44,9 @@
   <div class="submit"></br>
     <%= submit_tag "Submit" %>
   </div>
-</div><br>
+
+  <div class="cancel_link">
+    <h4><%= link_to 'Cancel', users_url(@user) %></h4>
+  </div>
+</div>
 <% end %>
