@@ -16,11 +16,6 @@
 
 
 /* HTML5 display-role reset for older browsers */
-.logo {
-  height: 40%;
-  width: 40%;
-}
-
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
@@ -50,10 +45,14 @@ table {
 
 * {
   font-family: 'Questrial', sans-serif;
-  }
+}
+
+.logo {
+  height: 40%;
+  width: 40%;
+}
 
 .logo_style {
-  display: block;
   text-align: center;
   padding-bottom: 20px;
   margin-top: 20px;
@@ -62,6 +61,10 @@ table {
 .site-nav {
   display: block;
   text-align: center;
+}
+
+.site-nav a:link {
+  text-decoration: none;
 }
 
 footer {
