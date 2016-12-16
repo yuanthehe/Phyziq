@@ -80,7 +80,7 @@ class UsersController < ApplicationController
              (e.start.date_time).strftime("%Y-%m-%d") >= time
              "#{e.summary}, #{e.start}"
           elsif e.start.date == true
-                e.start.date >= date
+                e.start.date >= Date.parse(date)
                 "#{e.summary}"  #for weekly_event_list
           else
             # flash[:alert] = 'No events'
