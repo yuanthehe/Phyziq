@@ -71,9 +71,9 @@ class UsersController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
     d = Date.today
-    date = d.to_formatted_s #date && time format now equal
+    date = d.to_formatted_s
     t = Time.now
-    time = t.strftime("%Y-%m-%d")
+    time = t.strftime("%Y-%m-%d") #date && time format now equal
     result = service.list_events('primary')
       result.items.each do |e|
           if e.start.date_time == true
