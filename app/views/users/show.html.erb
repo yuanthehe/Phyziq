@@ -19,9 +19,6 @@
   <%= @daily_event_list %>
 </div>
 
-
-
-
 <div style="text-align: left;">
   <% if logged_in? %>
     Currently logged in as: <%= current_user.email %> |
@@ -31,6 +28,6 @@
     <% else %>
       <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
     <% end %>
-    <!-- <%= link_to 'Logout', :logout %> -->
+      <!-- <%= link_to 'Logout', :logout %> -->
   <% end %>
 </div>
