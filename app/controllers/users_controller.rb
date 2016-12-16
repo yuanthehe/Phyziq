@@ -70,15 +70,20 @@ class UsersController < ApplicationController
     client.expires_in = Time.now + 1_000_000
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-    # datetime = Google::Apis::CalendarV3::EventDateTime.new
+    d = Date.today
+    date = d.to_formatted_s #date && time format now equal
+    t = Time.now
+    time = t.strftime("%Y-%m-%d")
     result = service.list_events('primary')
       result.items.each do |e|
-          if e.start.date_time == true && e.start.date_time >= Time.now #the comparison method does not work, need new one
-            "#{e.summary}, #{e.start}"
-          elsif e.start.date == true && e.start.date >= Date.today
-            "#{e.summary}"  #for weekly_event_list
+          if e.start.date_time == true
+             (e.start.date_time).strftime("%Y-%m-%d") >= time
+             "#{e.summary}, #{e.start}"
+          elsif e.start.date == true
+                e.start.date >= date
+                "#{e.summary}"  #for weekly_event_list
           else
-            # flash[:alert] = 'No events'
+            flash[:alert] = 'No events'
           end
       end
   end
