@@ -71,6 +71,11 @@ h1, h2 {
   text-align: center;
 }
 
+h1 {
+  padding-top: 5px;
+  background-color: #ED1B24
+}
+
 .search_bar {
   display: inline;
   text-align: center;
