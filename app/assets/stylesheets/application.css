@@ -81,6 +81,7 @@ h1, h2, h4 {
 h1 {
   padding: 15px;
   background-color: #ED1B24;
+  margin-bottom: 0;
 }
 
 .search_bar {
@@ -126,6 +127,7 @@ h1 {
   width: 15%;
   background-color: black;
   color: #ED1B24;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 18px;
