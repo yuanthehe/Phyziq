@@ -81,6 +81,10 @@ h1 {
   text-align: center;
 }
 
+#error_explanation li {
+  text-align: center;
+}
+
 .trainer_list h4, a:link {
   list-style: none;
   text-align: center;
