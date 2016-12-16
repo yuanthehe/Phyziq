@@ -16,6 +16,11 @@
 
 
 /* HTML5 display-role reset for older browsers */
+.logo {
+  height: 40%;
+  width: 40%;
+}
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
