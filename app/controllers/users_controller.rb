@@ -83,7 +83,7 @@ class UsersController < ApplicationController
                 e.start.date >= date
                 "#{e.summary}"  #for weekly_event_list
           else
-            flash[:alert] = 'No events'
+            # flash[:alert] = 'No events'
           end
       end
   end
