@@ -38,6 +38,7 @@ class UsersController < ApplicationController
   def show
     # @user = User.find(params[:id])
     @daily_event_list = daily_event_list
+
   end
 
   def edit
@@ -47,9 +48,9 @@ class UsersController < ApplicationController
   def update
    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      redirect_to user_url
+       redirect_to user_url
     else
-      render :edit
+       render :edit
     end
   end
 
@@ -61,30 +62,35 @@ class UsersController < ApplicationController
 
   #Need to create a weekly_event_list method
   def daily_event_list
-    client = Signet::OAuth2::Client.new({
+    if session[:access_token] == nil
+       redirect_to auth_at_provider_path(:provider => :google)
+    else
+      client = Signet::OAuth2::Client.new({
       client_id: "#{Rails.application.secrets.sorcery_google_key}",
       client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-    d = Date.today
-    date = d.to_formatted_s
-    t = Time.now
-    time = t.strftime("%Y-%m-%d") #date && time format now equal
-    result = service.list_events('primary')
-      result.items.each do |e|
+      })
+
+      client.expires_in = Time.now + 1_000_000
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+      d = Date.today
+      date = d.to_formatted_s
+      t = Time.now
+      time = t.strftime("%Y-%m-%d") #date && time format now equal
+      result = service.list_events('primary')
+        result.items.each do |e|
           if e.start.date_time == true
              (e.start.date_time).strftime("%Y-%m-%d") >= time
              "#{e.summary}, #{e.start}"
           elsif e.start.date == true
-                e.start.date >= date
+                e.start.date >= Date.parse(date)
                 "#{e.summary}"  #for weekly_event_list
           else
             # flash[:alert] = 'No events'
           end
+        end
       end
   end
 
