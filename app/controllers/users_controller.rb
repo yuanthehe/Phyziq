@@ -81,10 +81,10 @@ class UsersController < ApplicationController
     # datetime = Google::Apis::CalendarV3::EventDateTime.new
     result = service.list_events('primary')
       result.items.each do |e|
-          if e.start.date_time == true && e.start.date_time > Time.now #the comparison method does not work, need new one
+          if e.start.date_time == true && e.start.date_time >= Time.now #the comparison method does not work, need new one
             "#{e.summary}, #{e.start}"
-          # elsif e.start.date == true && e.start.date > Date.today
-          #   "#{e.summary}"  #for weekly_event_list
+          elsif e.start.date == true && e.start.date >= Date.today
+            "#{e.summary}"  #for weekly_event_list
           else
             flash[:alert] = 'No events'
           end
