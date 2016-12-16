@@ -69,7 +69,9 @@ table {
 
 .alert {
   text-align: center;
-  background-color: darkgray;
+  background-color: black;
+  color: #ED1B24;
+  padding: 5px;
 }
 
 h1, h2, h4 {
@@ -117,14 +119,15 @@ h1 {
 
 .form_container {
   width: 15%;
-  background-color: darkgray;
+  background-color: black;
+  color: #ED1B24;
   margin-left: auto;
   margin-right: auto;
   padding-left: 5px;
 }
 
 .form_container p {
-  color: black;
+  color: #ED1B24;
   text-align: left;
 }
 
