@@ -67,7 +67,20 @@ table {
   text-decoration: none;
 }
 
+h1, h2 {
+  text-align: center;
+}
+
+.search_bar {
+
+}
+
+.trainer_list li, a:link {
+  text-align: center;
+  text-decoration: none;
+}
+
 footer {
-  float: left;
+  text-align: center;
   font-weight: 400px;
 }
