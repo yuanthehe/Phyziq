@@ -1,18 +1,22 @@
-<h1>Index!</h1>
+<h1>Search for a personal trainer</h1>
 
-<h2>Search trainers by category</h2>
 <div class="search_bar">
   <%= form_tag(users_url, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search by type", required: true %>
+  <%= text_field_tag :search, params[:search], placeholder: "By name OR address", required: true %>
   <%= submit_tag "Search" %>
   <% end %>
+</div><br>
+
+<h2>Trainer Index:</h2>
+
+<div class="trainer_count">
+  <p><%= @user.where(:trainer => true).count %> Trainers found!</p>
 </div>
 
-<div class="trainer_list">
-<% @user.each do |t|%>
-  <% if t.trainer == true %>
-  <li><%=link_to "#{t.name}", "/users/#{t.id}" %></li>
-  <% end %>
-<% end %>
-</div>
-<p>
+  <div class="trainer_list">
+    <% @user.each do |t|%>
+      <% if t.trainer == true %>
+        <h4><%=link_to "#{t.name}", "/users/#{t.id}" %></h4>
+      <% end %>
+    <% end %>
+  </div>

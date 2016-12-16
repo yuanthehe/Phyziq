@@ -9,16 +9,8 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
-      # Rails.logger.debug params.inspect
       if params[:search]
-        category = Category.find_by(:genre => params[:search])
-        if category
-          @user = category.users
-        else
-          if @user.count == 1
-            redirect_to users_url(@user.first)
-          end
-        end
+        @user = User.search(params[:search]).order("name ASC")
       else
         @user = User.all
       end
@@ -78,15 +70,20 @@ class UsersController < ApplicationController
     client.expires_in = Time.now + 1_000_000
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-    # datetime = Google::Apis::CalendarV3::EventDateTime.new
+    d = Date.today
+    date = d.to_formatted_s
+    t = Time.now
+    time = t.strftime("%Y-%m-%d") #date && time format now equal
     result = service.list_events('primary')
       result.items.each do |e|
-          if e.start.date_time == true && e.start.date_time > Time.now #the comparison method does not work, need new one
-            "#{e.summary}, #{e.start}"
-          # elsif e.start.date == true && e.start.date > Date.today
-          #   "#{e.summary}"  #for weekly_event_list
+          if e.start.date_time == true
+             (e.start.date_time).strftime("%Y-%m-%d") >= time
+             "#{e.summary}, #{e.start}"
+          elsif e.start.date == true
+                e.start.date >= date
+                "#{e.summary}"  #for weekly_event_list
           else
-            flash[:alert] = 'No events'
+            # flash[:alert] = 'No events'
           end
       end
   end

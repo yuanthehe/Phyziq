@@ -45,10 +45,14 @@ table {
 
 * {
   font-family: 'Questrial', sans-serif;
-  }
+}
+
+.logo {
+  height: 40%;
+  width: 40%;
+}
 
 .logo_style {
-  display: block;
   text-align: center;
   padding-bottom: 20px;
   margin-top: 20px;
@@ -59,7 +63,98 @@ table {
   text-align: center;
 }
 
+.site-nav a:link {
+  text-decoration: none;
+}
+
+.alert {
+  text-align: center;
+  background-color: black;
+  color: #ED1B24;
+  padding: 5px;
+}
+
+h1, h2, h4 {
+  text-align: center;
+}
+
+h1 {
+  padding: 15px;
+  background-color: #ED1B24;
+  margin-bottom: 0;
+}
+
+.search_bar {
+  display: inline;
+  text-align: center;
+}
+
+#search-form {
+  background-color: black;
+  padding: 15px;
+}
+
+.trainer_count p {
+  color: black;
+}
+
+#error_explanation li {
+  text-align: center;
+}
+
+.user_profile {
+  background-color: black;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.user_profile, p {
+  text-align: center;
+  color: white;
+}
+
+.display {
+  color: #ED1B24;
+}
+
+.trainer_list h4, a:link {
+  list-style: none;
+  text-align: center;
+  text-decoration: none;
+}
+
+.form_container {
+  width: 15%;
+  background-color: black;
+  color: #ED1B24;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 18px;
+  padding-top: 18px;
+  border-radius: 35px;
+}
+
+.form_container p {
+  color: #ED1B24;
+  text-align: left;
+}
+
+.form label, input {
+  background-position: center;
+}
+
+.cancel_link h4 {
+  text-align: left;
+  padding-bottom: 8px;
+}
+
 footer {
-  float: left;
+  text-align: center;
   font-weight: 400px;
+  background-color: black;
+}
+
+footer p {
+  color: white;
 }

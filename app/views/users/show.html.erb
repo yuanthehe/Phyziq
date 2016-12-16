@@ -9,16 +9,15 @@
   <div class="user_info">
     <p>User: <div class="display"><%= @user.name %></div></p>
     <p>Email: <div class="display"><%= @user.email %></div></p>
-    <p>Phone: <div class="display"><%= @user.address %></div></p>
+    <p>Address: <div class="display"><%= @user.address %></div></p>
   </div>
 </div>
+
+<h4><%= @user.name %>'s Events:</h4>
 
 <div class="user_calendar">
   <%= @daily_event_list %>
 </div>
-
-
-
 
 <div style="text-align: left;">
   <% if logged_in? %>
@@ -29,6 +28,6 @@
     <% else %>
       <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
     <% end %>
-    <!-- <%= link_to 'Logout', :logout %> -->
+      <!-- <%= link_to 'Logout', :logout %> -->
   <% end %>
 </div>

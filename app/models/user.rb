@@ -15,4 +15,7 @@ class User < ApplicationRecord
      authentications.where(provider: 'google').present?
   end
 
+  def self.search(search)
+    where("name ILIKE ? OR address ILIKE ?", "%#{search}%", "%#{search}%")
+  end
 end
