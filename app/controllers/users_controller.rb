@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @event_list = event_list
+    @daily_event_list = daily_event_list
   end
 
   def edit
@@ -67,7 +67,8 @@ class UsersController < ApplicationController
     redirect_to :new
   end
 
-  def event_list
+  #Need to create a weekly_event_list method
+  def daily_event_list
     client = Signet::OAuth2::Client.new({
       client_id: "#{Rails.application.secrets.sorcery_google_key}",
       client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
@@ -80,10 +81,10 @@ class UsersController < ApplicationController
     # datetime = Google::Apis::CalendarV3::EventDateTime.new
     result = service.list_events('primary')
       result.items.each do |e|
-          if e.start.date_time == true && e.start.date_time < Time.now
+          if e.start.date_time == true && e.start.date_time > Time.now #the comparison method does not work, need new one
             "#{e.summary}, #{e.start}"
-          # elsif e.start.date == true && e.start.date < Date.today
-          #   "#{e.summary}"
+          # elsif e.start.date == true && e.start.date > Date.today
+          #   "#{e.summary}"  #for weekly_event_list
           else
             flash[:alert] = 'No events'
           end
