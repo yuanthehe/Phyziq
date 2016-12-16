@@ -77,12 +77,17 @@ class UsersController < ApplicationController
     client.expires_in = Time.now + 1_000_000
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-
+    # datetime = Google::Apis::CalendarV3::EventDateTime.new
     result = service.list_events('primary')
-      result.items.map do |e|
-        e.summary
+      result.items.each do |e|
+          if e.start.date_time == true && e.start.date_time < Time.now
+            "#{e.summary}, #{e.start}"
+          # elsif e.start.date == true && e.start.date < Date.today
+          #   "#{e.summary}"
+          else
+            flash[:alert] = 'No events'
+          end
       end
-
   end
 
 
