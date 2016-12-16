@@ -76,7 +76,8 @@ h1, h2 {
   text-align: center;
 }
 
-.trainer_list li, a:link {
+.trainer_list h4, a:link {
+  list-style: none;
   text-align: center;
   text-decoration: none;
 }
