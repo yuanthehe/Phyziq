@@ -72,7 +72,8 @@ h1, h2 {
 }
 
 .search_bar {
-
+  display: inline;
+  text-align: center;
 }
 
 .trainer_list li, a:link {
