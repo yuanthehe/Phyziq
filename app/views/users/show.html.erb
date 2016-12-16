@@ -13,10 +13,12 @@
   </div>
 </div>
 
-<h4><%= @user.name %>'s Events:</h4>
+<div class="events_title">
+  <h4><%= @user.name %>'s Events:</h4>
+</div>
 
 <div class="user_calendar">
-  <%= @daily_event_list %>
+  <bold><%= @daily_event_list %></bold>
 </div>
 
 <div style="text-align: left;">
