@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @calendars = calendars
+    @daily_event_list = daily_event_list
   end
 
   def edit
@@ -67,6 +67,31 @@ class UsersController < ApplicationController
     redirect_to :new
   end
 
+  #Need to create a weekly_event_list method
+  def daily_event_list
+    client = Signet::OAuth2::Client.new({
+      client_id: "#{Rails.application.secrets.sorcery_google_key}",
+      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+      access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+    # datetime = Google::Apis::CalendarV3::EventDateTime.new
+    result = service.list_events('primary')
+      result.items.each do |e|
+          if e.start.date_time == true && e.start.date_time > Time.now #the comparison method does not work, need new one
+            "#{e.summary}, #{e.start}"
+          # elsif e.start.date == true && e.start.date > Date.today
+          #   "#{e.summary}"  #for weekly_event_list
+          else
+            flash[:alert] = 'No events'
+          end
+      end
+  end
+
+
   def calendars
     client = Signet::OAuth2::Client.new({
       client_id: "#{Rails.application.secrets.sorcery_google_key}",
@@ -77,7 +102,7 @@ class UsersController < ApplicationController
     client.expires_in = Time.now + 1_000_000
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-    @calendar_list = service.list_calendar_lists.inspect #call something more useful (Docs)
+    @calendar_list = service.list_calendar_lists
   end
 
 private
