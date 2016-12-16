@@ -2,7 +2,7 @@
 
 <div class="search_bar">
   <%= form_tag(users_url, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search by name OR address", required: true %>
+  <%= text_field_tag :search, params[:search], placeholder: "By name OR address", required: true %>
   <%= submit_tag "Search" %>
   <% end %>
 </div><br>
