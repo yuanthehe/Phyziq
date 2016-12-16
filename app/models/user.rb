@@ -18,5 +18,4 @@ class User < ApplicationRecord
   def self.search(search)
     where("name ILIKE ? OR address ILIKE ?", "%#{search}%", "%#{search}%")
   end
-
 end

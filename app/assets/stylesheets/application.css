@@ -81,6 +81,10 @@ h1 {
   text-align: center;
 }
 
+.trainer_count p {
+  color: black;
+}
+
 #error_explanation li {
   text-align: center;
 }
