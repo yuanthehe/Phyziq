@@ -10,15 +10,16 @@
   </div>
 <% end %>
 
+<div class="form_container">
   <div class="form">
     <%= f.label :name %></br>
     <%= f.text_field :name, placeholder: "Enter your name" %>
-  </div>
+  </div><br>
 
   <div class="form">
     <%= f.label :email %></br>
     <%= f.text_field :email, placeholder: "Enter your email address" %>
-  </div>
+  </div><br>
 
   <div class="form">
     <%= f.label :address %></br>
@@ -42,5 +43,6 @@
 
   <div class="submit"></br>
     <%= submit_tag "Submit" %>
-  </div><br>
+  </div>
+</div><br>
 <% end %>
