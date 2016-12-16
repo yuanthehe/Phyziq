@@ -67,13 +67,13 @@ table {
   text-decoration: none;
 }
 
-h1, h2 {
+h1, h2, h4 {
   text-align: center;
 }
 
 h1 {
   padding-top: 5px;
-  background-color: #ED1B24
+  background-color: #ED1B24;
 }
 
 .search_bar {
@@ -83,6 +83,21 @@ h1 {
 
 #error_explanation li {
   text-align: center;
+}
+
+.user_profile {
+  background-color: black;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.user_profile, p {
+  text-align: center;
+  color: white;
+}
+
+.display {
+  color: #ED1B24;
 }
 
 .trainer_list h4, a:link {
