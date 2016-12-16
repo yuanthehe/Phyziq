@@ -67,6 +67,11 @@ table {
   text-decoration: none;
 }
 
+.alert {
+  text-align: center;
+  background-color: darkgray;
+}
+
 h1, h2, h4 {
   text-align: center;
 }
