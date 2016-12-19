@@ -86,11 +86,11 @@ class UsersController < ApplicationController
            if e.start.date.instance_of?(Date)
              #  e.start.date.strftime("%F").split("-").map(&:to_i).include?(date)
              next_seven_days.include?(e.start.date)
-             "#{e.start.date}" #for weekly_event_list
+             "#{e.start.date}" #for weekly_event_list *THIS IS NOT RETURNING ON VIEWS
            elsif e.start.date_time.instance_of?(DateTime)
              time_slots.each do |slot|
                e.start.date_time.strftime("%H").include?(slot)
-               "#{e.start.date_time}" #for daily_event_list
+               "#{slot}" #for daily_event_list *THIS IS NOT RETURNING ON VIEWS
              end
            else
              flash[:alert] = 'No available times'
