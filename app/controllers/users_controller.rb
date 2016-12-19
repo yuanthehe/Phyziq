@@ -63,6 +63,7 @@ class UsersController < ApplicationController
   #Need to create a weekly_event_list method
   def daily_event_list
     if session[:access_token] == nil
+      flash[:alert] = "Please login through Google to view calendar info!"
        redirect_to auth_at_provider_path(:provider => :google)
     else
       client = Signet::OAuth2::Client.new({
@@ -77,15 +78,16 @@ class UsersController < ApplicationController
       d = Date.today
       date = d.strftime("%F").split("-").map(&:to_i)
       t = Time.now
-      time = t.strftime("%F").split("-").map(&:to_i) #date && time format now equal ["YYYY","MM","DD"]
+      time = t.strftime("%F").split("-").map(&:to_i)
+      #date && time format now equal ["YYYY","MM","DD"]
       result = service.list_events('primary')
         for result.items.each do |e|
-          if e.start.date == true
-            (e.start.date).strftime("%F").split("-").map(&:to_i) >= date
-             "#{e.summary}" #for weekly_event_list
-          elsif e.start.date_time == true
-            (e.start.date_time).strftime("%F").split("-").map(&:to_i).include?(time)
-             "#{e.summary}"  #for daily_event_list
+          if e.start
+            (e.start.date).strftime("%F").split("-").map(&:to_i).include?(date)
+             "#{e.start.date}" #for weekly_event_list
+          elsif e.start
+            (e.start.date_time).strftime("%F").split("-").map(&:to_i) >= time
+             "#{e.start.date_time}" #for daily_event_list
           else
             flash[:alert] = 'No events'
           end
