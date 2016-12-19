@@ -82,7 +82,7 @@ class UsersController < ApplicationController
         for result.items.each do |e|
           if e.start.date == true
             (e.start.date).strftime("%F").split("-").map(&:to_i) >= date
-             "#{e.summary}" #for daily_event_list
+             "#{e.summary}" #for weekly_event_list
           elsif e.start.date_time == true
             (e.start.date_time).strftime("%F").split("-").map(&:to_i).include?(time)
              "#{e.summary}"  #for daily_event_list
