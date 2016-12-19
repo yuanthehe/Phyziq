@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @daily_event_list = daily_event_list
+    @weekly_event_list = weekly_event_list
 
   end
 
@@ -61,38 +61,46 @@ class UsersController < ApplicationController
   end
 
   #Need to create a weekly_event_list method
-  def daily_event_list
+  def weekly_event_list
     if session[:access_token] == nil
-      flash[:alert] = "Please login through Google to view calendar info!"
+       flash[:alert] = "Please login through Google to view calendar info!"
        redirect_to auth_at_provider_path(:provider => :google)
     else
-      client = Signet::OAuth2::Client.new({
-      client_id: "#{Rails.application.secrets.sorcery_google_key}",
-      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-      access_token: session[:access_token]
-      })
-      client.expires_in = Time.now + 1_000_000
-      service = Google::Apis::CalendarV3::CalendarService.new
-      service.authorization = client
-      d = Date.today
-      date = d.strftime("%F").split("-").map(&:to_i)
-      t = Time.now
-      time = t.strftime("%F").split("-").map(&:to_i)
-      #date && time format now equal ["YYYY","MM","DD"]
-      result = service.list_events('primary')
-        for result.items.each do |e|
-          if e.start
-            (e.start.date).strftime("%F").split("-").map(&:to_i).include?(date)
+       client = Signet::OAuth2::Client.new({
+       client_id: "#{Rails.application.secrets.sorcery_google_key}",
+       client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+       access_token: session[:access_token]
+       })
+       client.expires_in = Time.now + 1_000_000
+       service = Google::Apis::CalendarV3::CalendarService.new
+       service.authorization = client
+      #  d = Date.today
+      #  date = d.strftime("%F").split("-").map(&:to_i)
+      #  t = Time.now
+      #  time = t.strftime("%F").split("-").map(&:to_i)
+       #date && time format now equal ["YYYY","MM","DD"]
+       time_slots = ["10","12","14","16","18"]
+       result = service.list_events('primary')
+         result.items.each do |e|
+           if e.start.date.instance_of?(Date)
+             #  e.start.date.strftime("%F").split("-").map(&:to_i).include?(date)
+             next_seven_days.include?(e.start.date)
              "#{e.start.date}" #for weekly_event_list
-          elsif e.start
-            (e.start.date_time).strftime("%F").split("-").map(&:to_i) >= time
-             "#{e.start.date_time}" #for daily_event_list
-          else
-            flash[:alert] = 'No events'
-          end
-        end
-    end
+           elsif e.start.date_time.instance_of?(DateTime)
+             time_slots.each do |slot|
+               e.start.date_time.strftime("%H").include?(slot)
+               "#{e.start.date_time}" #for daily_event_list
+             end
+           else
+             flash[:alert] = 'No available times'
+           end
+         end
+     end
+  end
+
+  def daily_event_list
+
   end
 
   def calendars
@@ -116,5 +124,10 @@ private
 
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
+  end
+
+  def next_seven_days
+    today = Date.today
+    (today .. today + 7).inject {|init, date| "#{init} #{date}"}
   end
 end
