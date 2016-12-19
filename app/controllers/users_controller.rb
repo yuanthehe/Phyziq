@@ -93,7 +93,7 @@ class UsersController < ApplicationController
                "#{slot}" #for daily_event_list *THIS IS NOT RETURNING ON VIEWS
              end
            else
-             flash[:alert] = 'No available times'
+             flash[:alert] = 'No available times in the next sven days'
            end
          end
      end
