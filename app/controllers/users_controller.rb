@@ -71,29 +71,27 @@ class UsersController < ApplicationController
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       access_token: session[:access_token]
       })
-
       client.expires_in = Time.now + 1_000_000
       service = Google::Apis::CalendarV3::CalendarService.new
       service.authorization = client
       d = Date.today
-      date = d.to_formatted_s
+      date = d.strftime("%F").split("-").map(&:to_i)
       t = Time.now
-      time = t.strftime("%Y-%m-%d") #date && time format now equal
+      time = t.strftime("%F").split("-").map(&:to_i) #date && time format now equal ["YYYY","MM","DD"]
       result = service.list_events('primary')
-        result.items.each do |e|
-          if e.start.date_time == true
-             (e.start.date_time).strftime("%Y-%m-%d") >= time
-             "#{e.summary}, #{e.start}"
-          elsif e.start.date == true
-                e.start.date >= Date.parse(date)
-                "#{e.summary}"  #for weekly_event_list
+        for result.items.each do |e|
+          if e.start.date == true
+            (e.start.date).strftime("%F").split("-").map(&:to_i) >= date
+             "#{e.summary}" #for daily_event_list
+          elsif e.start.date_time == true
+            (e.start.date_time).strftime("%F").split("-").map(&:to_i).include?(time)
+             "#{e.summary}"  #for daily_event_list
           else
-            # flash[:alert] = 'No events'
+            flash[:alert] = 'No events'
           end
         end
-      end
+    end
   end
-
 
   def calendars
     client = Signet::OAuth2::Client.new({
