@@ -100,7 +100,9 @@ class UsersController < ApplicationController
   end
 
   def daily_event_list
-
+    #Should be redirected here from weekly_event_list
+    #Loop through time_slots array to check for available time_slots
+    #Display time slots that do not include e.start.date_time("%H")
   end
 
   def calendars
