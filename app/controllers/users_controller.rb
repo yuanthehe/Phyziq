@@ -38,7 +38,6 @@ class UsersController < ApplicationController
   def show
     # @user = User.find(params[:id])
     @weekly_event_list = weekly_event_list
-
   end
 
   def edit
@@ -81,21 +80,25 @@ class UsersController < ApplicationController
       #  time = t.strftime("%F").split("-").map(&:to_i)
        #date && time format now equal ["YYYY","MM","DD"]
        time_slots = ["10","12","14","16","18"]
+       tester = ["test"]
        result = service.list_events('primary')
-         result.items.each do |e|
+         event_info = result.items.map { |e| #builds new array with return values
            if e.start.date.instance_of?(Date)
              #  e.start.date.strftime("%F").split("-").map(&:to_i).include?(date)
              next_seven_days.include?(e.start.date)
-             "#{e.start.date}" #for weekly_event_list *THIS IS NOT RETURNING ON VIEWS
+             next e.start.date
            elsif e.start.date_time.instance_of?(DateTime)
-             time_slots.each do |slot|
-               e.start.date_time.strftime("%H").include?(slot)
-               "#{slot}" #for daily_event_list *THIS IS NOT RETURNING ON VIEWS
-             end
+             puts "looooop"
+              d = e.start.date_time.strftime("%H")
+              if time_slots.include?(d)
+                next tester
+              else
+                next time_slots
+              end
            else
-             flash[:alert] = 'No available times in the next sven days'
+             flash[:alert] = 'No available times in the next seven days'
            end
-         end
+         }
      end
   end
 
