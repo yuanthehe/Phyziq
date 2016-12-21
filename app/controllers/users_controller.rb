@@ -61,10 +61,6 @@ class UsersController < ApplicationController
 
   #Need to create a weekly_event_list method
   def weekly_event_list
-    if session[:access_token] == nil #Still get authorization error
-       flash[:alert] = "Please login through Google to view calendar info!"
-       redirect_to auth_at_provider_path(:provider => :google)
-    else
        client = Signet::OAuth2::Client.new({
        client_id: "#{Rails.application.secrets.sorcery_google_key}",
        client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
@@ -74,27 +70,18 @@ class UsersController < ApplicationController
        client.expires_in = Time.now + 1_000_000
        service = Google::Apis::CalendarV3::CalendarService.new
        service.authorization = client
-      #  d = Date.today
-      #  date = d.strftime("%F").split("-").map(&:to_i)
-      #  t = Time.now
-      #  time = t.strftime("%F").split("-").map(&:to_i)
-       #date && time format now equal ["YYYY","MM","DD"]
+
        result = service.list_events('primary')
-      #  byebug
-        weekly_info = result.items.map { |e| #builds new array with return values
-          #  if e.start.date.instance_of?(Date)
-             #  e.start.date.strftime("%F").split("-").map(&:to_i).include?(date)
-            #  if next_six_days.include?(e.start.date)
-            if e.start.date != nil
-                next e.start.date
+         weekly = result.items.map {|e|
+           e.start.date
+         }.compact
+           next_six_days.map {|day|
+             if weekly.include?(day)
+               next "Busy on #{day}"
              else
-                "Free day"
+               next "Free on #{day}"
              end
-          #  else
-          #    next_six_days
-          #  end
-        }
-     end
+           }
   end
 
   def hourly_event_list
@@ -141,7 +128,7 @@ private
 
   def next_six_days
     today = Date.today
-    (today .. today + 6).map {|init, date| ["#{init} #{date}"]}
+    (today .. today + 6).map {|date| "#{date}"}
   end
 
   def available_hours
