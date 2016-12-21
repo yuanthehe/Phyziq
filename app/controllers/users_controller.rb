@@ -61,7 +61,7 @@ class UsersController < ApplicationController
 
   #Need to create a weekly_event_list method
   def weekly_event_list
-    if session[:access_token] == nil
+    if session[:access_token] == nil #Still get authorization error
        flash[:alert] = "Please login through Google to view calendar info!"
        redirect_to auth_at_provider_path(:provider => :google)
     else
@@ -79,33 +79,41 @@ class UsersController < ApplicationController
       #  t = Time.now
       #  time = t.strftime("%F").split("-").map(&:to_i)
        #date && time format now equal ["YYYY","MM","DD"]
-       time_slots = ["10","12","14","16","18"]
-       tester = ["test"]
        result = service.list_events('primary')
-         event_info = result.items.map { |e| #builds new array with return values
-           if e.start.date.instance_of?(Date)
+      #  byebug
+        weekly_info = result.items.map { |e| #builds new array with return values
+          #  if e.start.date.instance_of?(Date)
              #  e.start.date.strftime("%F").split("-").map(&:to_i).include?(date)
-             next_seven_days.include?(e.start.date)
-             next e.start.date
-           elsif e.start.date_time.instance_of?(DateTime)
-             puts "looooop"
-              d = e.start.date_time.strftime("%H")
-              if time_slots.include?(d)
-                next tester
-              else
-                next time_slots
-              end
-           else
-             flash[:alert] = 'No available times in the next seven days'
-           end
-         }
+            #  if next_six_days.include?(e.start.date)
+            if e.start.date != nil
+                next e.start.date
+             else
+                "Free day"
+             end
+          #  else
+          #    next_six_days
+          #  end
+        }
      end
   end
 
-  def daily_event_list
+  def hourly_event_list
     #Should be redirected here from weekly_event_list
     #Loop through time_slots array to check for available time_slots
     #Display time slots that do not include e.start.date_time("%H")
+    time_slots = ["10","12","14","16","18"]
+
+    hourly_info = result.items.map { |e|
+    if e.start.date_time.instance_of?(DateTime)
+      puts "looooop"
+      d = e.start.date_time.strftime("%H")
+      if time_slots.include?(d)
+        next time_slots
+      else
+        next time_slots
+      end
+    end
+    }
   end
 
   def calendars
@@ -131,8 +139,12 @@ private
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
 
-  def next_seven_days
+  def next_six_days
     today = Date.today
-    (today .. today + 7).inject {|init, date| "#{init} #{date}"}
+    (today .. today + 6).map {|init, date| ["#{init} #{date}"]}
+  end
+
+  def available_hours
+
   end
 end
