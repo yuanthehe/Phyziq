@@ -151,7 +151,7 @@ h1 {
 }
 
 .user_calendar {
-	transform: rotate(270deg);
+	/*transform: rotate(270deg);*/
   color: darkgreen;
 }
 
