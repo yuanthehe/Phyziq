@@ -37,8 +37,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @daily_event_list = daily_event_list
-
+    @weekly_event_list = weekly_event_list
   end
 
   def edit
@@ -61,39 +60,61 @@ class UsersController < ApplicationController
   end
 
   #Need to create a weekly_event_list method
-  def daily_event_list
-    if session[:access_token] == nil
+  def weekly_event_list
+    if session[:access_token] == nil #Still get authorization error
+       flash[:alert] = "Please login through Google to view calendar info!"
        redirect_to auth_at_provider_path(:provider => :google)
     else
-      client = Signet::OAuth2::Client.new({
-      client_id: "#{Rails.application.secrets.sorcery_google_key}",
-      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-      access_token: session[:access_token]
-      })
-
-      client.expires_in = Time.now + 1_000_000
-      service = Google::Apis::CalendarV3::CalendarService.new
-      service.authorization = client
-      d = Date.today
-      date = d.to_formatted_s
-      t = Time.now
-      time = t.strftime("%Y-%m-%d") #date && time format now equal
-      result = service.list_events('primary')
-        result.items.each do |e|
-          if e.start.date_time == true
-             (e.start.date_time).strftime("%Y-%m-%d") >= time
-             "#{e.summary}, #{e.start}"
-          elsif e.start.date == true
-                e.start.date >= Date.parse(date)
-                "#{e.summary}"  #for weekly_event_list
-          else
-            # flash[:alert] = 'No events'
-          end
-        end
-      end
+       client = Signet::OAuth2::Client.new({
+       client_id: "#{Rails.application.secrets.sorcery_google_key}",
+       client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+       access_token: session[:access_token]
+       })
+       client.expires_in = Time.now + 1_000_000
+       service = Google::Apis::CalendarV3::CalendarService.new
+       service.authorization = client
+      #  d = Date.today
+      #  date = d.strftime("%F").split("-").map(&:to_i)
+      #  t = Time.now
+      #  time = t.strftime("%F").split("-").map(&:to_i)
+       #date && time format now equal ["YYYY","MM","DD"]
+       result = service.list_events('primary')
+      #  byebug
+        weekly_info = result.items.map { |e| #builds new array with return values
+          #  if e.start.date.instance_of?(Date)
+             #  e.start.date.strftime("%F").split("-").map(&:to_i).include?(date)
+            #  if next_six_days.include?(e.start.date)
+            if e.start.date != nil
+                next e.start.date
+             else
+                "Free day"
+             end
+          #  else
+          #    next_six_days
+          #  end
+        }
+     end
   end
 
+  def hourly_event_list
+    #Should be redirected here from weekly_event_list
+    #Loop through time_slots array to check for available time_slots
+    #Display time slots that do not include e.start.date_time("%H")
+    time_slots = ["10","12","14","16","18"]
+
+    hourly_info = result.items.map { |e|
+    if e.start.date_time.instance_of?(DateTime)
+      puts "looooop"
+      d = e.start.date_time.strftime("%H")
+      if time_slots.include?(d)
+        next time_slots
+      else
+        next time_slots
+      end
+    end
+    }
+  end
 
   def calendars
     client = Signet::OAuth2::Client.new({
@@ -116,5 +137,14 @@ private
 
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
+  end
+
+  def next_six_days
+    today = Date.today
+    (today .. today + 6).map {|init, date| ["#{init} #{date}"]}
+  end
+
+  def available_hours
+
   end
 end
