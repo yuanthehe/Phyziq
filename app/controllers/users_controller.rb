@@ -37,7 +37,8 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @weekly_event_list = hourly_event_list
+    @weekly_event_list = available_hours
+
   end
 
   def edit
@@ -173,6 +174,114 @@ private
     day_4 = [(d_4 + t_1).to_i, (d_4 + t_2).to_i, (d_4 + t_3).to_i, (d_4 + t_4).to_i, (d_4 + t_5).to_i, (d_4 + t_6).to_i ,(d_4 + t_7).to_i, (d_4 + t_8).to_i, (d_4 + t_9).to_i ,(d_4 + t_10).to_i]
     day_5 = [(d_5 + t_1).to_i, (d_5 + t_2).to_i, (d_5 + t_3).to_i, (d_5 + t_4).to_i, (d_5 + t_5).to_i, (d_5 + t_6).to_i ,(d_5 + t_7).to_i, (d_5 + t_8).to_i, (d_5 + t_9).to_i ,(d_5 + t_10).to_i]
     day_6 = [(d_6 + t_1).to_i, (d_6 + t_2).to_i, (d_6 + t_3).to_i, (d_6 + t_4).to_i, (d_6 + t_5).to_i, (d_6 + t_6).to_i ,(d_6 + t_7).to_i, (d_6 + t_8).to_i, (d_6 + t_9).to_i ,(d_6 + t_10).to_i]
+    day_7 = [(d_7 + t_1).to_i, (d_7 + t_2).to_i, (d_7 + t_3).to_i, (d_7 + t_4).to_i, (d_7 + t_5).to_i, (d_7 + t_6).to_i ,(d_7 + t_7).to_i, (d_7 + t_8).to_i, (d_7 + t_9).to_i ,(d_7 + t_10).to_i]
+
+    weekly_available_hours = [day_1, day_2, day_3, day_4, day_5, day_6, day_7]
+
+  end
+
+  def day_1
+    d_1 = Date.today + 1
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
+    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
+    day_1 = [(d_1 + t_1).to_i, (d_1 + t_2).to_i, (d_1 + t_3).to_i, (d_1 + t_4).to_i, (d_1 + t_5).to_i, (d_1 + t_6).to_i ,(d_1 + t_7).to_i, (d_1 + t_8).to_i, (d_1 + t_9).to_i ,(d_1 + t_10).to_i]
+  end
+
+  def day_2
+    d_2 = Date.today + 2
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
+    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
+    day_2 = [(d_2 + t_1).to_i, (d_2 + t_2).to_i, (d_2 + t_3).to_i, (d_2 + t_4).to_i, (d_2 + t_5).to_i, (d_2 + t_6).to_i ,(d_2 + t_7).to_i, (d_2 + t_8).to_i, (d_2 + t_9).to_i ,(d_2 + t_10).to_i]
+  end
+
+  def day_3
+    d_3 = Date.today + 3
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
+    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
+    day_3 = [(d_3 + t_1).to_i, (d_3 + t_2).to_i, (d_3 + t_3).to_i, (d_3 + t_4).to_i, (d_3 + t_5).to_i, (d_3 + t_6).to_i ,(d_3 + t_7).to_i, (d_3 + t_8).to_i, (d_3 + t_9).to_i ,(d_3 + t_10).to_i]
+  end
+
+  def day_4
+    d_4 = Date.today + 4
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
+    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
+    day_4 = [(d_4 + t_1).to_i, (d_4 + t_2).to_i, (d_4 + t_3).to_i, (d_4 + t_4).to_i, (d_4 + t_5).to_i, (d_4 + t_6).to_i ,(d_4 + t_7).to_i, (d_4 + t_8).to_i, (d_4 + t_9).to_i ,(d_4 + t_10).to_i]
+  end
+
+  def day_5
+    d_5 = Date.today + 5
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
+    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
+    day_5 = [(d_5 + t_1).to_i, (d_5 + t_2).to_i, (d_5 + t_3).to_i, (d_5 + t_4).to_i, (d_5 + t_5).to_i, (d_5 + t_6).to_i ,(d_5 + t_7).to_i, (d_5 + t_8).to_i, (d_5 + t_9).to_i ,(d_5 + t_10).to_i]
+  end
+
+  def day_6
+    d_6 = Date.today + 6
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
+    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
+    day_6 = [(d_6 + t_1).to_i, (d_6 + t_2).to_i, (d_6 + t_3).to_i, (d_6 + t_4).to_i, (d_6 + t_5).to_i, (d_6 + t_6).to_i ,(d_6 + t_7).to_i, (d_6 + t_8).to_i, (d_6 + t_9).to_i ,(d_6 + t_10).to_i]
+  end
+
+  def day_7
+    d_7 = Date.today + 7
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
+    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
     day_7 = [(d_7 + t_1).to_i, (d_7 + t_2).to_i, (d_7 + t_3).to_i, (d_7 + t_4).to_i, (d_7 + t_5).to_i, (d_7 + t_6).to_i ,(d_7 + t_7).to_i, (d_7 + t_8).to_i, (d_7 + t_9).to_i ,(d_7 + t_10).to_i]
   end
 end
