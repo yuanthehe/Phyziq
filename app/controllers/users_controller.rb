@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @weekly_event_list = weekly_event_list
+    @weekly_event_list = hourly_event_list
   end
 
   def edit
@@ -72,34 +72,47 @@ class UsersController < ApplicationController
        service.authorization = client
 
        result = service.list_events('primary')
-         weekly = result.items.map {|e|
+       weekly = result.items.map {|e|
            e.start.date
          }.compact
-           next_six_days.map {|day|
-             if weekly.include?(day)
-               next "Busy on #{day}"
-             else
-               next "Free on #{day}"
-             end
-           }
+
+       next_six_days.map {|day|
+         if weekly.include?(day)
+           next "Busy on #{day}"
+         else
+           next "Free on #{day}"
+         end
+         }
   end
 
   def hourly_event_list
-    #Should be redirected here from weekly_event_list
-    #Loop through time_slots array to check for available time_slots
-    #Display time slots that do not include e.start.date_time("%H")
+    client = Signet::OAuth2::Client.new({
+    client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    result = service.list_events('primary')
     time_slots = ["10","12","14","16","18"]
 
-    hourly_info = result.items.map { |e|
-    if e.start.date_time.instance_of?(DateTime)
-      puts "looooop"
-      d = e.start.date_time.strftime("%H")
-      if time_slots.include?(d)
-        next time_slots
+    hourly = result.items.map { |e|
+      if e.start.date_time != nil
+         e.start.date_time.to_i
       else
-        next time_slots
+         next
       end
-    end
+    }.compact
+
+    time_slots.map {|hour|
+      if hourly.include?(hour)
+        next "Busy at #{hour}:00"
+      else
+        next "Free at #{hour}:00"
+      end
     }
   end
 
