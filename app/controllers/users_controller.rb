@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @weekly_event_list = available_hours
+    @weekly_event_list = day_1_t_1
 
   end
 
@@ -77,17 +77,33 @@ class UsersController < ApplicationController
            e.start.date
          }.compact
 
-      hourly = result.items.map {|e|
-           e.start.date_time.to_i
-         }.compact
-
-      next_six_days.map {|day|
-        if weekly.include?(day)
-          next "Busy on #{day}"
-        else
-          next "Free on #{day}"
-        end
-        }
+      # hourly = result.items.map {|e|
+      #      e.start.date_time.to_i
+      #    }.compact
+      #
+      # start_time = result.items.map {|e|
+      #              if e.start.date_time != nil
+      #                e.start.date_time.to_i
+      #              else
+      #                next
+      #              end
+      #              }.compact
+      #
+      # end_time = result.items.map {|e|
+      #              if e.end.date_time != nil
+      #                e.end.date_time.to_i
+      #              else
+      #                next
+      #              end
+      #              }.compact
+      #
+      # weekly_available_hours.each do |day, hour|
+      #
+      #   if weekly.include?(day)
+      #     next "Busy on #{day}"
+      #   else
+      #
+      #   end
   end
 
   def hourly_event_list
@@ -128,9 +144,21 @@ class UsersController < ApplicationController
       access_token: session[:access_token]
     })
     client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
+    service = Google::Apis::CalendarV3::FreeBusyCalendar.new
+
+
     service.authorization = client
-    @calendar_list = service.list_calendar_lists
+
+      @calender_list = service.execute(
+        :api_method => service.freebusy.query,
+        :body => JSON.dump({
+          :timeMin => "2016-12-24T05:00:00-08:00",
+          :timeMax => "2016-12-24T17:00:00-08:00",
+
+        }),
+        :headers => {'Content-Type' => 'application/json'})
+
+
   end
 
 private
@@ -141,6 +169,18 @@ private
 
   def user_params
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
+  end
+
+  def google_authentication
+    client = Signet::OAuth2::Client.new({
+    client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    @service = Google::Apis::CalendarV3::CalendarService.new
+    @service.authorization = client
   end
 
   def next_six_days
@@ -176,23 +216,91 @@ private
     day_6 = [(d_6 + t_1).to_i, (d_6 + t_2).to_i, (d_6 + t_3).to_i, (d_6 + t_4).to_i, (d_6 + t_5).to_i, (d_6 + t_6).to_i ,(d_6 + t_7).to_i, (d_6 + t_8).to_i, (d_6 + t_9).to_i ,(d_6 + t_10).to_i]
     day_7 = [(d_7 + t_1).to_i, (d_7 + t_2).to_i, (d_7 + t_3).to_i, (d_7 + t_4).to_i, (d_7 + t_5).to_i, (d_7 + t_6).to_i ,(d_7 + t_7).to_i, (d_7 + t_8).to_i, (d_7 + t_9).to_i ,(d_7 + t_10).to_i]
 
-    weekly_available_hours = [day_1, day_2, day_3, day_4, day_5, day_6, day_7]
+    # weekly_available_hours = {day_1: day_1, day_2: day_2, day_3: day_3, day_4: day_4, day_5: day_5, day_6: day_6, day_7: day_7}
 
   end
 
   def day_1
     d_1 = Date.today + 1
     t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_1 = [(d_1 + t_1).to_i, (d_1 + t_2).to_i, (d_1 + t_3).to_i, (d_1 + t_4).to_i, (d_1 + t_5).to_i, (d_1 + t_6).to_i ,(d_1 + t_7).to_i, (d_1 + t_8).to_i, (d_1 + t_9).to_i ,(d_1 + t_10).to_i]
+    t_2 = Time.parse("10:30").seconds_since_midnight.seconds
+    t_3 = Time.parse("12:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("13:30").seconds_since_midnight.seconds
+    t_5 = Time.parse("15:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("16:30").seconds_since_midnight.seconds
+    t_7 = Time.parse("18:00").seconds_since_midnight.seconds
+    day_1 = [(d_1 + t_1).to_i, (d_1 + t_2).to_i, (d_1 + t_3).to_i, (d_1 + t_4).to_i, (d_1 + t_5).to_i, (d_1 + t_6).to_i ,(d_1 + t_7).to_i]
+              # Free at 9am         Busy at 10am
+  end
+
+  def start_time
+    google_authentication
+    result = @service.list_events('primary')
+    start_time = result.items.map {|e|
+                  if e.start.date_time != nil
+                    e.start.date_time.to_i
+                  else
+                    next
+                  end
+                  }.compact
+  end
+
+  def end_time
+    google_authentication
+    result = @service.list_events('primary')
+    end_time = result.items.map {|e|
+                  if e.end.date_time != nil
+                    e.end.date_time.to_i
+                  else
+                    next
+                  end
+                  }.compact
+  end
+
+  def day_1_t_1
+    google_authentication
+    result = @service.list_events('primary')
+
+    day_1 = Date.today + 1
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:30").seconds_since_midnight.seconds
+    upper = (day_1 + t_1).to_i
+    lower = (day_1 + t_2).to_i
+    i = 0
+      if start_time != nil
+        start_time.each do |s|
+              if s >= lower || end_time[i] <= upper
+
+              else
+
+              end
+        end
+      else
+        t.insert(0, free)
+      end
+  end
+
+  def day_1_t_2
+    google_authentication
+    result = @service.list_events('primary')
+
+    day_1 = Date.today + 1
+    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("10:30").seconds_since_midnight.seconds
+    day_1_t_1 = (day_1 + t_1).to_i
+    day_1_t_2 = (day_1 + t_2).to_i
+    t = []
+    if end_time != nil
+    end_time.each { |e|
+            if e >= day_1_t_2
+              e = nil
+              next t.insert(0, e)
+            end
+          }
+    else
+      t.insert(0, day_1_t_2)
+    end
+    t
   end
 
   def day_2
