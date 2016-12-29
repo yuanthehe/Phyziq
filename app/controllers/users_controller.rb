@@ -37,36 +37,8 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
+    @weekly_event_list = day_1
   end
-
-  # def freebusy
-  #   client = Signet::OAuth2::Client.new({
-  #   client_id: "#{Rails.application.secrets.sorcery_google_key}",
-  #   client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-  #   token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-  #   access_token: session[:access_token]
-  #   })
-  #   client.expires_in = Time.now + 1_000_000
-  #   service = Google::Apis::CalendarV3::CalendarService.new
-
-    # service = Google::Apis::CalendarV3::FreeBusyCalendar.new({
-    #   calendarId: 'primary',
-      # start_time: '2016-12-27T08:00:00-08:00',
-      # end_time: '2016-12-27T20:00:00-08:00'
-    # })
-
-    # service.authorization = client
-    # result = service.query_freebusy('primary')
-  #   body = Google::Apis::CalendarV3::FreeBusyRequest.new
-  #     body.items = ['primary']
-  #     body.time_min = "2016-12-27T06:00:00-08:00"
-  #     body.time_max = "2016-12-28T06:00:00-08:00"
-  #
-  #  service = Google::Apis::CalendarV3::CalendarService.new
-  #  service.authorization = client
-  #  result = service.query_freebusy(body).busy
-  #
-  # end
 
   def edit
   #  @user = User.find(params[:id])
@@ -87,19 +59,11 @@ class UsersController < ApplicationController
     redirect_to :new
   end
 
-  #Need to create a weekly_event_list method
+  #Display available days (No all day appointments)
   def weekly_event_list
-       client = Signet::OAuth2::Client.new({
-       client_id: "#{Rails.application.secrets.sorcery_google_key}",
-       client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-       access_token: session[:access_token]
-       })
-       client.expires_in = Time.now + 1_000_000
-       service = Google::Apis::CalendarV3::CalendarService.new
-       service.authorization = client
+      google_authentication
 
-      result = service.list_events('primary')
+      # result = service.list_events('primary')
       weekly = result.items.map {|e|
            e.start.date
          }.compact
@@ -113,30 +77,17 @@ class UsersController < ApplicationController
         }
   end
 
-  def day_1_t_1
-   google_authentication
-   result = @service.list_events('primary')
+private
 
-   day_1 = Date.today + 1
-   t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-   t_2 = Time.parse("10:30").seconds_since_midnight.seconds
-   day_1_t_1 = (day_1 + t_1).to_i
-   day_1_t_2 = (day_1 + t_2).to_i
-     if start_time != nil
-       start_time.each do |s|
-             if s <= day_1_t_1
+  def load_user
+    @user = User.find(params[:id])
+  end
 
-             else
+  def user_params
+    params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
+  end
 
-             end
-       end
-     else
-       t.insert(0, free)
-     end
-     event.asdfaiosjo
- end
-
-  def hourly_event_list
+  def google_authentication
     client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
@@ -149,54 +100,21 @@ class UsersController < ApplicationController
 
     result = service.list_events('primary')
 
-    start_hourly = result.items.map { |e|
+    @start_time = result.items.map {|e|
       if e.start.date_time != nil
          e.start.date_time.to_i
+      else
+         next
       end
     }.compact
 
-    end_hourly = result.items.map { |e|
+    @end_time = result.items.map {|e|
       if e.end.date_time != nil
          e.end.date_time.to_i
+      else
+         next
       end
     }.compact
-
-    # hourly = start_hourly.concat(end_hourly)
-
-    day_1.map {|hour|
-      if start_hourly.each {|s| s >= hour
-        day_1.delete(hour)
-      }
-        # next "Busy at #{hour}"
-      elsif end_hourly.each {|e| e <= hour
-        day_1.delete(hour)
-      }
-        # next "Free at #{hour}"
-      end
-    }.compact
-  end
-
-  def calendars
-    client = Signet::OAuth2::Client.new({
-      client_id: "#{Rails.application.secrets.sorcery_google_key}",
-      client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-      token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-      access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-    @calendar_list = service.list_calendar_lists
-  end
-
-private
-
-  def load_user
-    @user = User.find(params[:id])
-  end
-
-  def user_params
-    params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation)
   end
 
   def next_six_days
@@ -204,139 +122,162 @@ private
     (tomorrow .. tomorrow + 6).map {|date| "#{date}"}
   end
 
-  def available_hours
-    d_1 = Date.today + 1
-    d_2 = Date.today + 2
-    d_3 = Date.today + 3
-    d_4 = Date.today + 4
-    d_5 = Date.today + 5
-    d_6 = Date.today + 6
-    d_7 = Date.today + 7
-
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-
-    day_1 = [(d_1 + t_1).to_i, (d_1 + t_2).to_i, (d_1 + t_3).to_i, (d_1 + t_4).to_i, (d_1 + t_5).to_i, (d_1 + t_6).to_i ,(d_1 + t_7).to_i, (d_1 + t_8).to_i, (d_1 + t_9).to_i ,(d_1 + t_10).to_i]
-    day_2 = [(d_2 + t_1).to_i, (d_2 + t_2).to_i, (d_2 + t_3).to_i, (d_2 + t_4).to_i, (d_2 + t_5).to_i, (d_2 + t_6).to_i ,(d_2 + t_7).to_i, (d_2 + t_8).to_i, (d_2 + t_9).to_i ,(d_2 + t_10).to_i]
-    day_3 = [(d_3 + t_1).to_i, (d_3 + t_2).to_i, (d_3 + t_3).to_i, (d_3 + t_4).to_i, (d_3 + t_5).to_i, (d_3 + t_6).to_i ,(d_3 + t_7).to_i, (d_3 + t_8).to_i, (d_3 + t_9).to_i ,(d_3 + t_10).to_i]
-    day_4 = [(d_4 + t_1).to_i, (d_4 + t_2).to_i, (d_4 + t_3).to_i, (d_4 + t_4).to_i, (d_4 + t_5).to_i, (d_4 + t_6).to_i ,(d_4 + t_7).to_i, (d_4 + t_8).to_i, (d_4 + t_9).to_i ,(d_4 + t_10).to_i]
-    day_5 = [(d_5 + t_1).to_i, (d_5 + t_2).to_i, (d_5 + t_3).to_i, (d_5 + t_4).to_i, (d_5 + t_5).to_i, (d_5 + t_6).to_i ,(d_5 + t_7).to_i, (d_5 + t_8).to_i, (d_5 + t_9).to_i ,(d_5 + t_10).to_i]
-    day_6 = [(d_6 + t_1).to_i, (d_6 + t_2).to_i, (d_6 + t_3).to_i, (d_6 + t_4).to_i, (d_6 + t_5).to_i, (d_6 + t_6).to_i ,(d_6 + t_7).to_i, (d_6 + t_8).to_i, (d_6 + t_9).to_i ,(d_6 + t_10).to_i]
-    day_7 = [(d_7 + t_1).to_i, (d_7 + t_2).to_i, (d_7 + t_3).to_i, (d_7 + t_4).to_i, (d_7 + t_5).to_i, (d_7 + t_6).to_i ,(d_7 + t_7).to_i, (d_7 + t_8).to_i, (d_7 + t_9).to_i ,(d_7 + t_10).to_i]
-
-    weekly_available_hours = {day_1, day_2, day_3, day_4, day_5, day_6, day_7}
-  end
-
   def day_1
-    d_1 = Date.today + 1
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_1 = [(d_1 + t_1).to_i, (d_1 + t_2).to_i, (d_1 + t_3).to_i, (d_1 + t_4).to_i, (d_1 + t_5).to_i, (d_1 + t_6).to_i ,(d_1 + t_7).to_i, (d_1 + t_8).to_i, (d_1 + t_9).to_i ,(d_1 + t_10).to_i]
-  end
+    google_authentication
 
-  def day_2
-    d_2 = Date.today + 2
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_2 = [(d_2 + t_1).to_i, (d_2 + t_2).to_i, (d_2 + t_3).to_i, (d_2 + t_4).to_i, (d_2 + t_5).to_i, (d_2 + t_6).to_i ,(d_2 + t_7).to_i, (d_2 + t_8).to_i, (d_2 + t_9).to_i ,(d_2 + t_10).to_i]
-  end
+    day_1 = Date.today + 1
+    t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+    t_3 = Time.parse("17:30").seconds_since_midnight.seconds
+    t_4 = Time.parse("19:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("20:30").seconds_since_midnight.seconds
+    t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-  def day_3
-    d_3 = Date.today + 3
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_3 = [(d_3 + t_1).to_i, (d_3 + t_2).to_i, (d_3 + t_3).to_i, (d_3 + t_4).to_i, (d_3 + t_5).to_i, (d_3 + t_6).to_i ,(d_3 + t_7).to_i, (d_3 + t_8).to_i, (d_3 + t_9).to_i ,(d_3 + t_10).to_i]
-  end
+    upper_1 = (day_1 + t_1).to_i
+    lower_1 = (day_1 + t_2).to_i
+    upper_2 = (day_1 + t_2).to_i
+    lower_2 = (day_1 + t_3).to_i
+    upper_3 = (day_1 + t_3).to_i
+    lower_3 = (day_1 + t_4).to_i
+    upper_4 = (day_1 + t_4).to_i
+    lower_4 = (day_1 + t_5).to_i
+    upper_5 = (day_1 + t_5).to_i
+    lower_5 = (day_1 + t_6).to_i
 
-  def day_4
-    d_4 = Date.today + 4
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_4 = [(d_4 + t_1).to_i, (d_4 + t_2).to_i, (d_4 + t_3).to_i, (d_4 + t_4).to_i, (d_4 + t_5).to_i, (d_4 + t_6).to_i ,(d_4 + t_7).to_i, (d_4 + t_8).to_i, (d_4 + t_9).to_i ,(d_4 + t_10).to_i]
-  end
+    i_1 = 0
+    i_2 = 0
+    i_3 = 0
+    i_4 = 0
+    i_5 = 0
 
-  def day_5
-    d_5 = Date.today + 5
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_5 = [(d_5 + t_1).to_i, (d_5 + t_2).to_i, (d_5 + t_3).to_i, (d_5 + t_4).to_i, (d_5 + t_5).to_i, (d_5 + t_6).to_i ,(d_5 + t_7).to_i, (d_5 + t_8).to_i, (d_5 + t_9).to_i ,(d_5 + t_10).to_i]
-  end
+    availability_1 = []
+    availability_2 = []
+    availability_3 = []
+    availability_4 = []
+    availability_5 = []
 
-  def day_6
-    d_6 = Date.today + 6
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_6 = [(d_6 + t_1).to_i, (d_6 + t_2).to_i, (d_6 + t_3).to_i, (d_6 + t_4).to_i, (d_6 + t_5).to_i, (d_6 + t_6).to_i ,(d_6 + t_7).to_i, (d_6 + t_8).to_i, (d_6 + t_9).to_i ,(d_6 + t_10).to_i]
-  end
+    daily_availability_1 = []
 
-  def day_7
-    d_7 = Date.today + 7
-    t_1 = Time.parse("09:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("10:00").seconds_since_midnight.seconds
-    t_3 = Time.parse("11:00").seconds_since_midnight.seconds
-    t_4 = Time.parse("12:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("13:00").seconds_since_midnight.seconds
-    t_6 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_7 = Time.parse("15:00").seconds_since_midnight.seconds
-    t_8 = Time.parse("16:00").seconds_since_midnight.seconds
-    t_9 = Time.parse("17:00").seconds_since_midnight.seconds
-    t_10 = Time.parse("18:00").seconds_since_midnight.seconds
-    day_7 = [(d_7 + t_1).to_i, (d_7 + t_2).to_i, (d_7 + t_3).to_i, (d_7 + t_4).to_i, (d_7 + t_5).to_i, (d_7 + t_6).to_i ,(d_7 + t_7).to_i, (d_7 + t_8).to_i, (d_7 + t_9).to_i ,(d_7 + t_10).to_i]
-  end
+    #Time Slot 1 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_1
+           i_1 += 1
+           availability_1.insert(0, "free")
+        elsif @end_time[i_1] <= upper_1
+          availability_1.insert(0, "free")
+          i_1 += 1
+        else
+          i_1 += 1
+          availability_1.insert(0, "busy")
+        end
+      end
+    else
+      availability_1.insert(0, "free")
+    end
+
+    if availability_1.include?("busy")
+       daily_availability_1.insert(-1, "Unavailable from 9:00am to 10:30am")
+    else
+       daily_availability_1.insert(-1, "Available from 9:00am to 10:30am")
+    end
+
+    #Time Slot 2 Availablity Check
+      if @start_time != nil
+        @start_time.each do |time|
+          if time >= lower_2
+            i_2 += 1
+            availability_2.insert(0, "free")
+          elsif @end_time[i_2] <= upper_2
+            availability_2.insert(0, "free")
+            i_2 += 1
+          else
+            i_2 += 1
+            availability_2.insert(0, "busy")
+        end
+      end
+    else
+      availability_2.insert(0, "free")
+    end
+
+    if availability_2.include?("busy")
+       daily_availability_1.insert(-1, "Unavailable from 10:30am to 12:00pm")
+    else
+       daily_availability_1.insert(-1, "Available from 10:30am to 12:00pm")
+    end
+
+    #Time Slot 3 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_3
+          i_3 += 1
+          availability_3.insert(0, "free")
+        elsif @end_time[i_3] <= upper_3
+          availability_3.insert(0, "free")
+          i_3 += 1
+        else
+          i_3 += 1
+          availability_3.insert(0, "busy")
+        end
+      end
+    else
+      availability_3.insert(0, "free")
+    end
+
+    if availability_3.include?("busy")
+      daily_availability_1.insert(-1, "Unavailable from 12:00pm to 1:30pm")
+    else
+      daily_availability_1.insert(-1, "Available from 12:00pm to 1:30pm")
+    end
+
+    #Time Slot 4 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_4
+          i_4 += 1
+          availability_4.insert(0, "free")
+        elsif @end_time[i_4] <= upper_4
+          availability_4.insert(0, "free")
+          i_4 += 1
+        else
+          i_4 += 1
+          availability_4.insert(0, "busy")
+        end
+      end
+    else
+      availability_4.insert(0, "free")
+    end
+
+    if availability_4.include?("busy")
+        daily_availability_1.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+    else
+        daily_availability_1.insert(-1, "Available from 1:30pm to 3:00pm")
+    end
+
+    #Time Slot 5 Availablity Check
+      if @start_time != nil
+        @start_time.each do |time|
+          if time >= lower_5
+            i_5 += 1
+            availability_5.insert(0, "free")
+          elsif @end_time[i_5] <= upper_5
+            availability_5.insert(0, "free")
+            i_5 += 1
+          else
+            i_5 += 1
+            availability_5.insert(0, "busy")
+          end
+        end
+      else
+        availability_5.insert(0, "free")
+      end
+
+      if availability_5.include?("busy")
+          daily_availability_1.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+      else
+          daily_availability_1.insert(-1, "Available from 4:00pm to 5:30pm")
+      end
+
+  return daily_availability_1
+end
 end
