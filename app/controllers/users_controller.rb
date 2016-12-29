@@ -113,7 +113,30 @@ class UsersController < ApplicationController
         }
   end
 
-  def day_1_t1
+  def day_1_t_1
+   google_authentication
+   result = @service.list_events('primary')
+
+   day_1 = Date.today + 1
+   t_1 = Time.parse("09:00").seconds_since_midnight.seconds
+   t_2 = Time.parse("10:30").seconds_since_midnight.seconds
+   day_1_t_1 = (day_1 + t_1).to_i
+   day_1_t_2 = (day_1 + t_2).to_i
+     if start_time != nil
+       start_time.each do |s|
+             if s <= day_1_t_1
+
+             else
+
+             end
+       end
+     else
+       t.insert(0, free)
+     end
+     event.asdfaiosjo
+ end
+
+  def hourly_event_list
     client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
