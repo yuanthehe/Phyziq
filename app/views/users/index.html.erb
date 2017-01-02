@@ -1,17 +1,24 @@
 <div class="parallax-container">
   <div class="parallax"><%= image_tag("O7MF4F0.jpg")%></div>
-    <div class="container col l6">
-      <h1>Search for a personal trainer</h1>
-      <div class="search_bar">
-          <%= form_tag(users_url, :method => "get", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "By name or address", required: true %>
-          <%= submit_tag "Search" %>
-          <% end %>
+    <div class="container">
+      <div class="row">
+        <div class="col l12 lime-text">
+          <h2>Search for a personal trainer</h2>
+            <div class="search_bar">
+              <%= form_tag(users_url, :method => "get", id: "search-form") do %>
+              <%= text_field_tag :search, params[:search], placeholder: "By name or address", required: true %>
+                <div class="waves-effect waves-light blue-grey btn">Sumbit</a></br>
+                  <%= submit_tag "Search" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
-</div><br>
+</div>
 
-<h2>Trainer Index:</h2>
+<h3>Trainer Index:</h3>
 
 <div class="trainer_count">
   <p><%= @user.where(:trainer => true).count %> Trainers found!</p>
