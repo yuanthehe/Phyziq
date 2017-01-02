@@ -1,10 +1,13 @@
-<div class="container col l4">
-  <h1>Search for a personal trainer</h1>
-  <div class="search_bar">
-    <%= form_tag(users_url, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "By name OR address", required: true %>
-    <%= submit_tag "Search" %>
-    <% end %>
+<div class="parallax-container">
+  <div class="parallax"><%= image_tag("O7MF4F0.jpg")%></div>
+    <div class="container col l6">
+      <h1>Search for a personal trainer</h1>
+      <div class="search_bar">
+          <%= form_tag(users_url, :method => "get", id: "search-form") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "By name or address", required: true %>
+          <%= submit_tag "Search" %>
+          <% end %>
+    </div>
   </div>
 </div><br>
 
