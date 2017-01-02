@@ -111,6 +111,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    materialize-rails (0.97.5.2)
+      jquery-rails
+      sass-rails
     materialize-sass (0.97.8)
       sass (~> 3.3)
     memoist (0.15.0)
@@ -256,6 +259,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   listen (~> 3.0.5)
+  materialize-rails
   materialize-sass
   omniauth-google-oauth2
   pg
