@@ -13,12 +13,12 @@ Rails.application.routes.draw do
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
 
-  get "day_1" => "user#day_1"
-  get "day_2" => "user#day_2"
-  get "day_3" => "user#day_3"
-  get "day_4" => "user#day_4"
-  get "day_5" => "user#day_5"
-  get "day_6" => "user#day_6"
-  get "day_7" => "user#day_7"
+  get "day_1" => "users#day_1"
+  get "day_2" => "users#day_2"
+  get "day_3" => "users#day_3"
+  get "day_4" => "users#day_4"
+  get "day_5" => "users#day_5"
+  get "day_6" => "users#day_6"
+  get "day_7" => "users#day_7"
 
 end
