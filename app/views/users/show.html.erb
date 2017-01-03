@@ -17,22 +17,28 @@
   <h4><%= @user.name %>'s Events:</h4>
 </div>
 
-<div class="user_calendar">
-  <div class="calendar_day_one">
+<div class="weekly_calendar">
+  <div class="weekly_day_one">
+    <%= link_to "#{@weekly_event_list[0]}", :day_1 %>
   </div>
-  <div class="calendar_day_two">
+  <div class="weekly_day_two">
+    <%= link_to "#{@weekly_event_list[1]}", :day_2 %>
   </div>
-  <div class="calendar_day_three">
+  <div class="weekly_day_three">
+    <%= link_to "#{@weekly_event_list[2]}", :day_3 %>
   </div>
-  <div class="calendar_day_four">
+  <div class="weekly_day_four">
+    <%= link_to "#{@weekly_event_list[3]}", :day_4 %>
   </div>
-  <div class="calendar_day_five">
+  <div class="weekly_day_five">
+    <%= link_to "#{@weekly_event_list[4]}", :day_5 %>
   </div>
-  <div class="calendar_day_six">
+  <div class="weekly_day_six">
+    <%= link_to "#{@weekly_event_list[5]}", :day_6 %>
   </div>
-  <div class="calendar_day_seven">
+  <div class="weekly_day_seven">
+    <%= link_to "#{@weekly_event_list[6]}", :day_7 %>
   </div>
-    <bold><%= @weekly_event_list %></bold>
 </div>
 
 <div style="text-align: left;">
