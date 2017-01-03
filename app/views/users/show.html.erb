@@ -17,22 +17,10 @@
   <h4><%= @user.name %>'s Events:</h4>
 </div>
 
-<div class="user_calendar">
-  <div class="calendar_day_one">
-  </div>
-  <div class="calendar_day_two">
-  </div>
-  <div class="calendar_day_three">
-  </div>
-  <div class="calendar_day_four">
-  </div>
-  <div class="calendar_day_five">
-  </div>
-  <div class="calendar_day_six">
-  </div>
-  <div class="calendar_day_seven">
-  </div>
-    <bold><%= @weekly_event_list %></bold>
+<div class="weekly_calendar">
+       <% @weekly_event_list.each do |day| %>
+         <bold><%= day %></bold>
+       <% end %>
 </div>
 
 <div style="text-align: left;">
