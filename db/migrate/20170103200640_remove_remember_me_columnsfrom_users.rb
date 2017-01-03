@@ -1,4 +1,4 @@
-class AddRememberMeTokenToUsers < ActiveRecord::Migration[5.0]
+class RemoveRememberMeColumnsfromUsers < ActiveRecord::Migration[5.0]
   def change
     remove_index :users, :remember_me_token
 
