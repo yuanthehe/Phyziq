@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    @weekly_event_list = day_1
+    @weekly_event_list = weekly_event_list
   end
 
   def edit
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
       google_authentication
 
       # result = service.list_events('primary')
-      weekly = result.items.map {|e|
+      weekly = @result.items.map {|e|
            e.start.date
          }.compact
 
@@ -98,9 +98,9 @@ private
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
 
-    result = service.list_events('primary')
+    @result = service.list_events('primary')
 
-    @start_time = result.items.map {|e|
+    @start_time = @result.items.map {|e|
       if e.start.date_time != nil
          e.start.date_time.to_i
       else
@@ -108,7 +108,7 @@ private
       end
     }.compact
 
-    @end_time = result.items.map {|e|
+    @end_time = @result.items.map {|e|
       if e.end.date_time != nil
          e.end.date_time.to_i
       else
