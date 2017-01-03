@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   before_action :load_user, only: [:show, :edit, :destroy, :update]
-  # before_action :redirect, only: [:show]
-  # before_action :calendar_callback, only: [:show]
 
   def new
     @user = User.new
