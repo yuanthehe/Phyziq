@@ -2,11 +2,11 @@
   <div class="parallax"><%= image_tag("O7MF4F0.jpg")%></div>
     <div class="container">
       <div class="row">
-        <div class="col l12 lime-text">
-          <h2>Search for a personal trainer</h2>
+        <div class="col l10 offset-l1 white-text">
+          <h3>Find a trainer in your area</h3></br>
             <div class="search_bar">
               <%= form_tag(users_url, :method => "get", id: "search-form") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "By name or address", required: true %>
+              <%= text_field_tag :search, params[:search], placeholder: "BY NAME OR LOCATION", required: true %>
                 <div class="waves-effect waves-light blue-grey btn">Sumbit</a></br>
                   <%= submit_tag "Search" %>
                 <% end %>
