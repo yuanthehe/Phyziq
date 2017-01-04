@@ -23,10 +23,10 @@ class AppointmentsController < ApplicationController
   end
 
   def index
-    if @appointment.trainer_id != nil
-      @appointment.where(:trainer_id => @user.id)
+    if @appointments.trainer_id != nil
+      @appointments.where(:trainer_id => @user.id)
     else
-      @appointment.where(:trainee_id => @user.id)
+      @appointments.where(:trainee_id => @user.id)
     end
   end
 
@@ -39,7 +39,7 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    
+
   end
 
   def available_time_slot
