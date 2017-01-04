@@ -18,6 +18,9 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def index
+  end
+
   def edit
   end
 
@@ -28,6 +31,10 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
+  def load_appointment
+    #load appointment by trainer/trainee
+  end
 
   def appointment_params
     params.require(:appointment).permit(:start_time, :end_time)
