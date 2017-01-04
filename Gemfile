@@ -32,7 +32,6 @@ gem 'sorcery'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'devise'
 gem 'omniauth-google-oauth2'
 
 group :development, :test do
