@@ -36,6 +36,12 @@ class AppointmentsController < ApplicationController
   end
 
   def available_time_slot
+    @available_time_slot = []
+    @available_time_slot[0] = "9:00am to 10:30am"
+    @available_time_slot[1] = "10:30am to 12:00pm"
+    @available_time_slot[2] = "12:00pm to 1:30pm"
+    @available_time_slot[3] = "1:30pm to 3:00pm"
+    @available_time_slot[4] = "4:00pm to 5:30pm"
   end
 
   private
