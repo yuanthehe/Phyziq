@@ -6,6 +6,10 @@ class AppointmentsController < ApplicationController
 
   end
 
+  def show
+
+  end
+
   def create
     # @appointment = Appointment.new(appointment_params)
 
@@ -27,12 +31,15 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
+
   end
 
   def update
+
   end
 
   def destroy
+    
   end
 
   def available_time_slot
