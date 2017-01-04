@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "users#index"
 
   resources :users
-  # resources :appointments
+  resources :appointments
   resources :user_sessions, only: [:new, :create, :destroy]
 
   get 'login' => 'user_sessions#new', :as => :login

@@ -3,31 +3,59 @@ class AppointmentsController < ApplicationController
   # before_action :require_trainer only: [:destroy]
 
   def new
+
+  end
+
+  def show
+
   end
 
   def create
-    @appointment = Appointment.new(appointment_params)
-    @appointment.user = current_user
+    # @appointment = Appointment.new(appointment_params)
 
-    if @appointment.save
-      @appointment.trainee_id = @appointment.user.id
-      redirect_to user_url(@appointment.user), notice: "Appointment request sent!"
+    # if @appointment.save
+    #   @appointment.trainee_id = @appointment.user.id
+    #   redirect_to user_url(@appointment.user), notice: "Appointment request sent!"
+    # else
+      # flash[:alert] = "Failed to process appointment request"
+      # render '/users'
+    end
+  end
+
+  def index
+    if @user.trainer_appointments != nil
+      @user.trainer_appointments
     else
-      flash[:alert] = "Failed to process appointment request"
-      render '/users'
+      @user.trainee_appointments
     end
   end
 
   def edit
+
   end
 
   def update
+
   end
 
   def destroy
+
+  end
+
+  def available_time_slot
+    @available_time_slot = []
+    @available_time_slot[0] = "9:00am to 10:30am"
+    @available_time_slot[1] = "10:30am to 12:00pm"
+    @available_time_slot[2] = "12:00pm to 1:30pm"
+    @available_time_slot[3] = "1:30pm to 3:00pm"
+    @available_time_slot[4] = "4:00pm to 5:30pm"
   end
 
   private
+
+  def load_appointment
+    #load appointment by trainer/trainee
+  end
 
   def appointment_params
     params.require(:appointment).permit(:start_time, :end_time)
