@@ -38,8 +38,9 @@ table {
 }
 
 /* =============================================================================
-  Grid
+  layout
   ============================================================================= */
+
 
 * {
   font-family: 'Roboto', sans-serif;
@@ -48,8 +49,8 @@ table {
 }
 
 .logo {
-  height: 30%;
-  width: 30%;
+  height: 18%;
+  width: 18%;
 }
 
 .logo_style {
@@ -67,12 +68,12 @@ table {
   text-decoration: none;
 }
 
-.alert {
+/*.alert {
   text-align: center;
   background-color: black;
   color: #ED1B24;
   padding: 5px;
-}
+}*/
 
 h1, h2, h3, h4, h6 {
   text-align: center;
@@ -104,6 +105,10 @@ h3 {
   color: #ED1B24;
 }
 
+/* =============================================================================
+form
+============================================================================= */
+
 .form_container {
   width: 50%;
   background-color: #eceff1;
@@ -123,17 +128,12 @@ h3 {
   text-align: left;
 }
 
-.form label, input {
-  background-position: center;
-}
-
 #btn {
   clear: both;
 }
 
-.cancel_link {
-  text-align: center;
-  padding-bottom: 8px;
+.check_box {
+  display: inline-block;
 }
 
 .user_calendar {
@@ -148,4 +148,9 @@ h3 {
 footer.page-footer {
 background-color: #cddc39;
 font-weight: 300px;
+}
+
+#google-alert {
+  color: #cddc39;
+  margin-right: 12px;
 }

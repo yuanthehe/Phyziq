@@ -5,25 +5,22 @@
     <title>Phyziq</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <%= csrf_meta_tags %>
-
     <!--Import Google Icon Font-->
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <!-- <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/> -->
   </head>
-
   <body>
-      <div class="logo_style">
-        <a href="/"><%= image_tag "final-logo.jpg", :class => "logo" %></a>
-      </div>
-      <header class="site-header">
-      <!-- navigation bar -->
+    <div class="logo_style">
+      <a href="/"><%= image_tag "final-logo.jpg", :class => "logo" %></a>
+    </div>
+  <header class="site-header">
+    <!-- navigation bar -->
     <nav>
       <div class="nav-wrapper">
         <%= link_to "Home", users_url %>
@@ -38,43 +35,41 @@
               <!-- <%= link_to "Sign Up", new_user_path %> | -->
               <!-- <%= link_to "Login", :login %> -->
           <% end %>
-          </ul>
+          <% if flash[:alert] %>
+            <li><div id="google-alert" class="alert"><%= flash[:alert] %></div></li>
+          <% end %>
         </div>
-      </nav>
-        <% if flash[:alert] %>
-          <br><div class="alert"><%= flash[:alert] %></div>
-        <% end %>
-    </header>
+      </ul>
+    </nav>
+  </header>
     <%= yield %>
-  </div>
-
+    </div>
   <!--Import jQuery before materialize.js-->
       <!-- <script type="text/javascript" src="js/materialize.min.js"></script> -->
-  </body>
-
-    <footer class="page-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12 offset-l1">
-            <h5 class="grey-text text-darken-2">How to reach us!</h5>
-            <p class="grey-text text-darken-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12 offset-l1">
+          <h5 class="grey-text text-darken-2">How to reach us!</h5>
+          <p class="grey-text text-darken-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+        </div>
+        <div class="col l4 s12 offset-l1">
+          <h5 class="grey-text text-darken-2">More Links</h5>
+            <ul>
+              <li><a class="grey-text text-darken-2" href="#!">Search Trainers</a></li>
+              <li><a class="grey-text text-darken-2" href="#!">Settings</a></li>
+              <li><a class="grey-text text-darken-2" href="#!">Profile</a></li>
+              <li><a class="grey-text text-darken-2" href="#!">Contact</a></li>
+            </ul>
           </div>
-            <div class="col l4 s12 offset-l1">
-              <h5 class="grey-text text-darken-2">More Links</h5>
-                <ul>
-                  <li><a class="grey-text text-darken-2" href="#!">Search Trainers</a></li>
-                  <li><a class="grey-text text-darken-2" href="#!">Settings</a></li>
-                  <li><a class="grey-text text-darken-2" href="#!">Profile</a></li>
-                  <li><a class="grey-text text-darken-2" href="#!">Contact</a></li>
-                </ul>
-              </div>
-                  </div>
-                </div>
-              <div class="footer-copyright">
-            <div class="container">
-          © 2016 All rights reserved by Phyziq
-        <a class="grey-text text-lighten-4 right" href="#!"></a>
+        </div>
       </div>
-    </div>
-  </footer>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2016 All rights reserved by Phyziq
+        <!-- <a class="grey-text text-lighten-4 right" href="#!"></a> -->
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
