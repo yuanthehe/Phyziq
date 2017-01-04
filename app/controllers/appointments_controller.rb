@@ -3,18 +3,18 @@ class AppointmentsController < ApplicationController
   # before_action :require_trainer only: [:destroy]
 
   def new
+
   end
 
   def create
-    @appointment = Appointment.new(appointment_params)
-    @appointment.user = current_user
+    # @appointment = Appointment.new(appointment_params)
 
-    if @appointment.save
-      @appointment.trainee_id = @appointment.user.id
-      redirect_to user_url(@appointment.user), notice: "Appointment request sent!"
-    else
-      flash[:alert] = "Failed to process appointment request"
-      render '/users'
+    # if @appointment.save
+    #   @appointment.trainee_id = @appointment.user.id
+    #   redirect_to user_url(@appointment.user), notice: "Appointment request sent!"
+    # else
+      # flash[:alert] = "Failed to process appointment request"
+      # render '/users'
     end
   end
 
