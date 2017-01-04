@@ -23,10 +23,10 @@ class AppointmentsController < ApplicationController
   end
 
   def index
-    if @appointments.trainer_id != nil
-      @appointments.where(:trainer_id => @user.id)
+    if @user.trainer_appointments != nil
+      @user.trainer_appointments
     else
-      @appointments.where(:trainee_id => @user.id)
+      @user.trainee_appointments
     end
   end
 
