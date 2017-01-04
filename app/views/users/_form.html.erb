@@ -26,32 +26,18 @@
     <%= f.text_field :address, placeholder: "Enter your street address" %>
   </div>
 
-  <!-- <div class="field">
-    <%= f.label :password %></br>
-    <%= f.password_field :password, placeholder: "Enter your password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %></br>
-    <%= f.password_field :password_confirmation, placeholder: "Enter your password again" %>
-  </div> -->
-
-  <p>Are you a trainer?</p>
   <div class="check_box">
-  <%= f.check_box :trainer %></br>
+    <p>Check here if you are a </p>
+    <%= f.check_box :trainer %>
+    <%= f.label :trainer %>
   </div>
-
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col l8 s12 offset-l4">
-      <div class="waves-effect waves-light blue-grey white-text btn">Submit</a></br>
-        <%= submit_tag "Submit" %>
-      </div>
-      <div class="waves-effect waves-light blue-grey white-text btn"></a>
-        <%= link_to "Cancel", users_url(@user) %>
-        <% end %>
-      </div>
-    </div>
-  </div>
+
+<button class="btn waves-effect waves-light blue-grey" type="submit" name="action">Submit
+  <i class="material-icons right">send</i>
+</button>
+
+<div class="waves-effect waves-light blue-grey white-text btn"></a>
+  <%= link_to "Cancel", users_url(@user) %>
+  <% end %>
 </div>
