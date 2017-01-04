@@ -50,42 +50,6 @@ class AppointmentsController < ApplicationController
     @available_time_slot[4] = "4:00pm to 5:30pm"
   end
 
-  private
-
-  def appointment_params
-    params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status :trainer_id, :trainee_id, :created_at, :updated_at)
-  end
-
-  def google_authentication
-    client = Signet::OAuth2::Client.new({
-    client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    @result = service.list_events('primary')
-
-    @start_time = @result.items.map {|e|
-      if e.start.date_time != nil
-         e.start.date_time.to_i
-      else
-         next
-      end
-    }.compact
-
-    @end_time = @result.items.map {|e|
-      if e.end.date_time != nil
-         e.end.date_time.to_i
-      else
-         next
-      end
-    }.compact
-  end
-
   def day_1
     google_authentication
 
@@ -1197,5 +1161,41 @@ class AppointmentsController < ApplicationController
       end
 
     return daily_availability_7
+  end
+
+  private
+
+  def appointment_params
+    params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status :trainer_id, :trainee_id, :created_at, :updated_at)
+  end
+
+  def google_authentication
+    client = Signet::OAuth2::Client.new({
+    client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    @result = service.list_events('primary')
+
+    @start_time = @result.items.map {|e|
+      if e.start.date_time != nil
+         e.start.date_time.to_i
+      else
+         next
+      end
+    }.compact
+
+    @end_time = @result.items.map {|e|
+      if e.end.date_time != nil
+         e.end.date_time.to_i
+      else
+         next
+      end
+    }.compact
   end
 end
