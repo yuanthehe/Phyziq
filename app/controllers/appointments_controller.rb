@@ -79,14 +79,14 @@ class AppointmentsController < ApplicationController
     @available_time_slot[4] = "4:00pm to 5:30pm"
   end
 
-
+private
 
   def load_appointment
     #load appointment by trainer/trainee
   end
 
   def appointment_params
-    params.require(:appointment).permit(:start_time, :end_time)
+    params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
   end
 
   def generic_google_authentication
@@ -295,7 +295,7 @@ class AppointmentsController < ApplicationController
 
   def d_1_t_1
     generic_google_authentication
-    
+
     day_2 = Date.today + 2
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -1283,9 +1283,4 @@ class AppointmentsController < ApplicationController
 
     return @daily_availability_7
   end
-private
-  def appointment_params
-    params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
-  end
-
 end
