@@ -10,14 +10,14 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    # @appointment = Appointment.new(appointment_params)
+    @appointment = Appointment.new(appointment_params)
 
-    # if @appointment.save
-    #   @appointment.trainee_id = @appointment.user.id
-    #   redirect_to user_url(@appointment.user), notice: "Appointment request sent!"
-    # else
-      # flash[:alert] = "Failed to process appointment request"
-      # render '/users'
+    if @appointment.save
+      @appointment.trainee_id = @user.id
+      redirect_to user_url(@appointment.trainee), notice: "Appointment request sent!"
+    else
+      flash[:alert] = "Failed to process appointment request"
+      render '/users'
     end
   end
 
@@ -53,7 +53,7 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:start_time, :end_time)
+    params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status :trainer_id, :trainee_id, :created_at, :updated_at)
   end
 
   def google_authentication
