@@ -1,8 +1,35 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
 
-  def new
+  def oauth
 
+  end
+
+  def new
+    # client = Signet::OAuth2::Client.new({
+    # client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    # client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    # token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    # access_token: session[:access_token]
+    # })
+    # client.expires_in = Time.now + 1_000_000
+    # service = Google::Apis::CalendarV3::CalendarService.new
+    # service.authorization = client
+    #
+    # event = Google::Apis::CalendarV3::Event.new({
+    #   'summary':'Testing',
+    #   'location':'Bitmaker',
+    #   'description':'Testing insert event',
+    #   'start':{
+    #     'date_time': DateTime.parse('2017-01-09T09:00:00-07:00'),
+    #   },
+    #   'end':{
+    #     'date_time': DateTime.parse('2017-01-09T17:00:00-07:00'),
+    #   }
+    # })
+    #
+    # testing = service.insert_event('primary', event)
+    # "Event created: #{testing.html_link}"
   end
 
   def show
@@ -10,6 +37,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
+
     @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
@@ -19,6 +47,7 @@ class AppointmentsController < ApplicationController
       flash[:alert] = "Failed to process appointment request"
       render '/users'
     end
+
   end
 
   def index
@@ -50,8 +79,61 @@ class AppointmentsController < ApplicationController
     @available_time_slot[4] = "4:00pm to 5:30pm"
   end
 
+
+
+  def load_appointment
+    #load appointment by trainer/trainee
+  end
+
+  def appointment_params
+    params.require(:appointment).permit(:start_time, :end_time)
+  end
+
+  def generic_google_authentication
+    client = Signet::OAuth2::Client.new({
+    client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+  end
+
+  def event_list_google_authentication
+    client = Signet::OAuth2::Client.new({
+    client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    result = service.list_events('primary')
+
+    @start_time = result.items.map {|e|
+      if e.start.date_time != nil
+         e.start.date_time.to_i
+      else
+         next
+      end
+    }.compact
+
+    @end_time = result.items.map {|e|
+      if e.end.date_time != nil
+         e.end.date_time.to_i
+      else
+         next
+      end
+    }.compact
+  end
+
   def day_1
-    google_authentication
+    event_list_google_authentication
 
     day_1 = Date.today + 1
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -183,22 +265,23 @@ class AppointmentsController < ApplicationController
     end
 
     #Time Slot 5 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_5
-            i_5 += 1
-            availability_5.insert(0, "free")
-          elsif @end_time[i_5] <= upper_5
-            availability_5.insert(0, "free")
-            i_5 += 1
-          else
-            i_5 += 1
-            availability_5.insert(0, "busy")
-          end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
         end
-      else
-        availability_5.insert(0, "free")
       end
+    else
+      availability_5.insert(0, "free")
+    end
+
 
       if availability_5.include?("busy")
           @daily_availability_1.insert(-1, "Unavailable from 4:00pm to 5:30pm")
@@ -206,11 +289,49 @@ class AppointmentsController < ApplicationController
           @daily_availability_1.insert(-1, "Available from 4:00pm to 5:30pm")
       end
 
+
     return @daily_availability_1
   end
 
+  def d_1_t_1
+    generic_google_authentication
+    
+    day_2 = Date.today + 2
+    t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+    t_3 = Time.parse("17:30").seconds_since_midnight.seconds
+    t_4 = Time.parse("19:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("20:30").seconds_since_midnight.seconds
+    t_6 = Time.parse("22:00").seconds_since_midnight.seconds
+
+    upper_1 = (day_2 + t_1).to_i
+    lower_1 = (day_2 + t_2).to_i
+    upper_2 = (day_2 + t_2).to_i
+    lower_2 = (day_2 + t_3).to_i
+    upper_3 = (day_2 + t_3).to_i
+    lower_3 = (day_2 + t_4).to_i
+    upper_4 = (day_2 + t_4).to_i
+    lower_4 = (day_2 + t_5).to_i
+    upper_5 = (day_2 + t_5).to_i
+    lower_5 = (day_2 + t_6).to_i
+    event = Google::Apis::CalendarV3::Event.new({
+      'summary':'Testing',
+      'location':'Bitmaker',
+      'description':'Testing insert event',
+      'start':{
+        'date_time': DateTime.parse('2017-01-09T09:00:00-07:00'),
+      },
+      'end':{
+        'date_time': DateTime.parse('2017-01-09T17:00:00-07:00'),
+      }
+    })
+
+    appt = service.insert_event('primary', event)
+    "Event created: #{testing.html_link}"
+  end
+
   def day_2
-    google_authentication
+    event_list_google_authentication
 
     day_2 = Date.today + 2
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -369,7 +490,7 @@ class AppointmentsController < ApplicationController
   end
 
   def day_3
-    google_authentication
+    event_list_google_authentication
 
     day_3 = Date.today + 3
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -528,7 +649,7 @@ class AppointmentsController < ApplicationController
   end
 
   def day_4
-    google_authentication
+    event_list_google_authentication
 
     day_4 = Date.today + 4
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -687,7 +808,7 @@ class AppointmentsController < ApplicationController
   end
 
   def day_5
-    google_authentication
+    event_list_google_authentication
 
     day_5 = Date.today + 5
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -846,7 +967,7 @@ class AppointmentsController < ApplicationController
   end
 
   def day_6
-    google_authentication
+    event_list_google_authentication
 
     day_6 = Date.today + 6
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -1005,7 +1126,7 @@ class AppointmentsController < ApplicationController
   end
 
   def day_7
-    google_authentication
+    event_list_google_authentication
 
     day_7 = Date.today + 7
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -1162,40 +1283,9 @@ class AppointmentsController < ApplicationController
 
     return @daily_availability_7
   end
-
-  private
-
+private
   def appointment_params
     params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
   end
 
-  def google_authentication
-    client = Signet::OAuth2::Client.new({
-    client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    @result = service.list_events('primary')
-
-    @start_time = @result.items.map {|e|
-      if e.start.date_time != nil
-         e.start.date_time.to_i
-      else
-         next
-      end
-    }.compact
-
-    @end_time = @result.items.map {|e|
-      if e.end.date_time != nil
-         e.end.date_time.to_i
-      else
-         next
-      end
-    }.compact
-  end
 end
