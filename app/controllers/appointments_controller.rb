@@ -37,7 +37,6 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-
     @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
@@ -68,68 +67,6 @@ class AppointmentsController < ApplicationController
 
   def destroy
 
-  end
-
-  def available_time_slot
-    @available_time_slot = []
-    @available_time_slot[0] = "9:00am to 10:30am"
-    @available_time_slot[1] = "10:30am to 12:00pm"
-    @available_time_slot[2] = "12:00pm to 1:30pm"
-    @available_time_slot[3] = "1:30pm to 3:00pm"
-    @available_time_slot[4] = "4:00pm to 5:30pm"
-  end
-
-
-
-  def load_appointment
-    #load appointment by trainer/trainee
-  end
-
-  def appointment_params
-    params.require(:appointment).permit(:start_time, :end_time)
-  end
-
-  def generic_google_authentication
-    client = Signet::OAuth2::Client.new({
-    client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-  end
-
-  def event_list_google_authentication
-    client = Signet::OAuth2::Client.new({
-    client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    result = service.list_events('primary')
-
-    @start_time = result.items.map {|e|
-      if e.start.date_time != nil
-         e.start.date_time.to_i
-      else
-         next
-      end
-    }.compact
-
-    @end_time = result.items.map {|e|
-      if e.end.date_time != nil
-         e.end.date_time.to_i
-      else
-         next
-      end
-    }.compact
   end
 
   def day_1
@@ -187,33 +124,33 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_1.include?("busy")
-       @daily_availability_1.insert(-1, "Unavailable from 9:00am to 10:30am")
+      @daily_availability_1.insert(-1, "Unavailable from 9:00am to 10:30am")
     else
-       @daily_availability_1.insert(-1, "Available from 9:00am to 10:30am")
+      @daily_availability_1.insert(-1, "Available from 9:00am to 10:30am")
     end
 
     #Time Slot 2 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_2
-            i_2 += 1
-            availability_2.insert(0, "free")
-          elsif @end_time[i_2] <= upper_2
-            availability_2.insert(0, "free")
-            i_2 += 1
-          else
-            i_2 += 1
-            availability_2.insert(0, "busy")
-        end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
       end
-    else
-      availability_2.insert(0, "free")
     end
+  else
+    availability_2.insert(0, "free")
+  end
 
     if availability_2.include?("busy")
-       @daily_availability_1.insert(-1, "Unavailable from 10:30am to 12:00pm")
+      @daily_availability_1.insert(-1, "Unavailable from 10:30am to 12:00pm")
     else
-       @daily_availability_1.insert(-1, "Available from 10:30am to 12:00pm")
+      @daily_availability_1.insert(-1, "Available from 10:30am to 12:00pm")
     end
 
     #Time Slot 3 Availablity Check
@@ -259,9 +196,9 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_4.include?("busy")
-        @daily_availability_1.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+      @daily_availability_1.insert(-1, "Unavailable from 1:30pm to 3:00pm")
     else
-        @daily_availability_1.insert(-1, "Available from 1:30pm to 3:00pm")
+      @daily_availability_1.insert(-1, "Available from 1:30pm to 3:00pm")
     end
 
     #Time Slot 5 Availablity Check
@@ -282,20 +219,18 @@ class AppointmentsController < ApplicationController
       availability_5.insert(0, "free")
     end
 
-
-      if availability_5.include?("busy")
-          @daily_availability_1.insert(-1, "Unavailable from 4:00pm to 5:30pm")
-      else
-          @daily_availability_1.insert(-1, "Available from 4:00pm to 5:30pm")
-      end
-
+    if availability_5.include?("busy")
+      @daily_availability_1.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+    else
+      @daily_availability_1.insert(-1, "Available from 4:00pm to 5:30pm")
+    end
 
     return @daily_availability_1
   end
 
   def d_1_t_1
     generic_google_authentication
-    
+
     day_2 = Date.today + 2
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -385,33 +320,33 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_1.include?("busy")
-       @daily_availability_2.insert(-1, "Unavailable from 9:00am to 10:30am")
+      @daily_availability_2.insert(-1, "Unavailable from 9:00am to 10:30am")
     else
-       @daily_availability_2.insert(-1, "Available from 9:00am to 10:30am")
+      @daily_availability_2.insert(-1, "Available from 9:00am to 10:30am")
     end
 
     #Time Slot 2 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_2
-            i_2 += 1
-            availability_2.insert(0, "free")
-          elsif @end_time[i_2] <= upper_2
-            availability_2.insert(0, "free")
-            i_2 += 1
-          else
-            i_2 += 1
-            availability_2.insert(0, "busy")
-        end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
       end
-    else
-      availability_2.insert(0, "free")
     end
+  else
+    availability_2.insert(0, "free")
+  end
 
     if availability_2.include?("busy")
-       @daily_availability_2.insert(-1, "Unavailable from 10:30am to 12:00pm")
+      @daily_availability_2.insert(-1, "Unavailable from 10:30am to 12:00pm")
     else
-       @daily_availability_2.insert(-1, "Available from 10:30am to 12:00pm")
+      @daily_availability_2.insert(-1, "Available from 10:30am to 12:00pm")
     end
 
     #Time Slot 3 Availablity Check
@@ -457,34 +392,34 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_4.include?("busy")
-        @daily_availability_2.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+      @daily_availability_2.insert(-1, "Unavailable from 1:30pm to 3:00pm")
     else
-        @daily_availability_2.insert(-1, "Available from 1:30pm to 3:00pm")
+      @daily_availability_2.insert(-1, "Available from 1:30pm to 3:00pm")
     end
 
     #Time Slot 5 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_5
-            i_5 += 1
-            availability_5.insert(0, "free")
-          elsif @end_time[i_5] <= upper_5
-            availability_5.insert(0, "free")
-            i_5 += 1
-          else
-            i_5 += 1
-            availability_5.insert(0, "busy")
-          end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
         end
-      else
-        availability_5.insert(0, "free")
       end
+    else
+      availability_5.insert(0, "free")
+    end
 
-      if availability_5.include?("busy")
-          @daily_availability_2.insert(-1, "Unavailable from 4:00pm to 5:30pm")
-      else
-          @daily_availability_2.insert(-1, "Available from 4:00pm to 5:30pm")
-      end
+    if availability_5.include?("busy")
+      @daily_availability_2.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+    else
+      @daily_availability_2.insert(-1, "Available from 4:00pm to 5:30pm")
+    end
 
     return @daily_availability_2
   end
@@ -544,33 +479,33 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_1.include?("busy")
-       @daily_availability_3.insert(-1, "Unavailable from 9:00am to 10:30am")
+      @daily_availability_3.insert(-1, "Unavailable from 9:00am to 10:30am")
     else
-       @daily_availability_3.insert(-1, "Available from 9:00am to 10:30am")
+      @daily_availability_3.insert(-1, "Available from 9:00am to 10:30am")
     end
 
     #Time Slot 2 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_2
-            i_2 += 1
-            availability_2.insert(0, "free")
-          elsif @end_time[i_2] <= upper_2
-            availability_2.insert(0, "free")
-            i_2 += 1
-          else
-            i_2 += 1
-            availability_2.insert(0, "busy")
-        end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
       end
-    else
-      availability_2.insert(0, "free")
     end
+  else
+    availability_2.insert(0, "free")
+  end
 
     if availability_2.include?("busy")
-       @daily_availability_3.insert(-1, "Unavailable from 10:30am to 12:00pm")
+      @daily_availability_3.insert(-1, "Unavailable from 10:30am to 12:00pm")
     else
-       @daily_availability_3.insert(-1, "Available from 10:30am to 12:00pm")
+      @daily_availability_3.insert(-1, "Available from 10:30am to 12:00pm")
     end
 
     #Time Slot 3 Availablity Check
@@ -616,34 +551,34 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_4.include?("busy")
-        @daily_availability_3.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+      @daily_availability_3.insert(-1, "Unavailable from 1:30pm to 3:00pm")
     else
-        @daily_availability_3.insert(-1, "Available from 1:30pm to 3:00pm")
+      @daily_availability_3.insert(-1, "Available from 1:30pm to 3:00pm")
     end
 
     #Time Slot 5 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_5
-            i_5 += 1
-            availability_5.insert(0, "free")
-          elsif @end_time[i_5] <= upper_5
-            availability_5.insert(0, "free")
-            i_5 += 1
-          else
-            i_5 += 1
-            availability_5.insert(0, "busy")
-          end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
         end
-      else
-        availability_5.insert(0, "free")
       end
+    else
+      availability_5.insert(0, "free")
+    end
 
-      if availability_5.include?("busy")
-          @daily_availability_3.insert(-1, "Unavailable from 4:00pm to 5:30pm")
-      else
-          @daily_availability_3.insert(-1, "Available from 4:00pm to 5:30pm")
-      end
+    if availability_5.include?("busy")
+      @daily_availability_3.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+    else
+      @daily_availability_3.insert(-1, "Available from 4:00pm to 5:30pm")
+    end
 
     return @daily_availability_3
   end
@@ -703,33 +638,33 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_1.include?("busy")
-       @daily_availability_4.insert(-1, "Unavailable from 9:00am to 10:30am")
+      @daily_availability_4.insert(-1, "Unavailable from 9:00am to 10:30am")
     else
-       @daily_availability_4.insert(-1, "Available from 9:00am to 10:30am")
+      @daily_availability_4.insert(-1, "Available from 9:00am to 10:30am")
     end
 
     #Time Slot 2 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_2
-            i_2 += 1
-            availability_2.insert(0, "free")
-          elsif @end_time[i_2] <= upper_2
-            availability_2.insert(0, "free")
-            i_2 += 1
-          else
-            i_2 += 1
-            availability_2.insert(0, "busy")
-        end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
       end
-    else
-      availability_2.insert(0, "free")
     end
+  else
+    availability_2.insert(0, "free")
+  end
 
     if availability_2.include?("busy")
-       @daily_availability_4.insert(-1, "Unavailable from 10:30am to 12:00pm")
+      @daily_availability_4.insert(-1, "Unavailable from 10:30am to 12:00pm")
     else
-       @daily_availability_4.insert(-1, "Available from 10:30am to 12:00pm")
+      @daily_availability_4.insert(-1, "Available from 10:30am to 12:00pm")
     end
 
     #Time Slot 3 Availablity Check
@@ -775,34 +710,34 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_4.include?("busy")
-        @daily_availability_4.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+      @daily_availability_4.insert(-1, "Unavailable from 1:30pm to 3:00pm")
     else
-        @daily_availability_4.insert(-1, "Available from 1:30pm to 3:00pm")
+      @daily_availability_4.insert(-1, "Available from 1:30pm to 3:00pm")
     end
 
     #Time Slot 5 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_5
-            i_5 += 1
-            availability_5.insert(0, "free")
-          elsif @end_time[i_5] <= upper_5
-            availability_5.insert(0, "free")
-            i_5 += 1
-          else
-            i_5 += 1
-            availability_5.insert(0, "busy")
-          end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
         end
-      else
-        availability_5.insert(0, "free")
       end
+    else
+      availability_5.insert(0, "free")
+    end
 
-      if availability_5.include?("busy")
-          @daily_availability_4.insert(-1, "Unavailable from 4:00pm to 5:30pm")
-      else
-          @daily_availability_4.insert(-1, "Available from 4:00pm to 5:30pm")
-      end
+    if availability_5.include?("busy")
+        @daily_availability_4.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+    else
+        @daily_availability_4.insert(-1, "Available from 4:00pm to 5:30pm")
+    end
 
     return @daily_availability_4
   end
@@ -862,33 +797,33 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_1.include?("busy")
-       @daily_availability_5.insert(-1, "Unavailable from 9:00am to 10:30am")
+      @daily_availability_5.insert(-1, "Unavailable from 9:00am to 10:30am")
     else
-       @daily_availability_5.insert(-1, "Available from 9:00am to 10:30am")
+      @daily_availability_5.insert(-1, "Available from 9:00am to 10:30am")
     end
 
     #Time Slot 2 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_2
-            i_2 += 1
-            availability_2.insert(0, "free")
-          elsif @end_time[i_2] <= upper_2
-            availability_2.insert(0, "free")
-            i_2 += 1
-          else
-            i_2 += 1
-            availability_2.insert(0, "busy")
-        end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
       end
-    else
-      availability_2.insert(0, "free")
     end
+  else
+    availability_2.insert(0, "free")
+  end
 
     if availability_2.include?("busy")
-       @daily_availability_5.insert(-1, "Unavailable from 10:30am to 12:00pm")
+     @daily_availability_5.insert(-1, "Unavailable from 10:30am to 12:00pm")
     else
-       @daily_availability_5.insert(-1, "Available from 10:30am to 12:00pm")
+     @daily_availability_5.insert(-1, "Available from 10:30am to 12:00pm")
     end
 
     #Time Slot 3 Availablity Check
@@ -934,34 +869,34 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_4.include?("busy")
-        @daily_availability_5.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+      @daily_availability_5.insert(-1, "Unavailable from 1:30pm to 3:00pm")
     else
-        @daily_availability_5.insert(-1, "Available from 1:30pm to 3:00pm")
+      @daily_availability_5.insert(-1, "Available from 1:30pm to 3:00pm")
     end
 
     #Time Slot 5 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_5
-            i_5 += 1
-            availability_5.insert(0, "free")
-          elsif @end_time[i_5] <= upper_5
-            availability_5.insert(0, "free")
-            i_5 += 1
-          else
-            i_5 += 1
-            availability_5.insert(0, "busy")
-          end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
         end
-      else
-        availability_5.insert(0, "free")
       end
+    else
+      availability_5.insert(0, "free")
+    end
 
-      if availability_5.include?("busy")
-          @daily_availability_5.insert(-1, "Unavailable from 4:00pm to 5:30pm")
-      else
-          @daily_availability_5.insert(-1, "Available from 4:00pm to 5:30pm")
-      end
+    if availability_5.include?("busy")
+        @daily_availability_5.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+    else
+        @daily_availability_5.insert(-1, "Available from 4:00pm to 5:30pm")
+    end
 
     return @daily_availability_5
   end
@@ -1021,33 +956,33 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_1.include?("busy")
-       @daily_availability_6.insert(-1, "Unavailable from 9:00am to 10:30am")
+      @daily_availability_6.insert(-1, "Unavailable from 9:00am to 10:30am")
     else
-       @daily_availability_6.insert(-1, "Available from 9:00am to 10:30am")
+      @daily_availability_6.insert(-1, "Available from 9:00am to 10:30am")
     end
 
     #Time Slot 2 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_2
-            i_2 += 1
-            availability_2.insert(0, "free")
-          elsif @end_time[i_2] <= upper_2
-            availability_2.insert(0, "free")
-            i_2 += 1
-          else
-            i_2 += 1
-            availability_2.insert(0, "busy")
-        end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
       end
-    else
-      availability_2.insert(0, "free")
     end
+  else
+    availability_2.insert(0, "free")
+  end
 
     if availability_2.include?("busy")
-       @daily_availability_6.insert(-1, "Unavailable from 10:30am to 12:00pm")
+      @daily_availability_6.insert(-1, "Unavailable from 10:30am to 12:00pm")
     else
-       @daily_availability_6.insert(-1, "Available from 10:30am to 12:00pm")
+      @daily_availability_6.insert(-1, "Available from 10:30am to 12:00pm")
     end
 
     #Time Slot 3 Availablity Check
@@ -1093,34 +1028,34 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_4.include?("busy")
-        @daily_availability_6.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+      @daily_availability_6.insert(-1, "Unavailable from 1:30pm to 3:00pm")
     else
-        @daily_availability_6.insert(-1, "Available from 1:30pm to 3:00pm")
+      @daily_availability_6.insert(-1, "Available from 1:30pm to 3:00pm")
     end
 
     #Time Slot 5 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_5
-            i_5 += 1
-            availability_5.insert(0, "free")
-          elsif @end_time[i_5] <= upper_5
-            availability_5.insert(0, "free")
-            i_5 += 1
-          else
-            i_5 += 1
-            availability_5.insert(0, "busy")
-          end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
         end
-      else
-        availability_5.insert(0, "free")
       end
+    else
+      availability_5.insert(0, "free")
+    end
 
-      if availability_5.include?("busy")
-          @daily_availability_6.insert(-1, "Unavailable from 4:00pm to 5:30pm")
-      else
-          @daily_availability_6.insert(-1, "Available from 4:00pm to 5:30pm")
-      end
+    if availability_5.include?("busy")
+        @daily_availability_6.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+    else
+        @daily_availability_6.insert(-1, "Available from 4:00pm to 5:30pm")
+    end
 
     return @daily_availability_6
   end
@@ -1180,33 +1115,33 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_1.include?("busy")
-       @daily_availability_7.insert(-1, "Unavailable from 9:00am to 10:30am")
+      @daily_availability_7.insert(-1, "Unavailable from 9:00am to 10:30am")
     else
-       @daily_availability_7.insert(-1, "Available from 9:00am to 10:30am")
+      @daily_availability_7.insert(-1, "Available from 9:00am to 10:30am")
     end
 
     #Time Slot 2 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_2
-            i_2 += 1
-            availability_2.insert(0, "free")
-          elsif @end_time[i_2] <= upper_2
-            availability_2.insert(0, "free")
-            i_2 += 1
-          else
-            i_2 += 1
-            availability_2.insert(0, "busy")
-        end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
       end
-    else
-      availability_2.insert(0, "free")
     end
+  else
+    availability_2.insert(0, "free")
+  end
 
     if availability_2.include?("busy")
-       @daily_availability_7.insert(-1, "Unavailable from 10:30am to 12:00pm")
+      @daily_availability_7.insert(-1, "Unavailable from 10:30am to 12:00pm")
     else
-       @daily_availability_7.insert(-1, "Available from 10:30am to 12:00pm")
+      @daily_availability_7.insert(-1, "Available from 10:30am to 12:00pm")
     end
 
     #Time Slot 3 Availablity Check
@@ -1252,40 +1187,88 @@ class AppointmentsController < ApplicationController
     end
 
     if availability_4.include?("busy")
-        @daily_availability_7.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+      @daily_availability_7.insert(-1, "Unavailable from 1:30pm to 3:00pm")
     else
-        @daily_availability_7.insert(-1, "Available from 1:30pm to 3:00pm")
+      @daily_availability_7.insert(-1, "Available from 1:30pm to 3:00pm")
     end
 
     #Time Slot 5 Availablity Check
-      if @start_time != nil
-        @start_time.each do |time|
-          if time >= lower_5
-            i_5 += 1
-            availability_5.insert(0, "free")
-          elsif @end_time[i_5] <= upper_5
-            availability_5.insert(0, "free")
-            i_5 += 1
-          else
-            i_5 += 1
-            availability_5.insert(0, "busy")
-          end
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
         end
-      else
-        availability_5.insert(0, "free")
       end
+    else
+      availability_5.insert(0, "free")
+    end
 
-      if availability_5.include?("busy")
-          @daily_availability_7.insert(-1, "Unavailable from 4:00pm to 5:30pm")
-      else
-          @daily_availability_7.insert(-1, "Available from 4:00pm to 5:30pm")
-      end
+    if availability_5.include?("busy")
+        @daily_availability_7.insert(-1, "Unavailable from 4:00pm to 5:30pm")
+    else
+        @daily_availability_7.insert(-1, "Available from 4:00pm to 5:30pm")
+    end
 
     return @daily_availability_7
   end
+
 private
+
+  def load_appointment
+    #load appointment by trainer/trainee
+  end
+
   def appointment_params
     params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
   end
 
+  def generic_google_authentication
+    client = Signet::OAuth2::Client.new({
+    client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+  end
+
+  def event_list_google_authentication
+    client = Signet::OAuth2::Client.new({
+    client_id: "#{Rails.application.secrets.sorcery_google_key}",
+    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
+    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+    access_token: session[:access_token]
+    })
+    client.expires_in = Time.now + 1_000_000
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    result = service.list_events('primary')
+
+    @start_time = result.items.map {|e|
+      if e.start.date_time != nil
+         e.start.date_time.to_i
+      else
+         next
+      end
+    }.compact
+
+    @end_time = result.items.map {|e|
+      if e.end.date_time != nil
+         e.end.date_time.to_i
+      else
+         next
+      end
+    }.compact
+  end
 end

@@ -2,14 +2,6 @@ Rails.application.routes.draw do
   root "users#index"
 
   resources :users
-  # resources :appointments
-  # resources :appointments, controller: 'appointments/day_1', only: [:show]
-  # resources :appointments, controller: 'appointments/day_2', only: [:show]
-  # resources :appointments, controller: 'appointments/day_3', only: [:show]
-  # resources :appointments, controller: 'appointments/day_4', only: [:show]
-  # resources :appointments, controller: 'appointments/day_5', only: [:show]
-  # resources :appointments, controller: 'appointments/day_6', only: [:show]
-  # resources :appointments, controller: 'appointments/day_7', only: [:show]
   resources :user_sessions, only: [:new, :create, :destroy]
 
   get 'login' => 'user_sessions#new', :as => :login
