@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105195344) do
+ActiveRecord::Schema.define(version: 20170105210034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170105195344) do
     t.string   "day_5",      default: [],              array: true
     t.string   "day_6",      default: [],              array: true
     t.string   "day_7",      default: [],              array: true
+    t.integer  "user_id"
   end
 
   create_table "categories", force: :cascade do |t|
