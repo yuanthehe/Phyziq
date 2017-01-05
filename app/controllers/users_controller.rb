@@ -61,7 +61,7 @@ class UsersController < ApplicationController
   def weekly_event_list
       google_authentication
 
-      # result = service.list_events('primary')
+      # result = @service.list_events('primary')
       weekly = @result.items.map {|e|
            e.start.date
          }.compact
@@ -92,8 +92,9 @@ private
     access_token: session[:access_token]
     })
     client.expires_in = Time.now + 1_000_000
-    @service = Google::Apis::CalendarV3::CalendarService.new
-    @service.authorization = client
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+    @result = service.list_events('primary')
   end
 
   def next_six_days

@@ -69,7 +69,7 @@ table {
 }
 
 /*.alert {
-  text-align: center;
+  text-align: cen ter;
   background-color: black;
   color: #ED1B24;
   padding: 5px;
@@ -102,7 +102,7 @@ h3 {
 }
 
 .display {
-  color: #ED1B24;
+  color: #cddc39;
 }
 
 /* =============================================================================
@@ -130,10 +130,8 @@ form
 
 #btn {
   clear: both;
-}
-
-.check_box {
-  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .weekly_calendar {
