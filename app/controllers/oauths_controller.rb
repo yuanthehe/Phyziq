@@ -35,9 +35,10 @@ class OauthsController < ApplicationController
     authentication = current_user.authentications.find_by_provider(provider)
     if authentication.present?
       authentication.destroy
-      flash[:alert] = "You have successfully unlinked your #{provider.titleize} account."
+      # logout
+      flash[:alert] = "You have successfully logged out."
     else
-      flash[:alert] = "You do not currently have a linked #{provider.titleize} account."
+      flash[:alert] = "Logout failed."
     end
     redirect_to root_path
   end
