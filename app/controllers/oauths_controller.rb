@@ -13,7 +13,7 @@ class OauthsController < ApplicationController
        session[:access_token] = @access_token.token
        flash[:alert] = "Logged in from Google!"
 
-       redirect_to root_path
+       redirect_to :refresh_availability
     else
       # if logged_in?
       #   link_account(:google)
@@ -22,9 +22,10 @@ class OauthsController < ApplicationController
       # else
         @user = create_from(:google)
         reset_session # protect from session fixation attack
+        session[:access_token] = @access_token.token
         auto_login(@user)
         flash[:alert] = 'Google account successfully linked!'
-        redirect_to root_path
+        redirect_to :refresh_availability
       # end
     end
   end
