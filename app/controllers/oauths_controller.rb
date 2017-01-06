@@ -22,6 +22,7 @@ class OauthsController < ApplicationController
       # else
         @user = create_from(:google)
         reset_session # protect from session fixation attack
+        session[:access_token] = @access_token.token
         auto_login(@user)
         flash[:alert] = 'Google account successfully linked!'
         redirect_to root_path
