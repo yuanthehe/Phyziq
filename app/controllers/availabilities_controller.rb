@@ -2,10 +2,38 @@ class AvailabilitiesController < ApplicationController
 
   def new
     @availability = Availability.new
+    # day_1: @availability_day_1,
+    # day_2: @availability_day_2,
+    # day_3: @availability_day_3,
+    # day_4: @availability_day_4,
+    # day_5: @availability_day_5,
+    # day_6: @availability_day_6,
+    # day_7: @availability_day_7,
+    # user_id: current_user.id
   end
 
   def create
     @availability = Availability.new(availability_params)
+  end
+
+  def weekly_hourly
+    day_1
+    day_2
+    day_3
+    day_4
+    day_5
+    day_6
+    day_7
+    @availability = Availability.create(
+      day_1: @availability_day_1,
+      day_2: @availability_day_2,
+      day_3: @availability_day_3,
+      day_4: @availability_day_4,
+      day_5: @availability_day_5,
+      day_6: @availability_day_6,
+      day_7: @availability_day_7,
+      user_id: current_user.id
+      )
   end
 
   def day_1
@@ -15,7 +43,7 @@ class AvailabilitiesController < ApplicationController
 
     @availability_day_1 = availability_check
 
-    @availability = Availability.create(day_1: @availability_day_1)
+    # @availability = Availability.create(day_1: @availability_day_1)
   end
 
   def day_2
@@ -25,7 +53,7 @@ class AvailabilitiesController < ApplicationController
 
     @availability_day_2 = availability_check
 
-    @availability = Availability.create(day_2: @availability_day_2)
+    # @availability = Availability.create(day_2: @availability_day_2)
   end
 
   def day_3
@@ -35,7 +63,7 @@ class AvailabilitiesController < ApplicationController
 
     @availability_day_3 = availability_check
 
-    @availability = Availability.create(day_3: @availability_day_3)
+    # @availability = Availability.create(day_3: @availability_day_3)
   end
 
   def day_4
@@ -45,7 +73,7 @@ class AvailabilitiesController < ApplicationController
 
     @availability_day_4 = availability_check
 
-    @availability = Availability.create(day_4: @availability_day_4)
+    # @availability = Availability.create(day_4: @availability_day_4)
   end
 
   def day_5
@@ -55,7 +83,7 @@ class AvailabilitiesController < ApplicationController
 
     @availability_day_5 = availability_check
 
-    @availability = Availability.create(day_5: @availability_day_5)
+    # @availability = Availability.create(day_5: @availability_day_5)
   end
 
   def day_6
@@ -65,7 +93,7 @@ class AvailabilitiesController < ApplicationController
 
     @availability_day_6 = availability_check
 
-    @availability = Availability.create(day_6: @availability_day_6)
+    # @availability = Availability.create(day_6: @availability_day_6)
   end
 
   def day_7
@@ -75,13 +103,25 @@ class AvailabilitiesController < ApplicationController
 
     @availability_day_7 = availability_check
 
-    @availability = Availability.create(day_7: @availability_day_7)
+    # @availability = Availability.create(day_7: @availability_day_7)
+  end
+
+  def create
+    @availability = Availability.new
+    @availability.day_1 = @availability_day_1
+    @availability.day_2 = @availability_day_2
+    @availability.day_3 = @availability_day_3
+    @availability.day_4 = @availability_day_4
+    @availability.day_5 = @availability_day_5
+    @availability.day_6 = @availability_day_6
+    @availability.day_7 = @availability_day_7
+    @availability.user_id = current_user.id
   end
 
 private
 
   def availability_params
-    params.require(:availability).permit(:day_1, :day_2, :day_3, :day_4, :day_5, :day_6, :day_7)
+    params.require(:availability).permit(:day_1, :day_2, :day_3, :day_4, :day_5, :day_6, :day_7, :user_id)
   end
 
   def generic_google_authentication
