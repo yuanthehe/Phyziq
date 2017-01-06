@@ -1,9 +1,22 @@
-class AvailabilityController < ApplicationController
+class AvailabilitiesController < ApplicationController
+
+  def new
+    @availability = Availability.new
+  end
+
+  def create
+    @availability = Availability.new(availability_params)
+
+    # if @availability.save
+    #   @availability.day_1 = @availability_day_1
+    #   @availability.day_2 = @availability_day_2
+    # end
+  end
 
   def day_1
     event_list_google_authentication
 
-    day_1 = Date.today + 1
+    day = Date.today + 1
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     t_3 = Time.parse("17:30").seconds_since_midnight.seconds
@@ -11,158 +24,27 @@ class AvailabilityController < ApplicationController
     t_5 = Time.parse("20:30").seconds_since_midnight.seconds
     t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-    upper_1 = (day_1 + t_1).to_i
-    lower_1 = (day_1 + t_2).to_i
-    upper_2 = (day_1 + t_2).to_i
-    lower_2 = (day_1 + t_3).to_i
-    upper_3 = (day_1 + t_3).to_i
-    lower_3 = (day_1 + t_4).to_i
-    upper_4 = (day_1 + t_4).to_i
-    lower_4 = (day_1 + t_5).to_i
-    upper_5 = (day_1 + t_5).to_i
-    lower_5 = (day_1 + t_6).to_i
+    @upper_1 = (day + t_1).to_i
+    @lower_1 = (day + t_2).to_i
+    @upper_2 = (day + t_2).to_i
+    @lower_2 = (day + t_3).to_i
+    @upper_3 = (day + t_3).to_i
+    @lower_3 = (day + t_4).to_i
+    @upper_4 = (day + t_4).to_i
+    @lower_4 = (day + t_5).to_i
+    @upper_5 = (day + t_5).to_i
+    @lower_5 = (day + t_6).to_i
 
-    i_1 = 0
-    i_2 = 0
-    i_3 = 0
-    i_4 = 0
-    i_5 = 0
+    @availability_day_1 = availability_check
 
-    availability_1 = []
-    availability_2 = []
-    availability_3 = []
-    availability_4 = []
-    availability_5 = []
-
-    @@availability.day_1ability_1 = []
-
-    #Time Slot 1 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_1
-           i_1 += 1
-           availability_1.insert(0, "free")
-        elsif @end_time[i_1] <= upper_1
-          availability_1.insert(0, "free")
-          i_1 += 1
-        else
-          i_1 += 1
-          availability_1.insert(0, "busy")
-        end
-      end
-    else
-      availability_1.insert(0, "free")
-    end
-
-    if availability_1.include?("busy")
-      @availability.day_1.insert(-1, "Unavailable from 9:00am to 10:30am")
-    else
-      @availability.day_1.insert(-1, "Available from 9:00am to 10:30am")
-    end
-
-    #Time Slot 2 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_2
-          i_2 += 1
-          availability_2.insert(0, "free")
-        elsif @end_time[i_2] <= upper_2
-          availability_2.insert(0, "free")
-          i_2 += 1
-        else
-          i_2 += 1
-          availability_2.insert(0, "busy")
-      end
-    end
-    else
-      availability_2.insert(0, "free")
-    end
-
-      if availability_2.include?("busy")
-        @availability.day_1.insert(-1, "Unavailable from 10:30am to 12:00pm")
-      else
-        @availability.day_1.insert(-1, "Available from 10:30am to 12:00pm")
-      end
-
-    #Time Slot 3 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_3
-          i_3 += 1
-          availability_3.insert(0, "free")
-        elsif @end_time[i_3] <= upper_3
-          availability_3.insert(0, "free")
-          i_3 += 1
-        else
-          i_3 += 1
-          availability_3.insert(0, "busy")
-        end
-      end
-    else
-      availability_3.insert(0, "free")
-    end
-
-    if availability_3.include?("busy")
-      @availability.day_1.insert(-1, "Unavailable from 12:00pm to 1:30pm")
-    else
-      @availability.day_1.insert(-1, "Available from 12:00pm to 1:30pm")
-    end
-
-    #Time Slot 4 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_4
-          i_4 += 1
-          availability_4.insert(0, "free")
-        elsif @end_time[i_4] <= upper_4
-          availability_4.insert(0, "free")
-          i_4 += 1
-        else
-          i_4 += 1
-          availability_4.insert(0, "busy")
-        end
-      end
-    else
-      availability_4.insert(0, "free")
-    end
-
-    if availability_4.include?("busy")
-      @availability.day_1.insert(-1, "Unavailable from 1:30pm to 3:00pm")
-    else
-      @availability.day_1.insert(-1, "Available from 1:30pm to 3:00pm")
-    end
-
-    #Time Slot 5 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_5
-          i_5 += 1
-          availability_5.insert(0, "free")
-        elsif @end_time[i_5] <= upper_5
-          availability_5.insert(0, "free")
-          i_5 += 1
-        else
-          i_5 += 1
-          availability_5.insert(0, "busy")
-        end
-      end
-    else
-      availability_5.insert(0, "free")
-    end
-
-    if availability_5.include?("busy")
-      @availability.day_1.insert(-1, "Unavailable from 3:00pm to 4:30pm")
-    else
-      @availability.day_1.insert(-1, "Available from 3:00pm to 4:30pm")
-    end
-
-    return @availability.day_1
+    @availability = Availability.create
+    @availability.day_1 = @availability_day_1
   end
 
   def day_2
     event_list_google_authentication
 
-    day_2 = Date.today + 2
+    day = Date.today + 2
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     t_3 = Time.parse("17:30").seconds_since_midnight.seconds
@@ -170,158 +52,27 @@ class AvailabilityController < ApplicationController
     t_5 = Time.parse("20:30").seconds_since_midnight.seconds
     t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-    upper_1 = (day_2 + t_1).to_i
-    lower_1 = (day_2 + t_2).to_i
-    upper_2 = (day_2 + t_2).to_i
-    lower_2 = (day_2 + t_3).to_i
-    upper_3 = (day_2 + t_3).to_i
-    lower_3 = (day_2 + t_4).to_i
-    upper_4 = (day_2 + t_4).to_i
-    lower_4 = (day_2 + t_5).to_i
-    upper_5 = (day_2 + t_5).to_i
-    lower_5 = (day_2 + t_6).to_i
+    @upper_1 = (day + t_1).to_i
+    @lower_1 = (day + t_2).to_i
+    @upper_2 = (day + t_2).to_i
+    @lower_2 = (day + t_3).to_i
+    @upper_3 = (day + t_3).to_i
+    @lower_3 = (day + t_4).to_i
+    @upper_4 = (day + t_4).to_i
+    @lower_4 = (day + t_5).to_i
+    @upper_5 = (day + t_5).to_i
+    @lower_5 = (day + t_6).to_i
 
-    i_1 = 0
-    i_2 = 0
-    i_3 = 0
-    i_4 = 0
-    i_5 = 0
+    @availability_day_2 = availability_check
 
-    availability_1 = []
-    availability_2 = []
-    availability_3 = []
-    availability_4 = []
-    availability_5 = []
-
-    @availability.day_2 = []
-
-    #Time Slot 1 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_1
-           i_1 += 1
-           availability_1.insert(0, "free")
-        elsif @end_time[i_1] <= upper_1
-          availability_1.insert(0, "free")
-          i_1 += 1
-        else
-          i_1 += 1
-          availability_1.insert(0, "busy")
-        end
-      end
-    else
-      availability_1.insert(0, "free")
-    end
-
-    if availability_1.include?("busy")
-      @availability.day_2.insert(-1, "Unavailable from 9:00am to 10:30am")
-    else
-      @availability.day_2.insert(-1, "Available from 9:00am to 10:30am")
-    end
-
-    #Time Slot 2 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_2
-          i_2 += 1
-          availability_2.insert(0, "free")
-        elsif @end_time[i_2] <= upper_2
-          availability_2.insert(0, "free")
-          i_2 += 1
-        else
-          i_2 += 1
-          availability_2.insert(0, "busy")
-      end
-    end
-    else
-      availability_2.insert(0, "free")
-    end
-
-    if availability_2.include?("busy")
-      @availability.day_2.insert(-1, "Unavailable from 10:30am to 12:00pm")
-    else
-      @availability.day_2.insert(-1, "Available from 10:30am to 12:00pm")
-    end
-
-    #Time Slot 3 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_3
-          i_3 += 1
-          availability_3.insert(0, "free")
-        elsif @end_time[i_3] <= upper_3
-          availability_3.insert(0, "free")
-          i_3 += 1
-        else
-          i_3 += 1
-          availability_3.insert(0, "busy")
-        end
-      end
-    else
-      availability_3.insert(0, "free")
-    end
-
-    if availability_3.include?("busy")
-      @availability.day_2.insert(-1, "Unavailable from 12:00pm to 1:30pm")
-    else
-      @availability.day_2.insert(-1, "Available from 12:00pm to 1:30pm")
-    end
-
-    #Time Slot 4 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_4
-          i_4 += 1
-          availability_4.insert(0, "free")
-        elsif @end_time[i_4] <= upper_4
-          availability_4.insert(0, "free")
-          i_4 += 1
-        else
-          i_4 += 1
-          availability_4.insert(0, "busy")
-        end
-      end
-    else
-      availability_4.insert(0, "free")
-    end
-
-    if availability_4.include?("busy")
-      @availability.day_2.insert(-1, "Unavailable from 1:30pm to 3:00pm")
-    else
-      @availability.day_2.insert(-1, "Available from 1:30pm to 3:00pm")
-    end
-
-    #Time Slot 5 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_5
-          i_5 += 1
-          availability_5.insert(0, "free")
-        elsif @end_time[i_5] <= upper_5
-          availability_5.insert(0, "free")
-          i_5 += 1
-        else
-          i_5 += 1
-          availability_5.insert(0, "busy")
-        end
-      end
-    else
-      availability_5.insert(0, "free")
-    end
-
-    if availability_5.include?("busy")
-      @availability.day_2.insert(-1, "Unavailable from 3:00pm to 4:30pm")
-    else
-      @availability.day_2.insert(-1, "Available from 3:00pm to 4:30pm")
-    end
-
-    return @availability.day_2
+    @availability = Availability.create
+    @availability.day_2 = @availability_day_2
   end
 
   def day_3
     event_list_google_authentication
 
-    day_3 = Date.today + 3
+    day = Date.today + 3
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     t_3 = Time.parse("17:30").seconds_since_midnight.seconds
@@ -329,158 +80,27 @@ class AvailabilityController < ApplicationController
     t_5 = Time.parse("20:30").seconds_since_midnight.seconds
     t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-    upper_1 = (day_3 + t_1).to_i
-    lower_1 = (day_3 + t_2).to_i
-    upper_2 = (day_3 + t_2).to_i
-    lower_2 = (day_3 + t_3).to_i
-    upper_3 = (day_3 + t_3).to_i
-    lower_3 = (day_3 + t_4).to_i
-    upper_4 = (day_3 + t_4).to_i
-    lower_4 = (day_3 + t_5).to_i
-    upper_5 = (day_3 + t_5).to_i
-    lower_5 = (day_3 + t_6).to_i
+    @upper_1 = (day + t_1).to_i
+    @lower_1 = (day + t_2).to_i
+    @upper_2 = (day + t_2).to_i
+    @lower_2 = (day + t_3).to_i
+    @upper_3 = (day + t_3).to_i
+    @lower_3 = (day + t_4).to_i
+    @upper_4 = (day + t_4).to_i
+    @lower_4 = (day + t_5).to_i
+    @upper_5 = (day + t_5).to_i
+    @lower_5 = (day + t_6).to_i
 
-    i_1 = 0
-    i_2 = 0
-    i_3 = 0
-    i_4 = 0
-    i_5 = 0
+    @availability_day_3 = availability_check
 
-    availability_1 = []
-    availability_2 = []
-    availability_3 = []
-    availability_4 = []
-    availability_5 = []
-
-    @availability.day_3 = []
-
-    #Time Slot 1 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_1
-           i_1 += 1
-           availability_1.insert(0, "free")
-        elsif @end_time[i_1] <= upper_1
-          availability_1.insert(0, "free")
-          i_1 += 1
-        else
-          i_1 += 1
-          availability_1.insert(0, "busy")
-        end
-      end
-    else
-      availability_1.insert(0, "free")
-    end
-
-    if availability_1.include?("busy")
-      @availability.day_3.insert(-1, "Unavailable from 9:00am to 10:30am")
-    else
-      @availability.day_3.insert(-1, "Available from 9:00am to 10:30am")
-    end
-
-    #Time Slot 2 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_2
-          i_2 += 1
-          availability_2.insert(0, "free")
-        elsif @end_time[i_2] <= upper_2
-          availability_2.insert(0, "free")
-          i_2 += 1
-        else
-          i_2 += 1
-          availability_2.insert(0, "busy")
-      end
-    end
-    else
-      availability_2.insert(0, "free")
-    end
-
-      if availability_2.include?("busy")
-        @availability.day_3.insert(-1, "Unavailable from 10:30am to 12:00pm")
-      else
-        @availability.day_3.insert(-1, "Available from 10:30am to 12:00pm")
-      end
-
-    #Time Slot 3 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_3
-          i_3 += 1
-          availability_3.insert(0, "free")
-        elsif @end_time[i_3] <= upper_3
-          availability_3.insert(0, "free")
-          i_3 += 1
-        else
-          i_3 += 1
-          availability_3.insert(0, "busy")
-        end
-      end
-    else
-      availability_3.insert(0, "free")
-    end
-
-    if availability_3.include?("busy")
-      @availability.day_3.insert(-1, "Unavailable from 12:00pm to 1:30pm")
-    else
-      @availability.day_3.insert(-1, "Available from 12:00pm to 1:30pm")
-    end
-
-    #Time Slot 4 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_4
-          i_4 += 1
-          availability_4.insert(0, "free")
-        elsif @end_time[i_4] <= upper_4
-          availability_4.insert(0, "free")
-          i_4 += 1
-        else
-          i_4 += 1
-          availability_4.insert(0, "busy")
-        end
-      end
-    else
-      availability_4.insert(0, "free")
-    end
-
-    if availability_4.include?("busy")
-      @availability.day_3.insert(-1, "Unavailable from 1:30pm to 3:00pm")
-    else
-      @availability.day_3.insert(-1, "Available from 1:30pm to 3:00pm")
-    end
-
-    #Time Slot 5 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_5
-          i_5 += 1
-          availability_5.insert(0, "free")
-        elsif @end_time[i_5] <= upper_5
-          availability_5.insert(0, "free")
-          i_5 += 1
-        else
-          i_5 += 1
-          availability_5.insert(0, "busy")
-        end
-      end
-    else
-      availability_5.insert(0, "free")
-    end
-
-    if availability_5.include?("busy")
-      @availability.day_3.insert(-1, "Unavailable from 3:00pm to 4:30pm")
-    else
-      @availability.day_3.insert(-1, "Available from 3:00pm to 4:30pm")
-    end
-
-    return @availability.day_3
+    @availability = Availability.create
+    @availability.day_3 = @availability_day_3
   end
 
   def day_4
     event_list_google_authentication
 
-    day_4 = Date.today + 4
+    day = Date.today + 4
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     t_3 = Time.parse("17:30").seconds_since_midnight.seconds
@@ -488,158 +108,27 @@ class AvailabilityController < ApplicationController
     t_5 = Time.parse("20:30").seconds_since_midnight.seconds
     t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-    upper_1 = (day_4 + t_1).to_i
-    lower_1 = (day_4 + t_2).to_i
-    upper_2 = (day_4 + t_2).to_i
-    lower_2 = (day_4 + t_3).to_i
-    upper_3 = (day_4 + t_3).to_i
-    lower_3 = (day_4 + t_4).to_i
-    upper_4 = (day_4 + t_4).to_i
-    lower_4 = (day_4 + t_5).to_i
-    upper_5 = (day_4 + t_5).to_i
-    lower_5 = (day_4 + t_6).to_i
+    @upper_1 = (day + t_1).to_i
+    @lower_1 = (day + t_2).to_i
+    @upper_2 = (day + t_2).to_i
+    @lower_2 = (day + t_3).to_i
+    @upper_3 = (day + t_3).to_i
+    @lower_3 = (day + t_4).to_i
+    @upper_4 = (day + t_4).to_i
+    @lower_4 = (day + t_5).to_i
+    @upper_5 = (day + t_5).to_i
+    @lower_5 = (day + t_6).to_i
 
-    i_1 = 0
-    i_2 = 0
-    i_3 = 0
-    i_4 = 0
-    i_5 = 0
+    @availability_day_4 = availability_check
 
-    availability_1 = []
-    availability_2 = []
-    availability_3 = []
-    availability_4 = []
-    availability_5 = []
-
-    @availability.day_4 = []
-
-    #Time Slot 1 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_1
-           i_1 += 1
-           availability_1.insert(0, "free")
-        elsif @end_time[i_1] <= upper_1
-          availability_1.insert(0, "free")
-          i_1 += 1
-        else
-          i_1 += 1
-          availability_1.insert(0, "busy")
-        end
-      end
-    else
-      availability_1.insert(0, "free")
-    end
-
-    if availability_1.include?("busy")
-      @availability.day_4.insert(-1, "Unavailable from 9:00am to 10:30am")
-    else
-      @availability.day_4.insert(-1, "Available from 9:00am to 10:30am")
-    end
-
-    #Time Slot 2 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_2
-          i_2 += 1
-          availability_2.insert(0, "free")
-        elsif @end_time[i_2] <= upper_2
-          availability_2.insert(0, "free")
-          i_2 += 1
-        else
-          i_2 += 1
-          availability_2.insert(0, "busy")
-      end
-    end
-    else
-      availability_2.insert(0, "free")
-    end
-
-      if availability_2.include?("busy")
-        @availability.day_4.insert(-1, "Unavailable from 10:30am to 12:00pm")
-      else
-        @availability.day_4.insert(-1, "Available from 10:30am to 12:00pm")
-      end
-
-    #Time Slot 3 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_3
-          i_3 += 1
-          availability_3.insert(0, "free")
-        elsif @end_time[i_3] <= upper_3
-          availability_3.insert(0, "free")
-          i_3 += 1
-        else
-          i_3 += 1
-          availability_3.insert(0, "busy")
-        end
-      end
-    else
-      availability_3.insert(0, "free")
-    end
-
-    if availability_3.include?("busy")
-      @availability.day_4.insert(-1, "Unavailable from 12:00pm to 1:30pm")
-    else
-      @availability.day_4.insert(-1, "Available from 12:00pm to 1:30pm")
-    end
-
-    #Time Slot 4 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_4
-          i_4 += 1
-          availability_4.insert(0, "free")
-        elsif @end_time[i_4] <= upper_4
-          availability_4.insert(0, "free")
-          i_4 += 1
-        else
-          i_4 += 1
-          availability_4.insert(0, "busy")
-        end
-      end
-    else
-      availability_4.insert(0, "free")
-    end
-
-    if availability_4.include?("busy")
-      @availability.day_4.insert(-1, "Unavailable from 1:30pm to 3:00pm")
-    else
-      @availability.day_4.insert(-1, "Available from 1:30pm to 3:00pm")
-    end
-
-    #Time Slot 5 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_5
-          i_5 += 1
-          availability_5.insert(0, "free")
-        elsif @end_time[i_5] <= upper_5
-          availability_5.insert(0, "free")
-          i_5 += 1
-        else
-          i_5 += 1
-          availability_5.insert(0, "busy")
-        end
-      end
-    else
-      availability_5.insert(0, "free")
-    end
-
-    if availability_5.include?("busy")
-        @availability.day_4.insert(-1, "Unavailable from 3:00pm to 4:30pm")
-    else
-        @availability.day_4.insert(-1, "Available from 3:00pm to 4:30pm")
-    end
-
-    return @availability.day_4
+    @availability = Availability.create
+    @availability.day_4 = @availability_day_4
   end
 
   def day_5
     event_list_google_authentication
 
-    day_5 = Date.today + 5
+    day = Date.today + 5
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     t_3 = Time.parse("17:30").seconds_since_midnight.seconds
@@ -647,158 +136,27 @@ class AvailabilityController < ApplicationController
     t_5 = Time.parse("20:30").seconds_since_midnight.seconds
     t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-    upper_1 = (day_5 + t_1).to_i
-    lower_1 = (day_5 + t_2).to_i
-    upper_2 = (day_5 + t_2).to_i
-    lower_2 = (day_5 + t_3).to_i
-    upper_3 = (day_5 + t_3).to_i
-    lower_3 = (day_5 + t_4).to_i
-    upper_4 = (day_5 + t_4).to_i
-    lower_4 = (day_5 + t_5).to_i
-    upper_5 = (day_5 + t_5).to_i
-    lower_5 = (day_5 + t_6).to_i
+    @upper_1 = (day + t_1).to_i
+    @lower_1 = (day + t_2).to_i
+    @upper_2 = (day + t_2).to_i
+    @lower_2 = (day + t_3).to_i
+    @upper_3 = (day + t_3).to_i
+    @lower_3 = (day + t_4).to_i
+    @upper_4 = (day + t_4).to_i
+    @lower_4 = (day + t_5).to_i
+    @upper_5 = (day + t_5).to_i
+    @lower_5 = (day + t_6).to_i
 
-    i_1 = 0
-    i_2 = 0
-    i_3 = 0
-    i_4 = 0
-    i_5 = 0
+    @availability_day_5 = availability_check
 
-    availability_1 = []
-    availability_2 = []
-    availability_3 = []
-    availability_4 = []
-    availability_5 = []
-
-    @availability.day_5 = []
-
-    #Time Slot 1 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_1
-           i_1 += 1
-           availability_1.insert(0, "free")
-        elsif @end_time[i_1] <= upper_1
-          availability_1.insert(0, "free")
-          i_1 += 1
-        else
-          i_1 += 1
-          availability_1.insert(0, "busy")
-        end
-      end
-    else
-      availability_1.insert(0, "free")
-    end
-
-    if availability_1.include?("busy")
-      @availability.day_5.insert(-1, "Unavailable from 9:00am to 10:30am")
-    else
-      @availability.day_5.insert(-1, "Available from 9:00am to 10:30am")
-    end
-
-    #Time Slot 2 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_2
-          i_2 += 1
-          availability_2.insert(0, "free")
-        elsif @end_time[i_2] <= upper_2
-          availability_2.insert(0, "free")
-          i_2 += 1
-        else
-          i_2 += 1
-          availability_2.insert(0, "busy")
-      end
-    end
-    else
-      availability_2.insert(0, "free")
-    end
-
-      if availability_2.include?("busy")
-       @availability.day_5.insert(-1, "Unavailable from 10:30am to 12:00pm")
-      else
-       @availability.day_5.insert(-1, "Available from 10:30am to 12:00pm")
-      end
-
-    #Time Slot 3 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_3
-          i_3 += 1
-          availability_3.insert(0, "free")
-        elsif @end_time[i_3] <= upper_3
-          availability_3.insert(0, "free")
-          i_3 += 1
-        else
-          i_3 += 1
-          availability_3.insert(0, "busy")
-        end
-      end
-    else
-      availability_3.insert(0, "free")
-    end
-
-    if availability_3.include?("busy")
-      @availability.day_5.insert(-1, "Unavailable from 12:00pm to 1:30pm")
-    else
-      @availability.day_5.insert(-1, "Available from 12:00pm to 1:30pm")
-    end
-
-    #Time Slot 4 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_4
-          i_4 += 1
-          availability_4.insert(0, "free")
-        elsif @end_time[i_4] <= upper_4
-          availability_4.insert(0, "free")
-          i_4 += 1
-        else
-          i_4 += 1
-          availability_4.insert(0, "busy")
-        end
-      end
-    else
-      availability_4.insert(0, "free")
-    end
-
-    if availability_4.include?("busy")
-      @availability.day_5.insert(-1, "Unavailable from 1:30pm to 3:00pm")
-    else
-      @availability.day_5.insert(-1, "Available from 1:30pm to 3:00pm")
-    end
-
-    #Time Slot 5 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_5
-          i_5 += 1
-          availability_5.insert(0, "free")
-        elsif @end_time[i_5] <= upper_5
-          availability_5.insert(0, "free")
-          i_5 += 1
-        else
-          i_5 += 1
-          availability_5.insert(0, "busy")
-        end
-      end
-    else
-      availability_5.insert(0, "free")
-    end
-
-    if availability_5.include?("busy")
-        @availability.day_5.insert(-1, "Unavailable from 3:00pm to 4:30pm")
-    else
-        @availability.day_5.insert(-1, "Available from 3:00pm to 4:30pm")
-    end
-
-    return @availability.day_5
+    @availability = Availability.create
+    @availability.day_5 = @availability_day_5
   end
 
   def day_6
     event_list_google_authentication
 
-    day_6 = Date.today + 6
+    day = Date.today + 6
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     t_3 = Time.parse("17:30").seconds_since_midnight.seconds
@@ -806,158 +164,27 @@ class AvailabilityController < ApplicationController
     t_5 = Time.parse("20:30").seconds_since_midnight.seconds
     t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-    upper_1 = (day_6 + t_1).to_i
-    lower_1 = (day_6 + t_2).to_i
-    upper_2 = (day_6 + t_2).to_i
-    lower_2 = (day_6 + t_3).to_i
-    upper_3 = (day_6 + t_3).to_i
-    lower_3 = (day_6 + t_4).to_i
-    upper_4 = (day_6 + t_4).to_i
-    lower_4 = (day_6 + t_5).to_i
-    upper_5 = (day_6 + t_5).to_i
-    lower_5 = (day_6 + t_6).to_i
+    @upper_1 = (day + t_1).to_i
+    @lower_1 = (day + t_2).to_i
+    @upper_2 = (day + t_2).to_i
+    @lower_2 = (day + t_3).to_i
+    @upper_3 = (day + t_3).to_i
+    @lower_3 = (day + t_4).to_i
+    @upper_4 = (day + t_4).to_i
+    @lower_4 = (day + t_5).to_i
+    @upper_5 = (day + t_5).to_i
+    @lower_5 = (day + t_6).to_i
 
-    i_1 = 0
-    i_2 = 0
-    i_3 = 0
-    i_4 = 0
-    i_5 = 0
+    @availability_day_6 = availability_check
 
-    availability_1 = []
-    availability_2 = []
-    availability_3 = []
-    availability_4 = []
-    availability_5 = []
-
-    @availability.day_6 = []
-
-    #Time Slot 1 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_1
-           i_1 += 1
-           availability_1.insert(0, "free")
-        elsif @end_time[i_1] <= upper_1
-          availability_1.insert(0, "free")
-          i_1 += 1
-        else
-          i_1 += 1
-          availability_1.insert(0, "busy")
-        end
-      end
-    else
-      availability_1.insert(0, "free")
-    end
-
-    if availability_1.include?("busy")
-      @availability.day_6.insert(-1, "Unavailable from 9:00am to 10:30am")
-    else
-      @availability.day_6.insert(-1, "Available from 9:00am to 10:30am")
-    end
-
-    #Time Slot 2 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_2
-          i_2 += 1
-          availability_2.insert(0, "free")
-        elsif @end_time[i_2] <= upper_2
-          availability_2.insert(0, "free")
-          i_2 += 1
-        else
-          i_2 += 1
-          availability_2.insert(0, "busy")
-      end
-    end
-    else
-      availability_2.insert(0, "free")
-    end
-
-      if availability_2.include?("busy")
-        @availability.day_6.insert(-1, "Unavailable from 10:30am to 12:00pm")
-      else
-        @availability.day_6.insert(-1, "Available from 10:30am to 12:00pm")
-      end
-
-    #Time Slot 3 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_3
-          i_3 += 1
-          availability_3.insert(0, "free")
-        elsif @end_time[i_3] <= upper_3
-          availability_3.insert(0, "free")
-          i_3 += 1
-        else
-          i_3 += 1
-          availability_3.insert(0, "busy")
-        end
-      end
-    else
-      availability_3.insert(0, "free")
-    end
-
-    if availability_3.include?("busy")
-      @availability.day_6.insert(-1, "Unavailable from 12:00pm to 1:30pm")
-    else
-      @availability.day_6.insert(-1, "Available from 12:00pm to 1:30pm")
-    end
-
-    #Time Slot 4 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_4
-          i_4 += 1
-          availability_4.insert(0, "free")
-        elsif @end_time[i_4] <= upper_4
-          availability_4.insert(0, "free")
-          i_4 += 1
-        else
-          i_4 += 1
-          availability_4.insert(0, "busy")
-        end
-      end
-    else
-      availability_4.insert(0, "free")
-    end
-
-    if availability_4.include?("busy")
-      @availability.day_6.insert(-1, "Unavailable from 1:30pm to 3:00pm")
-    else
-      @availability.day_6.insert(-1, "Available from 1:30pm to 3:00pm")
-    end
-
-    #Time Slot 5 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_5
-          i_5 += 1
-          availability_5.insert(0, "free")
-        elsif @end_time[i_5] <= upper_5
-          availability_5.insert(0, "free")
-          i_5 += 1
-        else
-          i_5 += 1
-          availability_5.insert(0, "busy")
-        end
-      end
-    else
-      availability_5.insert(0, "free")
-    end
-
-    if availability_5.include?("busy")
-        @availability.day_6.insert(-1, "Unavailable from 3:00pm to 4:30pm")
-    else
-        @availability.day_6.insert(-1, "Available from 3:00pm to 4:30pm")
-    end
-
-    return @availability.day_6
+    @availability = Availability.create
+    @availability.day_6 = @availability_day_6
   end
 
   def day_7
     event_list_google_authentication
 
-    day_7 = Date.today + 7
+    day = Date.today + 7
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     t_3 = Time.parse("17:30").seconds_since_midnight.seconds
@@ -965,152 +192,21 @@ class AvailabilityController < ApplicationController
     t_5 = Time.parse("20:30").seconds_since_midnight.seconds
     t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-    upper_1 = (day_7 + t_1).to_i
-    lower_1 = (day_7 + t_2).to_i
-    upper_2 = (day_7 + t_2).to_i
-    lower_2 = (day_7 + t_3).to_i
-    upper_3 = (day_7 + t_3).to_i
-    lower_3 = (day_7 + t_4).to_i
-    upper_4 = (day_7 + t_4).to_i
-    lower_4 = (day_7 + t_5).to_i
-    upper_5 = (day_7 + t_5).to_i
-    lower_5 = (day_7 + t_6).to_i
+    @upper_1 = (day + t_1).to_i
+    @lower_1 = (day + t_2).to_i
+    @upper_2 = (day + t_2).to_i
+    @lower_2 = (day + t_3).to_i
+    @upper_3 = (day + t_3).to_i
+    @lower_3 = (day + t_4).to_i
+    @upper_4 = (day + t_4).to_i
+    @lower_4 = (day + t_5).to_i
+    @upper_5 = (day + t_5).to_i
+    @lower_5 = (day + t_6).to_i
 
-    i_1 = 0
-    i_2 = 0
-    i_3 = 0
-    i_4 = 0
-    i_5 = 0
+    @availability_day_7 = availability_check
 
-    availability_1 = []
-    availability_2 = []
-    availability_3 = []
-    availability_4 = []
-    availability_5 = []
-
-    @availability.day_7 = []
-
-    #Time Slot 1 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_1
-           i_1 += 1
-           availability_1.insert(0, "free")
-        elsif @end_time[i_1] <= upper_1
-          availability_1.insert(0, "free")
-          i_1 += 1
-        else
-          i_1 += 1
-          availability_1.insert(0, "busy")
-        end
-      end
-    else
-      availability_1.insert(0, "free")
-    end
-
-    if availability_1.include?("busy")
-      @availability.day_7.insert(-1, "Unavailable from 9:00am to 10:30am")
-    else
-      @availability.day_7.insert(-1, "Available from 9:00am to 10:30am")
-    end
-
-    #Time Slot 2 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_2
-          i_2 += 1
-          availability_2.insert(0, "free")
-        elsif @end_time[i_2] <= upper_2
-          availability_2.insert(0, "free")
-          i_2 += 1
-        else
-          i_2 += 1
-          availability_2.insert(0, "busy")
-      end
-    end
-    else
-      availability_2.insert(0, "free")
-    end
-
-      if availability_2.include?("busy")
-        @availability.day_7.insert(-1, "Unavailable from 10:30am to 12:00pm")
-      else
-        @availability.day_7.insert(-1, "Available from 10:30am to 12:00pm")
-      end
-
-    #Time Slot 3 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_3
-          i_3 += 1
-          availability_3.insert(0, "free")
-        elsif @end_time[i_3] <= upper_3
-          availability_3.insert(0, "free")
-          i_3 += 1
-        else
-          i_3 += 1
-          availability_3.insert(0, "busy")
-        end
-      end
-    else
-      availability_3.insert(0, "free")
-    end
-
-    if availability_3.include?("busy")
-      @availability.day_7.insert(-1, "Unavailable from 12:00pm to 1:30pm")
-    else
-      @availability.day_7.insert(-1, "Available from 12:00pm to 1:30pm")
-    end
-
-    #Time Slot 4 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_4
-          i_4 += 1
-          availability_4.insert(0, "free")
-        elsif @end_time[i_4] <= upper_4
-          availability_4.insert(0, "free")
-          i_4 += 1
-        else
-          i_4 += 1
-          availability_4.insert(0, "busy")
-        end
-      end
-    else
-      availability_4.insert(0, "free")
-    end
-
-    if availability_4.include?("busy")
-      @availability.day_7.insert(-1, "Unavailable from 1:30pm to 3:00pm")
-    else
-      @availability.day_7.insert(-1, "Available from 1:30pm to 3:00pm")
-    end
-
-    #Time Slot 5 Availablity Check
-    if @start_time != nil
-      @start_time.each do |time|
-        if time >= lower_5
-          i_5 += 1
-          availability_5.insert(0, "free")
-        elsif @end_time[i_5] <= upper_5
-          availability_5.insert(0, "free")
-          i_5 += 1
-        else
-          i_5 += 1
-          availability_5.insert(0, "busy")
-        end
-      end
-    else
-      availability_5.insert(0, "free")
-    end
-
-    if availability_5.include?("busy")
-        @availability.day_7.insert(-1, "Unavailable from 3:00pm to 4:30pm")
-    else
-        @availability.day_7.insert(-1, "Available from 3:00pm to 4:30pm")
-    end
-
-    return @availability.day_7
+    @availability = Availability.create
+    @availability.day_7 = @availability_day_7
   end
 
 private
@@ -1159,5 +255,141 @@ private
          next
       end
     }.compact
+  end
+
+  def availability_check
+    i_1 = 0
+    i_2 = 0
+    i_3 = 0
+    i_4 = 0
+    i_5 = 0
+
+    availability_1 = []
+    availability_2 = []
+    availability_3 = []
+    availability_4 = []
+    availability_5 = []
+
+    @availability_day = []
+
+    #Time Slot 1 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= @lower_1
+           i_1 += 1
+           availability_1.insert(0, "free")
+        elsif @end_time[i_1] <= @upper_1
+          availability_1.insert(0, "free")
+          i_1 += 1
+        else
+          i_1 += 1
+          availability_1.insert(0, "busy")
+        end
+      end
+    else
+      availability_1.insert(0, "free")
+    end
+
+    if availability_1.include?("busy")
+      @availability_day.insert(-1, "Unavailable from 9:00am to 10:30am")
+    else
+      @availability_day.insert(-1, "Available from 9:00am to 10:30am")
+    end
+
+    #Time Slot 2 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= @lower_2
+          i_2 += 1
+          availability_2.insert(0, "free")
+        elsif @end_time[i_2] <= @upper_2
+          availability_2.insert(0, "free")
+          i_2 += 1
+        else
+          i_2 += 1
+          availability_2.insert(0, "busy")
+      end
+    end
+    else
+      availability_2.insert(0, "free")
+    end
+
+      if availability_2.include?("busy")
+        @availability_day.insert(-1, "Unavailable from 10:30am to 12:00pm")
+      else
+        @availability_day.insert(-1, "Available from 10:30am to 12:00pm")
+      end
+
+    #Time Slot 3 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= @lower_3
+          i_3 += 1
+          availability_3.insert(0, "free")
+        elsif @end_time[i_3] <= @upper_3
+          availability_3.insert(0, "free")
+          i_3 += 1
+        else
+          i_3 += 1
+          availability_3.insert(0, "busy")
+        end
+      end
+    else
+      availability_3.insert(0, "free")
+    end
+
+    if availability_3.include?("busy")
+      @availability_day.insert(-1, "Unavailable from 12:00pm to 1:30pm")
+    else
+      @availability_day.insert(-1, "Available from 12:00pm to 1:30pm")
+    end
+
+    #Time Slot 4 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= @lower_4
+          i_4 += 1
+          availability_4.insert(0, "free")
+        elsif @end_time[i_4] <= @upper_4
+          availability_4.insert(0, "free")
+          i_4 += 1
+        else
+          i_4 += 1
+          availability_4.insert(0, "busy")
+        end
+      end
+    else
+      availability_4.insert(0, "free")
+    end
+
+    if availability_4.include?("busy")
+      @availability_day.insert(-1, "Unavailable from 1:30pm to 3:00pm")
+    else
+      @availability_day.insert(-1, "Available from 1:30pm to 3:00pm")
+    end
+
+    #Time Slot 5 Availablity Check
+    if @start_time != nil
+      @start_time.each do |time|
+        if time >= @lower_5
+          i_5 += 1
+          availability_5.insert(0, "free")
+        elsif @end_time[i_5] <= @upper_5
+          availability_5.insert(0, "free")
+          i_5 += 1
+        else
+          i_5 += 1
+          availability_5.insert(0, "busy")
+        end
+      end
+    else
+      availability_5.insert(0, "free")
+    end
+
+    if availability_5.include?("busy")
+      @availability_day.insert(-1, "Unavailable from 3:00pm to 4:30pm")
+    else
+      @availability_day.insert(-1, "Available from 3:00pm to 4:30pm")
+    end
   end
 end
