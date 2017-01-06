@@ -95,7 +95,6 @@ private
     client.expires_in = Time.now + 1_000_000
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
-
     @result = service.list_events('primary')
   end
 

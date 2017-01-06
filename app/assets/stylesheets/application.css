@@ -15,13 +15,11 @@
  */
 
 
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
 body {
-  line-height: 1;
+  line-height: 1.5;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 ol, ul {
   list-style: none;
@@ -40,100 +38,85 @@ table {
 }
 
 /* =============================================================================
-  Grid
+  layout
   ============================================================================= */
 
+
 * {
-  font-family: 'Questrial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   zoom: 100%;
+  font-weight: 400;
 }
 
 .logo {
-  height: 40%;
-  width: 40%;
+  margin-top: 6px;
+  height: 52px;
+  width: 52px;
 }
 
-.logo_style {
-  text-align: center;
-  padding-bottom: 20px;
-  margin-top: 20px;
+
+.nav-wrapper {
+  padding-left: 10px;
+  background-color: #607d8b;
 }
 
-.site-nav {
-  display: block;
-  text-align: center;
-}
-
-.site-nav a:link {
+.nav-wrapper a:link {
   text-decoration: none;
 }
 
-.alert {
-  text-align: center;
+/*.alert {
+  text-align: cen ter;
   background-color: black;
   color: #ED1B24;
   padding: 5px;
-}
+}*/
 
-h1, h2, h4 {
+h1, h2, h3, h4, h6 {
   text-align: center;
+  font-weight: 300;
 }
 
-h1 {
+h2 {
   padding: 15px;
-  background-color: #ED1B24;
   margin-bottom: 0;
+  padding-top: 65px;
+}
+
+h3 {
+  margin-top: 85px;
 }
 
 .search_bar {
   display: inline;
   text-align: center;
-}
-
-#search-form {
-  background-color: black;
-  padding: 15px;
+  text-align: center;
 }
 
 .trainer_count p {
-  color: black;
-}
-
-#error_explanation li {
+  font-size: 14px;
   text-align: center;
-}
-
-.user_profile {
-  background-color: black;
-  padding-top: 1px;
-  padding-bottom: 1px;
-}
-
-.user_profile, p {
-  text-align: center;
-  color: white;
 }
 
 .display {
-  color: #ED1B24;
+  color: #cddc39;
 }
 
-.trainer_list h4, a:link {
-  list-style: none;
-  text-align: center;
-  text-decoration: none;
-}
+/* =============================================================================
+form
+============================================================================= */
 
 .form_container {
-  width: 15%;
-  background-color: black;
-  color: #ED1B24;
+  width: 50%;
+  background-color: #eceff1;
+  color: black;
   margin-top: 20px;
+  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 18px;
+  padding-right: 18px;
   padding-top: 18px;
-  border-radius: 35px;
+  border-radius: 5px;
 }
 
 .form_container p {
@@ -141,26 +124,49 @@ h1 {
   text-align: left;
 }
 
-.form label, input {
-  background-position: center;
+#btn {
+  clear: both;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.cancel_link h4 {
-  text-align: left;
-  padding-bottom: 8px;
-}
-
-.weekly_calendar {
-	/*transform: rotate(270deg);*/
-  color: darkgreen;
-}
-
-footer {
+.week_day {
+  display: inline-block;
   text-align: center;
-  font-weight: 400px;
-  background-color: black;
+
 }
 
-footer p {
-  color: white;
+ main {
+   flex: 1 0 auto;
+ }
+
+footer.page-footer {
+background-color: #cddc39;
+font-weight: 300px;
+}
+
+#google-alert {
+  color: #cddc39;
+  margin-right: 12px;
+}
+
+.card-title {
+  color: #f44336;
+}
+
+.error_msg {
+  text-align: center;
+}
+
+.card {
+  height: 100%;
+}
+
+.row {
+  flex-direction: row;
+  display: flex;
+}
+
+.avail-time {
+font-size: 14px;
 }
