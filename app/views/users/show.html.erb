@@ -3,99 +3,88 @@
 <% else %>
   <h3 class="user_header"><%= @user.name %>'s page</h3>
 <% end %>
+</br>
 
 <!-- Materialize Card Layout -->
-<!-- Card 1 -->
+<!-- Card 1 Profile -->
+<div class="valign-wrapper">
 <div class="row">
-  <div class="col m4 s12">
+  <div class="col m3 s12 offset-l1">
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
-        <span class="card-title">Profile</span>
+        <span class="card-title">Trainer Profile</span>
           <div class="user_profile">
-            <div class="card-action">
-              <p class="edit_link"><%= link_to "EDIT", "/users/#{@user.id}/edit" %></p>
-            </div>
             <div class="user_info">
-              <p>User: <div class="display"><%= @user.name %></div></p>
-              <p>Email: <div class="display"><%= @user.email %></div></p>
-              <p>Address: <div class="display"><%= @user.address %></div></p>
+              <p>User name: <div class="display"><%= @user.name %></div></p>
+              <p>Email address: <div class="display"><%= @user.email %></div></p>
+              <p>Street address: <div class="display"><%= @user.address %></div></p></br>
             </div>
           </div>
+        <div class="card-action">
+          <p class="edit_link"><%= link_to "Edit your profile", "/users/#{@user.id}/edit" %></p>
+        </div>
       </div>
     </div>
   </div>
-<!-- Card 2 -->
-  <div class="col m4 s12">
-    <div class="card blue-grey darken-1">
+<!-- Card 2 Bio-->
+  <div class="col m3 s12">
+    <div class="card lime darken-1">
       <div class="card-content white-text">
-        <span class="card-title">Events</span>
-          <div class="user_profile">
-            <div class="card-action">
-              <p class="edit_link"><%= link_to "EDIT", "/users/#{@user.id}/edit" %></p>
-            </div>
-            <div class="user_info">
-              <p>User: <div class="display"><%= @user.name %></div></p>
-              <p>Email: <div class="display"><%= @user.email %></div></p>
-              <p>Address: <div class="display"><%= @user.address %></div></p>
-            </div>
-          </div>
+        <span class="card-title">Biography</span>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p></br>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p></br>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p></br>
       </div>
     </div>
   </div>
-<!-- Card 3 -->
-  <div class="col m4 s12">
+<!-- Card 3 Available times-->
+  <div class="col m3 s12">
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
-        <span class="card-title">Category</span>
-          <div class="user_profile">
-            <div class="card-action">
-              <p class="edit_link"><%= link_to "EDIT", "/users/#{@user.id}/edit" %></p>
-            </div>
-            <div class="user_info">
-              <p>User: <div class="display"><%= @user.name %></div></p>
-              <p>Email: <div class="display"><%= @user.email %></div></p>
-              <p>Address: <div class="display"><%= @user.address %></div></p>
-            </div>
+        <span class="card-title">Availability</span>
+          <div class="card-action">
+          <div>
+            <%= @weekly_event_list %>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<div >
-  <%= @weekly_event_list %>
 </div>
-
 
 <div class="events_title">
   <h4><%= @user.name %>'s Events:</h4>
-</div>
+</div></br>
 
-<div class="weekly_calendar">
-  <div class="weekly_day_one">
-    <%= link_to "#{@weekly_event_list[0]}", :day_1 %>
+<div style="text-align: center;">
+  <div class="weekly_calendar">
+    <a class="waves-effect waves-teal btn-flat">Botton</a>
+    <div class="weekly_day_one">
+      <%= link_to "#{@weekly_event_list[0]}", :day_1 %>
+    </div>
+    <div class="weekly_day_two">
+      <%= link_to "#{@weekly_event_list[1]}", :day_2 %>
+    </div>
+    <div class="weekly_day_three">
+      <%= link_to "#{@weekly_event_list[2]}", :day_3 %>
+    </div>
+    <div class="weekly_day_four">
+      <%= link_to "#{@weekly_event_list[3]}", :day_4 %>
+    </div>
+    <div class="weekly_day_five">
+      <%= link_to "#{@weekly_event_list[4]}", :day_5 %>
+    </div>
+    <div class="weekly_day_six">
+      <%= link_to "#{@weekly_event_list[5]}", :day_6 %>
+    </div>
+    <div class="weekly_day_seven">
+      <%= link_to "#{@weekly_event_list[6]}", :day_7 %>
+    </div>
   </div>
-  <div class="weekly_day_two">
-    <%= link_to "#{@weekly_event_list[1]}", :day_2 %>
-  </div>
-  <div class="weekly_day_three">
-    <%= link_to "#{@weekly_event_list[2]}", :day_3 %>
-  </div>
-  <div class="weekly_day_four">
-    <%= link_to "#{@weekly_event_list[3]}", :day_4 %>
-  </div>
-  <div class="weekly_day_five">
-    <%= link_to "#{@weekly_event_list[4]}", :day_5 %>
-  </div>
-  <div class="weekly_day_six">
-    <%= link_to "#{@weekly_event_list[5]}", :day_6 %>
-  </div>
-  <div class="weekly_day_seven">
-    <%= link_to "#{@weekly_event_list[6]}", :day_7 %>
-  </div>
-</div>
+</div></br>
 
-<div style="text-align: left;">
+<div style="text-align: center;">
   <% if logged_in? %>
     Currently logged in as: <%= current_user.email %> |
     <% if current_user.has_linked_google? %>

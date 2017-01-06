@@ -152,3 +152,7 @@ font-weight: 300px;
   color: #cddc39;
   margin-right: 12px;
 }
+
+.card-title {
+  color: #f44336;
+}
