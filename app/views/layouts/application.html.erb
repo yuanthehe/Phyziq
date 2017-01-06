@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="jquery.raty.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <%= csrf_meta_tags %>
@@ -16,13 +17,11 @@
       <!-- <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/> -->
   </head>
   <body>
-    <div class="logo_style">
-      <a href="/"><%= image_tag "final-logo.jpg", :class => "logo" %></a>
-    </div>
   <header class="site-header">
     <!-- navigation bar -->
     <nav>
       <div class="nav-wrapper">
+        <a href="/" class="brand-logo center"><%= image_tag "phyziq-logo.png", :class => "logo" %></a>
         <%= link_to "Home", users_url %>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <% if current_user %>

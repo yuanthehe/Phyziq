@@ -3,3 +3,6 @@
 $(document).ready(function(){
       $('.parallax').parallax();
     });
+
+
+$('div').raty();

@@ -38,7 +38,6 @@ gem 'sorcery'
 
 gem 'materialize-rails'
 
-gem 'devise'
 gem 'omniauth-google-oauth2'
 
 group :development, :test do

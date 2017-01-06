@@ -1,8 +1,8 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@user.errors.count, "error") %> stopped the sign up</h2>
-    <ul>
+    <h4><%= pluralize(@user.errors.count, "error") %> stopped the sign up</h4>
+    <ul class="error_msg">
       <% @user.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
   <% end %>

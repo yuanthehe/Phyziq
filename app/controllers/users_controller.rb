@@ -38,6 +38,23 @@ class UsersController < ApplicationController
     @weekly_event_list = weekly_event_list
   end
 
+  def weekly_event_list
+    google_authentication
+
+    # result = service.list_events('primary')
+    weekly = @result.items.map {|e|
+         e.start.date
+       }.compact
+
+    next_six_days.map {|day|
+      if weekly.include?(day)
+        next "Busy on #{day}"
+      else
+        next "Free on #{day}"
+      end
+      }
+  end
+
   def edit
   #  @user = User.find(params[:id])
   end
@@ -55,23 +72,6 @@ class UsersController < ApplicationController
   #  @user = User.find(params[:id])
     @user.destroy
     redirect_to :new
-  end
-
-  #Display available days (No all day appointments)
-  def weekly_event_list
-      google_authentication
-
-      # result = @service.list_events('primary')
-      weekly = @result.items.map {|e|
-           e.start.date
-         }.compact
-      next_six_days.map {|day|
-        if weekly.include?(day)
-          next "Busy on #{day}"
-        else
-          next "Free on #{day}"
-        end
-        }
   end
 
 private

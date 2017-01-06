@@ -49,15 +49,11 @@ table {
 }
 
 .logo {
-  height: 18%;
-  width: 18%;
+  margin-top: 6px;
+  height: 52px;
+  width: 52px;
 }
 
-.logo_style {
-  text-align: center;
-  padding-bottom: 20px;
-  margin-top: 20px;
-}
 
 .nav-wrapper {
   padding-left: 10px;
@@ -155,4 +151,8 @@ font-weight: 300px;
 
 .card-title {
   color: #f44336;
+}
+
+.error_msg {
+  text-align: center;
 }
