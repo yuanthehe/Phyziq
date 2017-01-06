@@ -24,7 +24,7 @@ class OauthsController < ApplicationController
         reset_session # protect from session fixation attack
         auto_login(@user)
         flash[:alert] = 'Google account successfully linked!'
-        redirect_to user_url(@user)
+        redirect_to root_path
       # end
     end
   end
