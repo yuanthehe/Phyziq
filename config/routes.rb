@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   get "day_5" => "availabilities", :as => :day_5
   get "day_6" => "availabilities", :as => :day_6
   get "day_7" => "availabilities", :as => :day_7
+
+  get "weekly_hourly" => "availabilities", :as => :refresh_availability
+
 end
