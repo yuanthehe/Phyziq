@@ -130,9 +130,10 @@ form
   margin-right: auto;
 }
 
-.weekly_calendar {
-	/*transform: rotate(270deg);*/
-  color: darkgreen;
+.week_day {
+  display: inline-block;
+  text-align: center;
+
 }
 
  main {
@@ -155,4 +156,13 @@ font-weight: 300px;
 
 .error_msg {
   text-align: center;
+}
+
+.card {
+    height: 100%;
+}
+
+.row {
+    flex-direction: row;
+    display: flex;
 }
