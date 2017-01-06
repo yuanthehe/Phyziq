@@ -2,14 +2,6 @@ class AvailabilitiesController < ApplicationController
 
   def new
     @availability = Availability.new
-    # day_1: @availability_day_1,
-    # day_2: @availability_day_2,
-    # day_3: @availability_day_3,
-    # day_4: @availability_day_4,
-    # day_5: @availability_day_5,
-    # day_6: @availability_day_6,
-    # day_7: @availability_day_7,
-    # user_id: current_user.id
   end
 
   def create
