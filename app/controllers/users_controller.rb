@@ -100,6 +100,6 @@ private
 
   def next_six_days
     tomorrow = Date.today + 1
-    (tomorrow .. tomorrow + 6).map {|date| "#{date}"}
+    @next_six_days = (tomorrow .. tomorrow + 6).map {|date| "#{date}"}
   end
 end
