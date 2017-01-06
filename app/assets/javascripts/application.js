@@ -5,4 +5,4 @@ $(document).ready(function(){
     });
 
 
-$('div').raty();
+// $('div').raty();

@@ -7,11 +7,11 @@
 
 <!-- Materialize Card Layout -->
 <!-- Card 1 Profile -->
-<div class="valign-wrapper">
 <div class="row">
   <div class="col m6 s12">
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
+        <i class="medium material-icons">perm_identity</i></br>
         <span class="card-title">Trainer Profile</span>
           <div class="user_profile">
             <div class="user_info">
@@ -30,7 +30,8 @@
   <div class="col m6 s12">
     <div class="card lime darken-1">
       <div class="card-content white-text">
-        <span class="card-title">Biography</span>
+        <i class="medium material-icons">description</i></br>
+        <span class="card-title">Practice Area</span>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p></br>
           <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p></br>
           <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p></br>
@@ -38,59 +39,57 @@
     </div>
   </div>
 </div>
-</div>
-<div class="events_title">
-  <h4><%= @user.name %>'s Events:</h4>
-<<<<<<< HEAD
+</div></br>
+<div class="divider"></div>
+<h4>Available Time Slots:</h4>
+</br>
+<div class="row">
+  <div class="col s2">
+    <div class="weekly_day_one">
+      <a class="waves-effect waves-red btn-flat">Monday</a>
+    </div>
+  </div>
+  <div class="col s2">
+    <div class="weekly_day_two">
+      <a class="waves-effect waves-red btn-flat">Tuesday</a>
+    </div>
+  </div>
+  <div class="col s2">
+    <div class="weekly_day_three">
+      <a class="waves-effect waves-red btn-flat">Wednesday</a>
+    </div>
+  </div>
+  <div class="col s2">
+    <div class="weekly_day_four">
+      <a class="waves-effect waves-red btn-flat">Thursday</a>
+    </div>
+  </div>
+  <div class="col s2">
+    <div class="weekly_day_five">
+      <a class="waves-effect waves-red btn-flat">Friday</a>
+    </div>
+  </div>
+  <div class="col s2">
+    <div class="weekly_day_six">
+      <a class="waves-effect waves-red btn-flat">Saturday</a>
+    </div>
+  </div>
+  <div class="col s2">
+    <div class="weekly_day_seven">
+      <a class="waves-effect waves-red btn-flat">Sunday</a>
+    </div>
+  </div>
 </div></br>
 
-  <div class="row">
-    <div class="col l1 m1 s4">
-      <div class="weekly_day_one">
-        <div class="week_day">Day -1- Available Time</div>
-      </div>
-    </div>
-    <div class="col l1 m1 s4">
-      <div class="weekly_day_two">
-        <div class="week_day">Day -2- Available Time</div>
-      </div>
-    </div>
-    <div class="col l1 m1 s4">
-      <div class="weekly_day_three">
-        <div class="week_day">Day -3- Available Time</div>
-      </div>
-    </div>
-    <div class="col l1 m1 s4">
-      <div class="weekly_day_four">
-        <div class="week_day">Day -4- Available Time</div>
-      </div>
-    </div>
-    <div class="col l1 m1 s4">
-      <div class="weekly_day_five">
-        <div class="week_day">Day -5- Available Time</div>
-      </div>
-    </div>
-    <div class="col l1 m1 s4">
-      <div class="weekly_day_six">
-        <div class="week_day">Day -6- Available Time</div>
-      </div>
-    </div>
-    <div class="col l1 m1 s4 offset-l1">
-      <div class="weekly_day_seven">
-        <div class="week_day">Day -7- Available Time</div>
-      </div>
-    </div>
-  </div></br>
-
 <div style="text-align: center;">
-  <% if logged_in? %>
-    Currently logged in as: <%= current_user.email %> |
-    <% if current_user.has_linked_google? %>
-      Account linked with Google!
-      <!-- <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %> -->
-    <% else %>
-      <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
-    <% end %>
-      <!-- <%= link_to 'Logout', :logout %> -->
+<% if logged_in? %>
+  Currently logged in as: <%= current_user.email %> |
+  <% if current_user.has_linked_google? %>
+    Account linked with Google!
+    <!-- <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %> -->
+  <% else %>
+    <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
   <% end %>
+    <!-- <%= link_to 'Logout', :logout %> -->
+<% end %>
 </div>
