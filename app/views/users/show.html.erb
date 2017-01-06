@@ -15,7 +15,8 @@
 
 <div class="events_title">
   <h4><%= @user.name %>'s Events:</h4>
-  <%=link_to "Check Available Times", :refresh_availability %>
+  <!-- <%=link_to "Check Available Times", :refresh_availability %> -->
+  <%= render 'weekly_hourly' %>
 </div>
 
 
