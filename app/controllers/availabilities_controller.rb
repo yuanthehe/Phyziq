@@ -36,6 +36,14 @@ class AvailabilitiesController < ApplicationController
       )
   end
 
+  def edit
+    @availability = Availability.find(params[:id])
+  end
+
+  def update
+
+  end
+
   def day_1
     event_list_google_authentication
 
@@ -106,17 +114,6 @@ class AvailabilitiesController < ApplicationController
     # @availability = Availability.create(day_7: @availability_day_7)
   end
 
-  def create
-    @availability = Availability.new
-    @availability.day_1 = @availability_day_1
-    @availability.day_2 = @availability_day_2
-    @availability.day_3 = @availability_day_3
-    @availability.day_4 = @availability_day_4
-    @availability.day_5 = @availability_day_5
-    @availability.day_6 = @availability_day_6
-    @availability.day_7 = @availability_day_7
-    @availability.user_id = current_user.id
-  end
 
 private
 
@@ -126,6 +123,7 @@ private
 
   def generic_google_authentication
     client = Signet::OAuth2::Client.new({
+    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -138,6 +136,7 @@ private
 
   def event_list_google_authentication
     client = Signet::OAuth2::Client.new({
+    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
