@@ -118,25 +118,6 @@
   </div>
 </div></br>
 
-<<<<<<< HEAD
-<div class="events_title">
-  <h4><%= @user.name %>'s Events:</h4>
-  <%= render 'weekly_hourly' %>
-</div>
-
-
-</div>
-<div style="text-align: left;">
-  <% if logged_in? %>
-    Currently logged in as: <%= current_user.email %> |
-    <% if current_user.has_linked_google? %>
-      Account linked with Google!
-      <!-- <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %> -->
-    <% else %>
-      <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
-    <% end %>
-      <!-- <%= link_to 'Logout', :logout %> -->
-=======
 <div style="text-align: center;">
 <% if logged_in? %>
   Currently logged in as: <%= current_user.email %> |
@@ -145,7 +126,6 @@
     <!-- <%= link_to 'Unlink your Google account', delete_oauth_path('google'), method: :delete %> -->
   <% else %>
     <%= link_to 'Link your Google', auth_at_provider_path(:provider => :google) %>
->>>>>>> 265a4d9eac6f4ee1f651bb8d2c0cf88de2d42e40
   <% end %>
     <!-- <%= link_to 'Logout', :logout %> -->
 <% end %>
