@@ -220,7 +220,7 @@ private
     if availability_1.include?("busy")
       @availability_day.insert(-1, "Unavailable")
     else
-      @availability_day.insert(-1, "9:00am to 10:30am")
+      @availability_day.insert(-1, "9:00am-10:30am")
     end
 
     #Time Slot 2 Availablity Check
@@ -244,7 +244,7 @@ private
       if availability_2.include?("busy")
         @availability_day.insert(-1, "Unavailable")
       else
-        @availability_day.insert(-1, "10:30am to 12:00pm")
+        @availability_day.insert(-1, "10:30am-12:00pm")
       end
 
     #Time Slot 3 Availablity Check
@@ -268,7 +268,7 @@ private
     if availability_3.include?("busy")
       @availability_day.insert(-1, "Unavailable")
     else
-      @availability_day.insert(-1, "12:00pm to 1:30pm")
+      @availability_day.insert(-1, "12:00pm-1:30pm")
     end
 
     #Time Slot 4 Availablity Check
@@ -292,7 +292,7 @@ private
     if availability_4.include?("busy")
       @availability_day.insert(-1, "Unavailable")
     else
-      @availability_day.insert(-1, "1:30pm to 3:00pm")
+      @availability_day.insert(-1, "1:30pm-3:00pm")
     end
 
     #Time Slot 5 Availablity Check
@@ -316,7 +316,7 @@ private
     if availability_5.include?("busy")
       @availability_day.insert(-1, "Unavailable")
     else
-      @availability_day.insert(-1, "3:00pm to 4:30pm")
+      @availability_day.insert(-1, "3:00pm-4:30pm")
     end
   end
 end

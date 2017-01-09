@@ -167,6 +167,19 @@ font-weight: 300px;
   display: flex;
 }
 
-.avail-time {
-font-size: 14px;
+.waves-effect {
+  font-size: 13px;
+  font-weight: bold;
+  font-kerning: auto;
+  text-align: center;
+  background-color: #607d8b;
+}
+
+.time_slot {
+  font-size: 13px;
+  font-weight: bold;
+  color: #37474f;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 65px;
 }

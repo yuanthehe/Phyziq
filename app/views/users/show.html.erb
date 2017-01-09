@@ -41,83 +41,81 @@
 </div>
 </div></br>
 <div class="divider"></div>
-<h4>Available Time Slots:</h4>
+<h4>Available Times:</h4>
 </br>
 <div class="row">
-  <div class="col s2">
-    <div class="weekly_day_one">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[0] %></a>
-      <%= @user.availabilities.last.day_1[0] %>
-      <%= @user.availabilities.last.day_1[1] %>
-      <%= @user.availabilities.last.day_1[2] %>
-      <%= @user.availabilities.last.day_1[3] %>
-      <%= @user.availabilities.last.day_1[4] %>
-    </div>
+<div class="col s2 m3 l2">
+  <div class="weekly_day_one">
+    <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[0] %></a></br>
+    <div class="time_slot"><%= @user.availabilities.last.day_1[0] %></br>
+    <%= @user.availabilities.last.day_1[1] %></br>
+    <%= @user.availabilities.last.day_1[2] %></br>
+    <%= @user.availabilities.last.day_1[3] %></br>
+    <%= @user.availabilities.last.day_1[4] %></br></div>
   </div>
-  <div class="col s2">
-    <div class="weekly_day_two">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[1] %></a>
-      <%= @user.availabilities.last.day_2[0] %>
-      <%= @user.availabilities.last.day_2[1] %>
-      <%= @user.availabilities.last.day_2[2] %>
-      <%= @user.availabilities.last.day_2[3] %>
-      <%= @user.availabilities.last.day_2[4] %>
-    </div>
+</div>
+<div class="col s2 m3 l2">
+  <div class="weekly_day_two">
+    <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[1] %></a></br>
+    <div class="time_slot"><%= @user.availabilities.last.day_2[0] %></br>
+    <%= @user.availabilities.last.day_2[1] %></br>
+    <%= @user.availabilities.last.day_2[2] %></br>
+    <%= @user.availabilities.last.day_2[3] %></br>
+    <%= @user.availabilities.last.day_2[4] %></br></div>
   </div>
-  <div class="col s2">
-    <div class="weekly_day_three">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[2] %></a>
-      <%= @user.availabilities.last.day_3[0] %>
-      <%= @user.availabilities.last.day_3[1] %>
-      <%= @user.availabilities.last.day_3[2] %>
-      <%= @user.availabilities.last.day_3[3] %>
-      <%= @user.availabilities.last.day_3[4] %>
-    </div>
+</div>
+<div class="col s2 m3 l2">
+  <div class="weekly_day_three">
+    <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[2] %></a></br>
+    <div class="time_slot"><%= @user.availabilities.last.day_3[0] %></br>
+    <%= @user.availabilities.last.day_3[1] %></br>
+    <%= @user.availabilities.last.day_3[2] %></br>
+    <%= @user.availabilities.last.day_3[3] %></br>
+    <%= @user.availabilities.last.day_3[4] %></br></div>
   </div>
-  <div class="col s2">
-    <div class="weekly_day_four">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[3] %></a>
-      <%= @user.availabilities.last.day_4[0] %>
-      <%= @user.availabilities.last.day_4[1] %>
-      <%= @user.availabilities.last.day_4[2] %>
-      <%= @user.availabilities.last.day_4[3] %>
-      <%= @user.availabilities.last.day_4[4] %>
-    </div>
+</div>
+<div class="col s2 m3 l2">
+  <div class="weekly_day_four">
+    <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[3] %></a></br>
+    <div class="time_slot"><%= @user.availabilities.last.day_4[0] %></br>
+    <%= @user.availabilities.last.day_4[1] %></br>
+    <%= @user.availabilities.last.day_4[2] %></br>
+    <%= @user.availabilities.last.day_4[3] %></br>
+    <%= @user.availabilities.last.day_4[4] %></br></div>
   </div>
-  <div class="col s2">
-    <div class="weekly_day_five">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[4] %></a>
-      <%= @user.availabilities.last.day_5[0] %>
-      <%= @user.availabilities.last.day_5[1] %>
-      <%= @user.availabilities.last.day_5[2] %>
-      <%= @user.availabilities.last.day_5[3] %>
-      <%= @user.availabilities.last.day_5[4] %>
-    </div>
+</div>
+<div class="col s2 m3 l2">
+  <div class="weekly_day_five">
+    <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[4] %></a></br>
+    <div class="time_slot"><%= @user.availabilities.last.day_5[0] %></br>
+    <%= @user.availabilities.last.day_5[1] %></br>
+    <%= @user.availabilities.last.day_5[2] %></br>
+    <%= @user.availabilities.last.day_5[3] %></br>
+    <%= @user.availabilities.last.day_5[4] %></br></div>
   </div>
-  <div class="col s2">
-    <div class="weekly_day_six">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[5] %></a>
-      <%= @user.availabilities.last.day_6[0] %>
-      <%= @user.availabilities.last.day_6[1] %>
-      <%= @user.availabilities.last.day_6[2] %>
-      <%= @user.availabilities.last.day_6[3] %>
-      <%= @user.availabilities.last.day_6[4] %>
-    </div>
-  </div>
-  <div class="col s2">
-    <div class="weekly_day_seven">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[6] %></a>
-      <div class="avail-time">
-        <%= @user.availabilities.last.day_7[0] %>
-        <%= @user.availabilities.last.day_7[1] %>
-        <%= @user.availabilities.last.day_7[2] %>
-        <%= @user.availabilities.last.day_7[3] %>
-        <%= @user.availabilities.last.day_7[4] %>
-      </div>
-    </div>
+</div>
+<div class="col s2 m3 l2">
+  <div class="weekly_day_six">
+    <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[5] %></a></br>
+    <div class="time_slot"><%= @user.availabilities.last.day_6[0] %></br>
+    <%= @user.availabilities.last.day_6[1] %></br>
+    <%= @user.availabilities.last.day_6[2] %></br>
+    <%= @user.availabilities.last.day_6[3] %></br>
+    <%= @user.availabilities.last.day_6[4] %></br></div>
   </div>
 </div></br>
-
+<div class="col s2 m3 l2">
+  <div class="weekly_day_seven">
+    <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[6] %></a></br>
+      <div class="time_slot"><%= @user.availabilities.last.day_7[0] %></br>
+      <%= @user.availabilities.last.day_7[1] %></br>
+      <%= @user.availabilities.last.day_7[2] %></br>
+      <%= @user.availabilities.last.day_7[3] %></br>
+      <%= @user.availabilities.last.day_7[4] %></br></div>
+    </div>
+  </div>
+</div>
+<div class="divider"></div></br>
 <div style="text-align: center;">
 <% if logged_in? %>
   Currently logged in as: <%= current_user.email %> |
