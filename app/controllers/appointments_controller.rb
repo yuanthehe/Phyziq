@@ -50,6 +50,7 @@ class AppointmentsController < ApplicationController
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     @t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     @event_time = time_slots
+
   end
 
 private
