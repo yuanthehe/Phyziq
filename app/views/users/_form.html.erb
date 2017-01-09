@@ -31,13 +31,15 @@
     <%= f.check_box :trainer %>
     <%= f.label :trainer %>
   </div>
-</div>
 
-<button class="btn waves-effect waves-light blue-grey" type="submit" name="action">Submit
-  <i class="material-icons right">send</i>
-</button>
+  <div class="sub-cancel_button center-align">
+    <button class="btn waves-effect waves-light blue-grey" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
 
-<div class="btn waves-effect waves-light blue-grey white-text"></a>
-  <%= link_to "Cancel", users_url(@user) %>
-  <% end %>
+    <div class="btn waves-effect waves-light blue-grey white-text"></a>
+      <%= link_to "Cancel", users_url(@user) %>
+      <% end %>
+    </div>
+  </div>
 </div>

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col l10 offset-l1 white-text">
-          <h3>Find a trainer in your area</h3></br>
+          <h1>Find a trainer in your area</h1></br>
             <div class="search_bar">
               <%= form_tag(users_url, :method => "get", id: "search-form") do %>
               <%= text_field_tag :search, params[:search], placeholder: "BY NAME OR LOCATION", required: true %>
