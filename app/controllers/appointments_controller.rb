@@ -1,35 +1,9 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
-
-  def oauth
-
-  end
+  before_action :load_user
 
   def new
-    # client = Signet::OAuth2::Client.new({
-    # client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    # client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    # token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    # access_token: session[:access_token]
-    # })
-    # client.expires_in = Time.now + 1_000_000
-    # service = Google::Apis::CalendarV3::CalendarService.new
-    # service.authorization = client
-    #
-    # event = Google::Apis::CalendarV3::Event.new({
-    #   'summary':'Testing',
-    #   'location':'Bitmaker',
-    #   'description':'Testing insert event',
-    #   'start':{
-    #     'date_time': DateTime.parse('2017-01-09T09:00:00-07:00'),
-    #   },
-    #   'end':{
-    #     'date_time': DateTime.parse('2017-01-09T17:00:00-07:00'),
-    #   }
-    # })
-    #
-    # testing = service.insert_event('primary', event)
-    # "Event created: #{testing.html_link}"
+    @appointment = Appointment.new
   end
 
   def show
@@ -39,14 +13,14 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
 
-    if @appointment.save
-      @appointment.trainee_id = @user.id
-      redirect_to user_url(@appointment.trainee), notice: "Appointment request sent!"
-    else
-      flash[:alert] = "Failed to process appointment request"
-      render '/users'
-    end
-
+    # if @appointment.save
+    #   @appointment.trainee_id = current_user
+    #   @appointment.trainer_id = @user.id
+    #   redirect_to user_url(@user, alert: "Appointment request sent!")
+    # else
+    #   flash[:alert] = "Failed to process appointment request"
+    #   render user_url(@user)
+    # end
   end
 
   def index
@@ -72,44 +46,43 @@ class AppointmentsController < ApplicationController
   def d_1_t_1
     generic_google_authentication
 
-    t_1 = Time.parse("14:00").seconds_since_midnight.seconds
-    t_2 = Time.parse("15:30").seconds_since_midnight.seconds
-
-    upper_i = (day + t_1).to_i
-    lower_i = (day + t_2).to_i
-
-    upper = Time.at(upper_i)
-    lower = Time.at(lower_i)
-
-    day = Date.today + 1
+    @day = Date.today + 1
 
     event = Google::Apis::CalendarV3::Event.new({
-      'summary':'Testing',
-      'location':'Bitmaker',
+      'summary':"Training Sessions with #{current_user.email}",
+      # 'location':'Bitmaker',
       'description':'Testing insert event',
       'start':{
-        'date_time': DateTime.parse("#{upper}"),
+        'date_time': DateTime.parse("2017-01-09T09:00:00-05:00"),
       },
       'end':{
-        'date_time': DateTime.parse("#{lower}"),
+        'date_time': DateTime.parse("2017-01-09T10:30:00-05:00"),
       'attendees':[{
-        'email':"#{@user.email}"}
-      ]
+        'email':"#{@user.email}"},
+        {'email':"yuanthehe@gmail.com"}
+      ],
       }
     })
 
-    appt = service.insert_event('primary', event)
-    "Event created: #{testing.html_link}"
+    appt = @service.insert_event('primary', event)
+    @appointment = Appointment.create(
+      event_start_time: DateTime.parse("2017-01-09T09:00:00-05:00"),
+      event_end_time: DateTime.parse("2017-01-09T10:30:00-05:00"),
+      event_invitation_status: true,
+      trainee_id: "#{current_user.id}",
+      trainer_id: "#{@user.id}"
+    )
+    flash[:alert] = "Invitation sent!"
   end
 
 private
 
-  def load_appointment
-    #load appointment by trainer/trainee
+  def load_user
+    @user = User.find(params[:user_id])
   end
 
   def appointment_params
-    params.require(:appointment).permit(:event, :event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
+    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
   end
 
   def generic_google_authentication
@@ -121,8 +94,8 @@ private
     access_token: session[:access_token]
     })
     client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
+    @service = Google::Apis::CalendarV3::CalendarService.new
+    @service.authorization = client
   end
 
   def event_list_google_authentication
@@ -155,4 +128,35 @@ private
       end
     }.compact
   end
+
+  def time_slots
+   t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+   t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+   t_3 = Time.parse("17:30").seconds_since_midnight.seconds
+   t_4 = Time.parse("19:00").seconds_since_midnight.seconds
+   t_5 = Time.parse("20:30").seconds_since_midnight.seconds
+   t_6 = Time.parse("22:00").seconds_since_midnight.seconds
+
+   upper_i_1 = (@day + t_1).to_i
+   lower_i_1 = (@day + t_2).to_i
+   upper_i_2 = (@day + t_2).to_i
+   lower_i_2 = (@day + t_3).to_i
+   upper_i_3 = (@day + t_3).to_i
+   lower_i_3 = (@day + t_4).to_i
+   upper_i_4 = (@day + t_4).to_i
+   lower_i_4 = (@day + t_5).to_i
+   upper_i_5 = (@day + t_5).to_i
+   lower_i_5 = (@day + t_6).to_i
+
+   @upper_1 = Time.at(upper_i_1)
+   @lower_1 = Time.at(lower_i_1)
+   @upper_2 = Time.at(upper_i_1)
+   @lower_2 = Time.at(lower_i_1)
+   @upper_3 = Time.at(upper_i_1)
+   @lower_3 = Time.at(lower_i_1)
+   @upper_4 = Time.at(upper_i_1)
+   @lower_4 = Time.at(lower_i_1)
+   @upper_5 = Time.at(upper_i_1)
+   @lower_5 = Time.at(lower_i_1)
+ end
 end
