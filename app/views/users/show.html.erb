@@ -47,8 +47,12 @@
   <div class="col s2">
     <div class="weekly_day_one">
       <a class="waves-effect waves-red btn-flat"><%= @next_six_days[0] %></a>
-      <%= link_to "#{@next_six_days[0]}", "/users/#{@user.id}/d_1_t_1" %>
-      <%= @user.availabilities.last.day_1[0] %>
+      <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_1[0] %>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %>
+      <% end %>
+
       <%= @user.availabilities.last.day_1[1] %>
       <%= @user.availabilities.last.day_1[2] %>
       <%= @user.availabilities.last.day_1[3] %>

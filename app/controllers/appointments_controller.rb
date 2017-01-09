@@ -47,32 +47,9 @@ class AppointmentsController < ApplicationController
     generic_google_authentication
 
     @day = Date.today + 1
-    time_slots
-
-    event = Google::Apis::CalendarV3::Event.new({
-      'summary':"Training Sessions with #{current_user.email}",
-      # 'location':'Bitmaker',
-      'description':'Testing insert event',
-      'start':{
-        'date_time': DateTime.parse("#{@upper_1}")
-      },
-      'end':{
-        'date_time': DateTime.parse("#{@lower_1}")
-      },
-      'attendees':[
-        {'email':"#{@user.email}"},
-      ]
-    })
-
-    appt = @service.insert_event('primary', event)
-    @appointment = Appointment.create(
-      event_start_time: DateTime.parse("#{@upper_1}"),
-      event_end_time: DateTime.parse("#{@lower_1}"),
-      event_invitation_status: true,
-      trainee_id: "#{current_user.id}",
-      trainer_id: "#{@user.id}"
-    )
-    flash[:alert] = "Invitation sent!"
+    @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+    @event_time = time_slots
   end
 
 private
@@ -130,33 +107,58 @@ private
   end
 
   def time_slots
-   t_1 = Time.parse("14:00").seconds_since_midnight.seconds
-   t_2 = Time.parse("15:30").seconds_since_midnight.seconds
-   t_3 = Time.parse("17:30").seconds_since_midnight.seconds
-   t_4 = Time.parse("19:00").seconds_since_midnight.seconds
-   t_5 = Time.parse("20:30").seconds_since_midnight.seconds
-   t_6 = Time.parse("22:00").seconds_since_midnight.seconds
+  #  t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+  #  t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+  #  t_3 = Time.parse("17:30").seconds_since_midnight.seconds
+  #  t_4 = Time.parse("19:00").seconds_since_midnight.seconds
+  #  t_5 = Time.parse("20:30").seconds_since_midnight.seconds
+  #  t_6 = Time.parse("22:00").seconds_since_midnight.seconds
 
-   upper_i_1 = (@day + t_1).to_i
-   lower_i_1 = (@day + t_2).to_i
-   upper_i_2 = (@day + t_2).to_i
-   lower_i_2 = (@day + t_3).to_i
-   upper_i_3 = (@day + t_3).to_i
-   lower_i_3 = (@day + t_4).to_i
-   upper_i_4 = (@day + t_4).to_i
-   lower_i_4 = (@day + t_5).to_i
-   upper_i_5 = (@day + t_5).to_i
-   lower_i_5 = (@day + t_6).to_i
+   upper_i_1 = (@day + @t_1).to_i
+   lower_i_1 = (@day + @t_2).to_i
+  #  upper_i_2 = (@day + t_2).to_i
+  #  lower_i_2 = (@day + t_3).to_i
+  #  upper_i_3 = (@day + t_3).to_i
+  #  lower_i_3 = (@day + t_4).to_i
+  #  upper_i_4 = (@day + t_4).to_i
+  #  lower_i_4 = (@day + t_5).to_i
+  #  upper_i_5 = (@day + t_5).to_i
+  #  lower_i_5 = (@day + t_6).to_i
 
-   @upper_1 = Time.at(upper_i_1)
-   @lower_1 = Time.at(lower_i_1)
-   @upper_2 = Time.at(upper_i_1)
-   @lower_2 = Time.at(lower_i_1)
-   @upper_3 = Time.at(upper_i_1)
-   @lower_3 = Time.at(lower_i_1)
-   @upper_4 = Time.at(upper_i_1)
-   @lower_4 = Time.at(lower_i_1)
-   @upper_5 = Time.at(upper_i_1)
-   @lower_5 = Time.at(lower_i_1)
+   upper = Time.at(upper_i_1)
+   lower = Time.at(lower_i_1)
+  #  @upper_2 = Time.at(upper_i_1)
+  #  @lower_2 = Time.at(lower_i_1)
+  #  @upper_3 = Time.at(upper_i_1)
+  #  @lower_3 = Time.at(lower_i_1)
+  #  @upper_4 = Time.at(upper_i_1)
+  #  @lower_4 = Time.at(lower_i_1)
+  #  @upper_5 = Time.at(upper_i_1)
+  #  @lower_5 = Time.at(lower_i_1)
+
+   event = Google::Apis::CalendarV3::Event.new({
+     'summary':"Training Sessions with #{current_user.email}",
+     # 'location':'Bitmaker',
+     'description':'Testing insert event',
+     'start':{
+       'date_time': DateTime.parse("#{upper}")
+     },
+     'end':{
+       'date_time': DateTime.parse("#{lower}")
+     },
+     'attendees':[
+       {'email':"#{@user.email}"},
+     ]
+   })
+
+   appt = @service.insert_event('primary', event)
+   @appointment = Appointment.create(
+     event_start_time: DateTime.parse("#{upper}"),
+     event_end_time: DateTime.parse("#{lower}"),
+     event_invitation_status: true,
+     trainee_id: "#{current_user.id}",
+     trainer_id: "#{@user.id}"
+   )
+   flash[:alert] = "Invitation sent!"
  end
 end
