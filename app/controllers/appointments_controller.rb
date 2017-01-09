@@ -47,27 +47,27 @@ class AppointmentsController < ApplicationController
     generic_google_authentication
 
     @day = Date.today + 1
+    time_slots
 
     event = Google::Apis::CalendarV3::Event.new({
       'summary':"Training Sessions with #{current_user.email}",
       # 'location':'Bitmaker',
       'description':'Testing insert event',
       'start':{
-        'date_time': DateTime.parse("2017-01-09T09:00:00-05:00"),
+        'date_time': DateTime.parse("#{@upper_1}")
       },
       'end':{
-        'date_time': DateTime.parse("2017-01-09T10:30:00-05:00"),
-      'attendees':[{
-        'email':"#{@user.email}"},
-        {'email':"yuanthehe@gmail.com"}
-      ],
-      }
+        'date_time': DateTime.parse("#{@lower_1}")
+      },
+      'attendees':[
+        {'email':"#{@user.email}"},
+      ]
     })
 
     appt = @service.insert_event('primary', event)
     @appointment = Appointment.create(
-      event_start_time: DateTime.parse("2017-01-09T09:00:00-05:00"),
-      event_end_time: DateTime.parse("2017-01-09T10:30:00-05:00"),
+      event_start_time: DateTime.parse("#{@upper_1}"),
+      event_end_time: DateTime.parse("#{@lower_1}"),
       event_invitation_status: true,
       trainee_id: "#{current_user.id}",
       trainer_id: "#{@user.id}"
