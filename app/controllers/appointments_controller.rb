@@ -69,38 +69,39 @@ class AppointmentsController < ApplicationController
 
   end
 
-  # def d_1_t_1
-  #   generic_google_authentication
-  #
-  #   day = Date.today + 1
-  #   t_1 = Time.parse("14:00").seconds_since_midnight.seconds
-  #   t_2 = Time.parse("15:30").seconds_since_midnight.seconds
-  #
-  #   upper_i = (day + t_1).to_i
-  #   lower_i = (day + t_2).to_i
-  #
-  #   upper = Time.at(upper_i)
-  #   lower = Time.at(lower_i)
-  #
-  #   event = Google::Apis::CalendarV3::Event.new({
-  #     'summary':'Testing',
-  #     'location':'Bitmaker',
-  #     'description':'Testing insert event',
-  #     'start':{
-  #       'date_time': DateTime.parse("#{upper}"),
-  #     },
-  #     'end':{
-  #       'date_time': DateTime.parse("#{lower}"),
-  #     'attendees':[{
-  #       'email':"#{email}"}
-  #     ]
-  #     }
-  #   })
-  #
-  #   appt = service.insert_event('primary', event)
-  #   "Event created: #{testing.html_link}"
-  # end
-  
+  def d_1_t_1
+    generic_google_authentication
+
+    t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+
+    upper_i = (day + t_1).to_i
+    lower_i = (day + t_2).to_i
+
+    upper = Time.at(upper_i)
+    lower = Time.at(lower_i)
+
+    day = Date.today + 1
+
+    event = Google::Apis::CalendarV3::Event.new({
+      'summary':'Testing',
+      'location':'Bitmaker',
+      'description':'Testing insert event',
+      'start':{
+        'date_time': DateTime.parse("#{upper}"),
+      },
+      'end':{
+        'date_time': DateTime.parse("#{lower}"),
+      'attendees':[{
+        'email':"#{@user.email}"}
+      ]
+      }
+    })
+
+    appt = service.insert_event('primary', event)
+    "Event created: #{testing.html_link}"
+  end
+
 private
 
   def load_appointment
@@ -113,6 +114,7 @@ private
 
   def generic_google_authentication
     client = Signet::OAuth2::Client.new({
+    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -125,6 +127,7 @@ private
 
   def event_list_google_authentication
     client = Signet::OAuth2::Client.new({
+    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
