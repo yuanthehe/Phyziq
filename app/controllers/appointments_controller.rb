@@ -6,30 +6,23 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    # client = Signet::OAuth2::Client.new({
-    # client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    # client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    # token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    # access_token: session[:access_token]
-    # })
-    # client.expires_in = Time.now + 1_000_000
-    # service = Google::Apis::CalendarV3::CalendarService.new
-    # service.authorization = client
-    #
-    # event = Google::Apis::CalendarV3::Event.new({
-    #   'summary':'Testing',
-    #   'location':'Bitmaker',
-    #   'description':'Testing insert event',
-    #   'start':{
-    #     'date_time': DateTime.parse('2017-01-09T09:00:00-07:00'),
-    #   },
-    #   'end':{
-    #     'date_time': DateTime.parse('2017-01-09T17:00:00-07:00'),
-    #   }
-    # })
-    #
-    # testing = service.insert_event('primary', event)
-    # "Event created: #{testing.html_link}"
+    generic_google_authentication
+
+    event = Google::Apis::CalendarV3::Event.new({
+      'summary':"Training session with #{current_user.email}",
+      'start':{
+        'date_time': DateTime.parse('2017-01-09T09:00:00-05:00'),
+      },
+      'end':{
+        'date_time': DateTime.parse('2017-01-09T10:30:00-05:00'),
+      },
+      'attendees' : [
+        {'email':"#{@user.email}"}
+      ]
+    })
+
+    session = service.insert_event('primary', event)
+    "Event created: #{testing.html_link}"
   end
 
   def show
@@ -69,38 +62,35 @@ class AppointmentsController < ApplicationController
 
   end
 
-  # def d_1_t_1
-  #   generic_google_authentication
-  #
-  #   day = Date.today + 1
-  #   t_1 = Time.parse("14:00").seconds_since_midnight.seconds
-  #   t_2 = Time.parse("15:30").seconds_since_midnight.seconds
-  #
-  #   upper_i = (day + t_1).to_i
-  #   lower_i = (day + t_2).to_i
-  #
-  #   upper = Time.at(upper_i)
-  #   lower = Time.at(lower_i)
-  #
-  #   event = Google::Apis::CalendarV3::Event.new({
-  #     'summary':'Testing',
-  #     'location':'Bitmaker',
-  #     'description':'Testing insert event',
-  #     'start':{
-  #       'date_time': DateTime.parse("#{upper}"),
-  #     },
-  #     'end':{
-  #       'date_time': DateTime.parse("#{lower}"),
-  #     'attendees':[{
-  #       'email':"#{email}"}
-  #     ]
-  #     }
-  #   })
-  #
-  #   appt = service.insert_event('primary', event)
-  #   "Event created: #{testing.html_link}"
-  # end
-  
+  def d_1_t_1
+    generic_google_authentication
+
+    day = Date.today + 1
+
+    t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+
+    upper_i = (day + t_1).to_i
+    lower_i = (day + t_2).to_i
+
+    upper = Time.at(upper_i)
+    lower = Time.at(lower_i)
+
+    event = Google::Apis::CalendarV3::Event.new({
+      'summary':"Training Session with #{current_user.email}",
+      'start':{
+        'date_time': DateTime.parse("#{upper}"),
+      },
+      'end':{
+        'date_time': DateTime.parse("#{lower}"),
+      'attendees':[{
+        'email':"#{@user.email}"}
+      ]
+      }
+    })
+    appt = service.insert_event('primary', event)
+  end
+
 private
 
   def load_appointment
@@ -113,18 +103,20 @@ private
 
   def generic_google_authentication
     client = Signet::OAuth2::Client.new({
+    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
     access_token: session[:access_token]
     })
     client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
+    @service = Google::Apis::CalendarV3::CalendarService.new
+    @service.authorization = client
   end
 
   def event_list_google_authentication
     client = Signet::OAuth2::Client.new({
+    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -151,5 +143,25 @@ private
          next
       end
     }.compact
+  end
+
+  def time_slots
+    t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+    t_3 = Time.parse("17:30").seconds_since_midnight.seconds
+    t_4 = Time.parse("19:00").seconds_since_midnight.seconds
+    t_5 = Time.parse("20:30").seconds_since_midnight.seconds
+    t_6 = Time.parse("22:00").seconds_since_midnight.seconds
+
+    @upper_1 = (@day + t_1).to_i
+    @lower_1 = (@day + t_2).to_i
+    @upper_2 = (@day + t_2).to_i
+    @lower_2 = (@day + t_3).to_i
+    @upper_3 = (@day + t_3).to_i
+    @lower_3 = (@day + t_4).to_i
+    @upper_4 = (@day + t_4).to_i
+    @lower_4 = (@day + t_5).to_i
+    @upper_5 = (@day + t_5).to_i
+    @lower_5 = (@day + t_6).to_i
   end
 end
