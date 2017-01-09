@@ -46,12 +46,17 @@
 <div class="row">
   <div class="col s2 m3 l2">
     <div class="weekly_day_one">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[0] %></a></br>
-      <div class="time_slot"><%= @user.availabilities.last.day_1[0] %></br>
-      <%= @user.availabilities.last.day_1[1] %></br>
-      <%= @user.availabilities.last.day_1[2] %></br>
-      <%= @user.availabilities.last.day_1[3] %></br>
-      <%= @user.availabilities.last.day_1[4] %></br></div>
+      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[0] %></a>
+      <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_1[0] %>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %>
+      <% end %>
+      <%= @user.availabilities.last.day_1[1] %>
+      <%= @user.availabilities.last.day_1[2] %>
+      <%= @user.availabilities.last.day_1[3] %>
+      <%= @user.availabilities.last.day_1[4] %>
+
     </div>
   </div>
 <div class="col s2 m3 l2">
