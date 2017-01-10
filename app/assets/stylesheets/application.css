@@ -102,6 +102,10 @@ h3 {
   text-align: center;
 }
 
+.trainer_list a {
+  color: #607d8b;
+}
+
 .display {
   color: #cddc39;
 }
