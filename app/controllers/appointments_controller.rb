@@ -358,6 +358,59 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
+  def d_7_t_1
+    generic_google_authentication
+
+    @day = Date.today + 7
+    @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_7_t_2
+    generic_google_authentication
+
+    @day = Date.today + 7
+    @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("17:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_7_t_3
+    generic_google_authentication
+
+    @day = Date.today + 7
+    @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("18:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_7_t_4
+    generic_google_authentication
+
+    @day = Date.today + 7
+    @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("20:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_7_t_5
+    generic_google_authentication
+
+    @day = Date.today + 7
+    @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("21:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_7_t_6
+    generic_google_authentication
+
+    @day = Date.today + 7
+    @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("23:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
 private
 
   def load_user
