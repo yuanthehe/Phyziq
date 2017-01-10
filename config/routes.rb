@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
   get 'login' => 'user_sessions#new', :as => :login
   get 'logout' => 'user_sessions#destroy', :as => :logout
+  get 'authorization_error' => 'users', :as => :authorization_error
 
   post "oauth2callback" => "oauths#callback"
   get "oauth2callback" => "oauths#callback"
@@ -64,5 +65,5 @@ Rails.application.routes.draw do
   delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
 
   get "weekly_hourly" => "availabilities", :as => :refresh_availability
-  
+
 end

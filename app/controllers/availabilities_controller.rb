@@ -116,7 +116,6 @@ private
 
   def generic_google_authentication
     client = Signet::OAuth2::Client.new({
-    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -129,7 +128,6 @@ private
 
   def event_list_google_authentication
     client = Signet::OAuth2::Client.new({
-    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
