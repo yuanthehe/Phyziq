@@ -119,12 +119,37 @@
 <div class="col s2 m3 l2">
   <div class="weekly_day_three">
     <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[2] %></a></br>
-    <div class="time_slot"><%= @user.availabilities.last.day_3[0] %></br>
-    <%= @user.availabilities.last.day_3[1] %></br>
-    <%= @user.availabilities.last.day_3[2] %></br>
-    <%= @user.availabilities.last.day_3[3] %></br>
-    <%= @user.availabilities.last.day_3[4] %></br></div>
-  </div>
+    <div class="time_slot">
+    <% if @user.availabilities.last.day_3[0] == "Unavailable" %>
+      <%= @user.availabilities.last.day_3[0] %></br>
+    <% else %>
+      <%= link_to "#{@user.availabilities.last.day_3[0]}", "/users/#{@user.id}/d_3_t_1" %></br>
+    <% end %>
+    <% if @user.availabilities.last.day_3[1] == "Unavailable" %>
+      <%= @user.availabilities.last.day_3[1] %></br>
+    <% else %>
+      <%= link_to "#{@user.availabilities.last.day_3[1]}", "/users/#{@user.id}/d_3_t_2" %></br>
+    <% end %>
+    <% if @user.availabilities.last.day_3[2] == "Unavailable" %>
+      <%= @user.availabilities.last.day_3[2] %></br>
+    <% else %>
+      <%= link_to "#{@user.availabilities.last.day_3[2]}", "/users/#{@user.id}/d_3_t_3" %></br>
+    <% end %>
+    <% if @user.availabilities.last.day_3[3] == "Unavailable" %>
+      <%= @user.availabilities.last.day_3[3] %></br>
+    <% else %>
+      <%= link_to "#{@user.availabilities.last.day_3[3]}", "/users/#{@user.id}/d_3_t_4" %></br>
+    <% end %>
+    <% if @user.availabilities.last.day_3[4] == "Unavailable" %>
+      <%= @user.availabilities.last.day_3[4] %></br>
+    <% else %>
+      <%= link_to "#{@user.availabilities.last.day_3[4]}", "/users/#{@user.id}/d_3_t_5" %></br>
+    <% end %>
+    <% if @user.availabilities.last.day_3[5] == "Unavailable" %>
+      <%= @user.availabilities.last.day_3[5] %></br>
+    <% else %>
+      <%= link_to "#{@user.availabilities.last.day_3[5]}", "/users/#{@user.id}/d_3_t_6" %></br>
+    <% end %></div>
 </div>
 <div class="col s2 m3 l2">
   <div class="weekly_day_four">
