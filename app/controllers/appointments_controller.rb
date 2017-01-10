@@ -6,20 +6,8 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new
   end
 
-  def show
-
-  end
-
   def create
     @appointment = Appointment.new(appointment_params)
-  end
-
-  def index
-    if @user.trainer_appointments != nil
-      @user.trainer_appointments
-    else
-      @user.trainee_appointments
-    end
   end
 
   def edit
@@ -31,7 +19,8 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-
+    @appointment.destroy
+    render "/users/#{@user.id}"
   end
 
   def d_1_t_1
@@ -411,6 +400,7 @@ class AppointmentsController < ApplicationController
     @t_2 = Time.parse("23:00").seconds_since_midnight.seconds
     @event_time = time_slots
   end
+
 private
 
   def load_user
@@ -509,4 +499,6 @@ private
         trainer_id: "#{current_user.id}"
       )
    end
+   flash[:notice] = "Invitation sent for #{up.strftime("%A %d/%m/%Y %T")} to #{low.strftime("%A %d/%m/%Y %T")}"
+  end
 end
