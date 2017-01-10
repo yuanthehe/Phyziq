@@ -312,14 +312,14 @@
   <% if @user.trainer == true %>
     <% @user.trainer_appointments.each do |e| %>
       <%= e.summary %>:
-      <%= e.event_start_time %> to
-      <%= e.event_end_time %>
+      <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
+      <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
     <% end %>
   <% else %>
     <% @user.trainee_appointments.each do |e| %>
       <%= e.summary %>:
-      <%= e.event_start_time %> to
-      <%= e.event_end_time %>
+      <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
+      <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
     <% end %>
   <% end %>
 <% end %>
