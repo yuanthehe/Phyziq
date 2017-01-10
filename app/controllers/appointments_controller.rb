@@ -423,7 +423,6 @@ private
 
   def generic_google_authentication
     client = Signet::OAuth2::Client.new({
-    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -436,7 +435,6 @@ private
 
   def event_list_google_authentication
     client = Signet::OAuth2::Client.new({
-    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -475,9 +473,8 @@ private
    low = DateTime.parse("#{lower}")
 
    event = Google::Apis::CalendarV3::Event.new({
-     'summary':"Training Sessions with #{current_user.email}",
-     # 'location':'Bitmaker',
-     'description':'Testing insert event',
+     'summary':"#{current_user.name}'s Training Session with #{@user.name}",
+     'description':'Booked through Phyziq.com',
      'start':{
        'date_time': "#{up}"
      },
@@ -491,6 +488,7 @@ private
 
    invitation = @service.insert_event('primary', event)
    @appointment = Appointment.create(
+    #  summary: "#{current_user.name}'s Training Session with #{@user.name}"
      event_start_time: "#{up}",
      event_end_time: "#{low}",
      event_invitation_status: true,
