@@ -102,6 +102,10 @@ h3 {
   text-align: center;
 }
 
+.trainer_list a {
+  color: #607d8b;
+}
+
 .display {
   color: #cddc39;
 }
@@ -180,6 +184,15 @@ font-weight: 300px;
 }
 
 .time_slot {
+  font-size: 13px;
+  font-weight: bold;
+  color: #37474f;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 65px;
+}
+
+.time_slot a {
   font-size: 13px;
   font-weight: bold;
   color: #37474f;
