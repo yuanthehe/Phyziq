@@ -311,15 +311,23 @@
   <h4> Your upcoming training events: </h4>
   <% if @user.trainer == true %>
     <% @user.trainer_appointments.each do |e| %>
-      <%= e.summary %>:
-      <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
-      <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
+      <% if Time.at(e.event_end_time) < Time.now %>
+        <% e.destroy %>
+      <% else %>
+        <%= e.summary %>:
+        <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
+        <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
+      <% end %>
     <% end %>
   <% else %>
     <% @user.trainee_appointments.each do |e| %>
-      <%= e.summary %>:
-      <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
-      <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
+      <% if Time.at(e.event_end_time) < Time.now %>
+        <% e.destroy %>
+      <% else %>
+        <%= e.summary %>:
+        <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
+        <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
