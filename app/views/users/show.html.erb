@@ -44,267 +44,285 @@
   </div>
 </div></br>
 <div class="divider"></div>
-<h4>Available Times:</h4></br>
-<div class="row">
+<% if current_user != @user %>
+  <h4>Available Times:</h4></br>
+  <div class="row">
+    <div class="col s2 m3 l2">
+      <div class="weekly_day_one">
+        <a class="waves-effect waves-red btn-flat"><%= @next_six_days[0] %></a></br>
+        <div class="time_slot">
+        <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
+          <%= @user.availabilities.last.day_1[0] %></br>
+        <% else %>
+          <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %></br>
+        <% end %>
+        <% if @user.availabilities.last.day_1[1] == "Unavailable" %>
+          <%= @user.availabilities.last.day_1[1] %></br>
+        <% else %>
+          <%= link_to "#{@user.availabilities.last.day_1[1]}", "/users/#{@user.id}/d_1_t_2" %></br>
+        <% end %>
+        <% if @user.availabilities.last.day_1[2] == "Unavailable" %>
+          <%= @user.availabilities.last.day_1[2] %></br>
+        <% else %>
+          <%= link_to "#{@user.availabilities.last.day_1[2]}", "/users/#{@user.id}/d_1_t_3" %></br>
+        <% end %>
+        <% if @user.availabilities.last.day_1[3] == "Unavailable" %>
+          <%= @user.availabilities.last.day_1[3] %></br>
+        <% else %>
+          <%= link_to "#{@user.availabilities.last.day_1[3]}", "/users/#{@user.id}/d_1_t_4" %></br>
+        <% end %>
+        <% if @user.availabilities.last.day_1[4] == "Unavailable" %>
+          <%= @user.availabilities.last.day_1[4] %></br>
+        <% else %>
+          <%= link_to "#{@user.availabilities.last.day_1[4]}", "/users/#{@user.id}/d_1_t_5" %></br>
+        <% end %>
+        <% if @user.availabilities.last.day_1[5] == "Unavailable" %>
+          <%= @user.availabilities.last.day_1[5] %></br>
+        <% else %>
+          <%= link_to "#{@user.availabilities.last.day_1[5]}", "/users/#{@user.id}/d_1_t_6" %></br>
+        <% end %>
+        </div>
+      </div>
+    </div>
   <div class="col s2 m3 l2">
-    <div class="weekly_day_one">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[0] %></a></br>
+    <div class="weekly_day_two">
+      <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[1] %></a></br>
       <div class="time_slot">
-      <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
-        <%= @user.availabilities.last.day_1[0] %></br>
+      <% if @user.availabilities.last.day_2[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_2[0] %></br>
       <% else %>
-        <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %></br>
+        <%= link_to "#{@user.availabilities.last.day_2[0]}", "/users/#{@user.id}/d_2_t_1" %></br>
       <% end %>
-      <% if @user.availabilities.last.day_1[1] == "Unavailable" %>
-        <%= @user.availabilities.last.day_1[1] %></br>
+      <% if @user.availabilities.last.day_2[1] == "Unavailable" %>
+        <%= @user.availabilities.last.day_2[1] %></br>
       <% else %>
-        <%= link_to "#{@user.availabilities.last.day_1[1]}", "/users/#{@user.id}/d_1_t_2" %></br>
+        <%= link_to "#{@user.availabilities.last.day_2[1]}", "/users/#{@user.id}/d_2_t_2" %></br>
       <% end %>
-      <% if @user.availabilities.last.day_1[2] == "Unavailable" %>
-        <%= @user.availabilities.last.day_1[2] %></br>
+      <% if @user.availabilities.last.day_2[2] == "Unavailable" %>
+        <%= @user.availabilities.last.day_2[2] %></br>
       <% else %>
-        <%= link_to "#{@user.availabilities.last.day_1[2]}", "/users/#{@user.id}/d_1_t_3" %></br>
+        <%= link_to "#{@user.availabilities.last.day_2[2]}", "/users/#{@user.id}/d_2_t_3" %></br>
       <% end %>
-      <% if @user.availabilities.last.day_1[3] == "Unavailable" %>
-        <%= @user.availabilities.last.day_1[3] %></br>
+      <% if @user.availabilities.last.day_2[3] == "Unavailable" %>
+        <%= @user.availabilities.last.day_2[3] %></br>
       <% else %>
-        <%= link_to "#{@user.availabilities.last.day_1[3]}", "/users/#{@user.id}/d_1_t_4" %></br>
+        <%= link_to "#{@user.availabilities.last.day_2[3]}", "/users/#{@user.id}/d_2_t_4" %></br>
       <% end %>
-      <% if @user.availabilities.last.day_1[4] == "Unavailable" %>
-        <%= @user.availabilities.last.day_1[4] %></br>
+      <% if @user.availabilities.last.day_2[4] == "Unavailable" %>
+        <%= @user.availabilities.last.day_2[4] %></br>
       <% else %>
-        <%= link_to "#{@user.availabilities.last.day_1[4]}", "/users/#{@user.id}/d_1_t_5" %></br>
+        <%= link_to "#{@user.availabilities.last.day_2[4]}", "/users/#{@user.id}/d_2_t_5" %></br>
       <% end %>
-      <% if @user.availabilities.last.day_1[5] == "Unavailable" %>
-        <%= @user.availabilities.last.day_1[5] %></br>
+      <% if @user.availabilities.last.day_2[5] == "Unavailable" %>
+        <%= @user.availabilities.last.day_2[5] %></br>
       <% else %>
-        <%= link_to "#{@user.availabilities.last.day_1[5]}", "/users/#{@user.id}/d_1_t_6" %></br>
+        <%= link_to "#{@user.availabilities.last.day_2[5]}", "/users/#{@user.id}/d_2_t_6" %></br>
       <% end %>
       </div>
     </div>
   </div>
-<div class="col s2 m3 l2">
-  <div class="weekly_day_two">
-    <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[1] %></a></br>
-    <div class="time_slot">
-    <% if @user.availabilities.last.day_2[0] == "Unavailable" %>
-      <%= @user.availabilities.last.day_2[0] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_2[0]}", "/users/#{@user.id}/d_2_t_1" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_2[1] == "Unavailable" %>
-      <%= @user.availabilities.last.day_2[1] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_2[1]}", "/users/#{@user.id}/d_2_t_2" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_2[2] == "Unavailable" %>
-      <%= @user.availabilities.last.day_2[2] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_2[2]}", "/users/#{@user.id}/d_2_t_3" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_2[3] == "Unavailable" %>
-      <%= @user.availabilities.last.day_2[3] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_2[3]}", "/users/#{@user.id}/d_2_t_4" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_2[4] == "Unavailable" %>
-      <%= @user.availabilities.last.day_2[4] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_2[4]}", "/users/#{@user.id}/d_2_t_5" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_2[5] == "Unavailable" %>
-      <%= @user.availabilities.last.day_2[5] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_2[5]}", "/users/#{@user.id}/d_2_t_6" %></br>
-    <% end %>
+  <div class="col s2 m3 l2">
+    <div class="weekly_day_three">
+      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[2] %></a></br>
+      <div class="time_slot">
+      <% if @user.availabilities.last.day_3[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_3[0] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_3[0]}", "/users/#{@user.id}/d_3_t_1" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_3[1] == "Unavailable" %>
+        <%= @user.availabilities.last.day_3[1] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_3[1]}", "/users/#{@user.id}/d_3_t_2" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_3[2] == "Unavailable" %>
+        <%= @user.availabilities.last.day_3[2] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_3[2]}", "/users/#{@user.id}/d_3_t_3" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_3[3] == "Unavailable" %>
+        <%= @user.availabilities.last.day_3[3] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_3[3]}", "/users/#{@user.id}/d_3_t_4" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_3[4] == "Unavailable" %>
+        <%= @user.availabilities.last.day_3[4] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_3[4]}", "/users/#{@user.id}/d_3_t_5" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_3[5] == "Unavailable" %>
+        <%= @user.availabilities.last.day_3[5] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_3[5]}", "/users/#{@user.id}/d_3_t_6" %></br>
+      <% end %>
+      </div>
     </div>
   </div>
-</div>
-<div class="col s2 m3 l2">
-  <div class="weekly_day_three">
-    <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[2] %></a></br>
-    <div class="time_slot">
-    <% if @user.availabilities.last.day_3[0] == "Unavailable" %>
-      <%= @user.availabilities.last.day_3[0] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_3[0]}", "/users/#{@user.id}/d_3_t_1" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_3[1] == "Unavailable" %>
-      <%= @user.availabilities.last.day_3[1] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_3[1]}", "/users/#{@user.id}/d_3_t_2" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_3[2] == "Unavailable" %>
-      <%= @user.availabilities.last.day_3[2] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_3[2]}", "/users/#{@user.id}/d_3_t_3" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_3[3] == "Unavailable" %>
-      <%= @user.availabilities.last.day_3[3] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_3[3]}", "/users/#{@user.id}/d_3_t_4" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_3[4] == "Unavailable" %>
-      <%= @user.availabilities.last.day_3[4] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_3[4]}", "/users/#{@user.id}/d_3_t_5" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_3[5] == "Unavailable" %>
-      <%= @user.availabilities.last.day_3[5] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_3[5]}", "/users/#{@user.id}/d_3_t_6" %></br>
-    <% end %>
+  <div class="col s2 m3 l2">
+    <div class="weekly_day_four">
+      <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[3] %></a></br>
+      <div class="time_slot">
+      <% if @user.availabilities.last.day_4[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_4[0] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_4[0]}", "/users/#{@user.id}/d_4_t_1" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_4[1] == "Unavailable" %>
+        <%= @user.availabilities.last.day_4[1] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_4[1]}", "/users/#{@user.id}/d_4_t_2" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_4[2] == "Unavailable" %>
+        <%= @user.availabilities.last.day_4[2] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_4[2]}", "/users/#{@user.id}/d_4_t_3" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_4[3] == "Unavailable" %>
+        <%= @user.availabilities.last.day_4[3] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_4[3]}", "/users/#{@user.id}/d_4_t_4" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_4[4] == "Unavailable" %>
+        <%= @user.availabilities.last.day_4[4] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_4[4]}", "/users/#{@user.id}/d_4_t_5" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_4[5] == "Unavailable" %>
+        <%= @user.availabilities.last.day_4[5] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_4[5]}", "/users/#{@user.id}/d_4_t_6" %></br>
+      <% end %>
+      </div>
     </div>
   </div>
-</div>
-<div class="col s2 m3 l2">
-  <div class="weekly_day_four">
-    <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[3] %></a></br>
-    <div class="time_slot">
-    <% if @user.availabilities.last.day_4[0] == "Unavailable" %>
-      <%= @user.availabilities.last.day_4[0] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_4[0]}", "/users/#{@user.id}/d_4_t_1" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_4[1] == "Unavailable" %>
-      <%= @user.availabilities.last.day_4[1] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_4[1]}", "/users/#{@user.id}/d_4_t_2" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_4[2] == "Unavailable" %>
-      <%= @user.availabilities.last.day_4[2] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_4[2]}", "/users/#{@user.id}/d_4_t_3" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_4[3] == "Unavailable" %>
-      <%= @user.availabilities.last.day_4[3] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_4[3]}", "/users/#{@user.id}/d_4_t_4" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_4[4] == "Unavailable" %>
-      <%= @user.availabilities.last.day_4[4] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_4[4]}", "/users/#{@user.id}/d_4_t_5" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_4[5] == "Unavailable" %>
-      <%= @user.availabilities.last.day_4[5] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_4[5]}", "/users/#{@user.id}/d_4_t_6" %></br>
-    <% end %>
+  <div class="col s2 m3 l2">
+    <div class="weekly_day_five">
+      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[4] %></a></br>
+      <div class="time_slot">
+      <% if @user.availabilities.last.day_5[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_5[0] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_5[0]}", "/users/#{@user.id}/d_5_t_1" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_5[1] == "Unavailable" %>
+        <%= @user.availabilities.last.day_5[1] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_5[1]}", "/users/#{@user.id}/d_5_t_2" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_5[2] == "Unavailable" %>
+        <%= @user.availabilities.last.day_5[2] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_5[2]}", "/users/#{@user.id}/d_5_t_3" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_5[3] == "Unavailable" %>
+        <%= @user.availabilities.last.day_5[3] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_5[3]}", "/users/#{@user.id}/d_5_t_4" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_5[4] == "Unavailable" %>
+        <%= @user.availabilities.last.day_5[4] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_5[4]}", "/users/#{@user.id}/d_5_t_5" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_5[5] == "Unavailable" %>
+        <%= @user.availabilities.last.day_5[5] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_5[5]}", "/users/#{@user.id}/d_5_t_6" %></br>
+      <% end %>
+      </div>
     </div>
   </div>
-</div>
-<div class="col s2 m3 l2">
-  <div class="weekly_day_five">
-    <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[4] %></a></br>
-    <div class="time_slot">
-    <% if @user.availabilities.last.day_5[0] == "Unavailable" %>
-      <%= @user.availabilities.last.day_5[0] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_5[0]}", "/users/#{@user.id}/d_5_t_1" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_5[1] == "Unavailable" %>
-      <%= @user.availabilities.last.day_5[1] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_5[1]}", "/users/#{@user.id}/d_5_t_2" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_5[2] == "Unavailable" %>
-      <%= @user.availabilities.last.day_5[2] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_5[2]}", "/users/#{@user.id}/d_5_t_3" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_5[3] == "Unavailable" %>
-      <%= @user.availabilities.last.day_5[3] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_5[3]}", "/users/#{@user.id}/d_5_t_4" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_5[4] == "Unavailable" %>
-      <%= @user.availabilities.last.day_5[4] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_5[4]}", "/users/#{@user.id}/d_5_t_5" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_5[5] == "Unavailable" %>
-      <%= @user.availabilities.last.day_5[5] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_5[5]}", "/users/#{@user.id}/d_5_t_6" %></br>
-    <% end %>
+  <div class="col s2 m3 l2">
+    <div class="weekly_day_six">
+      <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[5] %></a></br>
+      <div class="time_slot">
+      <% if @user.availabilities.last.day_6[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_6[0] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_6[0]}", "/users/#{@user.id}/d_6_t_1" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_6[1] == "Unavailable" %>
+        <%= @user.availabilities.last.day_6[1] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_6[1]}", "/users/#{@user.id}/d_6_t_2" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_6[2] == "Unavailable" %>
+        <%= @user.availabilities.last.day_6[2] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_6[2]}", "/users/#{@user.id}/d_6_t_3" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_6[3] == "Unavailable" %>
+        <%= @user.availabilities.last.day_6[3] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_6[3]}", "/users/#{@user.id}/d_6_t_4" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_6[4] == "Unavailable" %>
+        <%= @user.availabilities.last.day_6[4] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_6[4]}", "/users/#{@user.id}/d_6_t_5" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_6[5] == "Unavailable" %>
+        <%= @user.availabilities.last.day_6[5] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_6[5]}", "/users/#{@user.id}/d_6_t_6" %></br>
+      <% end %>
+      </div>
+    </div>
+  </div></br>
+  <div class="col s2 m3 l2">
+    <div class="weekly_day_seven">
+      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[6] %></a></br>
+      <div class="time_slot">
+      <% if @user.availabilities.last.day_7[0] == "Unavailable" %>
+        <%= @user.availabilities.last.day_7[0] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_7[0]}", "/users/#{@user.id}/d_7_t_1" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_7[1] == "Unavailable" %>
+        <%= @user.availabilities.last.day_7[1] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_7[1]}", "/users/#{@user.id}/d_7_t_2" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_7[2] == "Unavailable" %>
+        <%= @user.availabilities.last.day_7[2] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_7[2]}", "/users/#{@user.id}/d_7_t_3" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_7[3] == "Unavailable" %>
+        <%= @user.availabilities.last.day_7[3] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_7[3]}", "/users/#{@user.id}/d_7_t_4" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_7[4] == "Unavailable" %>
+        <%= @user.availabilities.last.day_7[4] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_7[4]}", "/users/#{@user.id}/d_7_t_5" %></br>
+      <% end %>
+      <% if @user.availabilities.last.day_7[5] == "Unavailable" %>
+        <%= @user.availabilities.last.day_7[5] %></br>
+      <% else %>
+        <%= link_to "#{@user.availabilities.last.day_7[5]}", "/users/#{@user.id}/d_7_t_6" %></br>
+      <% end %></div>
+     </div>
     </div>
   </div>
-</div>
-<div class="col s2 m3 l2">
-  <div class="weekly_day_six">
-    <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[5] %></a></br>
-    <div class="time_slot">
-    <% if @user.availabilities.last.day_6[0] == "Unavailable" %>
-      <%= @user.availabilities.last.day_6[0] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_6[0]}", "/users/#{@user.id}/d_6_t_1" %></br>
+<div class="divider"></div></br>
+<% else %>
+  <h4> Your upcoming training events: </h4>
+  <% if @user.trainer == true %>
+    <% @user.trainer_appointments.each do |e| %>
+      <%= e.summary %>:
+      <%= e.event_start_time %> to
+      <%= e.event_end_time %>
     <% end %>
-    <% if @user.availabilities.last.day_6[1] == "Unavailable" %>
-      <%= @user.availabilities.last.day_6[1] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_6[1]}", "/users/#{@user.id}/d_6_t_2" %></br>
+  <% else %>
+    <% @user.trainee_appointments.each do |e| %>
+      <%= e.summary %>:
+      <%= e.event_start_time %> to
+      <%= e.event_end_time %>
     <% end %>
-    <% if @user.availabilities.last.day_6[2] == "Unavailable" %>
-      <%= @user.availabilities.last.day_6[2] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_6[2]}", "/users/#{@user.id}/d_6_t_3" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_6[3] == "Unavailable" %>
-      <%= @user.availabilities.last.day_6[3] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_6[3]}", "/users/#{@user.id}/d_6_t_4" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_6[4] == "Unavailable" %>
-      <%= @user.availabilities.last.day_6[4] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_6[4]}", "/users/#{@user.id}/d_6_t_5" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_6[5] == "Unavailable" %>
-      <%= @user.availabilities.last.day_6[5] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_6[5]}", "/users/#{@user.id}/d_6_t_6" %></br>
-    <% end %>
-    </div>
-  </div>
-</div></br>
-<div class="col s2 m3 l2">
-  <div class="weekly_day_seven">
-    <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[6] %></a></br>
-    <div class="time_slot">
-    <% if @user.availabilities.last.day_7[0] == "Unavailable" %>
-      <%= @user.availabilities.last.day_7[0] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_7[0]}", "/users/#{@user.id}/d_7_t_1" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_7[1] == "Unavailable" %>
-      <%= @user.availabilities.last.day_7[1] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_7[1]}", "/users/#{@user.id}/d_7_t_2" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_7[2] == "Unavailable" %>
-      <%= @user.availabilities.last.day_7[2] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_7[2]}", "/users/#{@user.id}/d_7_t_3" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_7[3] == "Unavailable" %>
-      <%= @user.availabilities.last.day_7[3] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_7[3]}", "/users/#{@user.id}/d_7_t_4" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_7[4] == "Unavailable" %>
-      <%= @user.availabilities.last.day_7[4] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_7[4]}", "/users/#{@user.id}/d_7_t_5" %></br>
-    <% end %>
-    <% if @user.availabilities.last.day_7[5] == "Unavailable" %>
-      <%= @user.availabilities.last.day_7[5] %></br>
-    <% else %>
-      <%= link_to "#{@user.availabilities.last.day_7[5]}", "/users/#{@user.id}/d_7_t_6" %></br>
-    <% end %></div>
-   </div>
-  </div>
-</div>
+  <% end %>
+<% end %>
 <div class="divider"></div></br>
 <div style="text-align: center;">
 <% if logged_in? %>
