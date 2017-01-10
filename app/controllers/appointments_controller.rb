@@ -142,7 +142,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_3_t_1
+  def d_3_t_1
     generic_google_authentication
 
     @day = Date.today + 3
@@ -151,7 +151,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_3_t_2
+  def d_3_t_2
     generic_google_authentication
 
     @day = Date.today + 3
@@ -160,7 +160,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_3_t_3
+  def d_3_t_3
     generic_google_authentication
 
     @day = Date.today + 3
@@ -169,7 +169,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_3_t_4
+  def d_3_t_4
     generic_google_authentication
 
     @day = Date.today + 3
@@ -178,7 +178,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_3_t_5
+  def d_3_t_5
     generic_google_authentication
 
     @day = Date.today + 3
@@ -187,7 +187,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_3_t_6
+  def d_3_t_6
     generic_google_authentication
 
     @day = Date.today + 3
@@ -196,7 +196,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_4_t_1
+  def d_4_t_1
     generic_google_authentication
 
     @day = Date.today + 4
@@ -205,7 +205,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_4_t_2
+  def d_4_t_2
     generic_google_authentication
 
     @day = Date.today + 4
@@ -214,7 +214,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_4_t_3
+  def d_4_t_3
     generic_google_authentication
 
     @day = Date.today + 4
@@ -223,7 +223,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_4_t_4
+  def d_4_t_4
     generic_google_authentication
 
     @day = Date.today + 4
@@ -232,7 +232,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_4_t_5
+  def d_4_t_5
     generic_google_authentication
 
     @day = Date.today + 4
@@ -241,7 +241,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_4_t_6
+  def d_4_t_6
     generic_google_authentication
 
     @day = Date.today + 4
@@ -250,7 +250,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_5_t_1
+  def d_5_t_1
     generic_google_authentication
 
     @day = Date.today + 5
@@ -259,7 +259,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_5_t_2
+  def d_5_t_2
     generic_google_authentication
 
     @day = Date.today + 5
@@ -268,7 +268,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_5_t_3
+  def d_5_t_3
     generic_google_authentication
 
     @day = Date.today + 5
@@ -277,7 +277,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_5_t_4
+  def d_5_t_4
     generic_google_authentication
 
     @day = Date.today + 5
@@ -286,7 +286,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_5_t_5
+  def d_5_t_5
     generic_google_authentication
 
     @day = Date.today + 5
@@ -295,7 +295,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_5_t_6
+  def d_5_t_6
     generic_google_authentication
 
     @day = Date.today + 5
@@ -304,7 +304,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_6_t_1
+  def d_6_t_1
     generic_google_authentication
 
     @day = Date.today + 6
@@ -313,7 +313,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_6_t_2
+  def d_6_t_2
     generic_google_authentication
 
     @day = Date.today + 6
@@ -322,7 +322,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_6_t_3
+  def d_6_t_3
     generic_google_authentication
 
     @day = Date.today + 6
@@ -331,7 +331,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_6_t_4
+  def d_6_t_4
     generic_google_authentication
 
     @day = Date.today + 6
@@ -340,7 +340,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_6_t_5
+  def d_6_t_5
     generic_google_authentication
 
     @day = Date.today + 6
@@ -349,7 +349,7 @@ class AppointmentsController < ApplicationController
     @event_time = time_slots
   end
 
-  def day_6_t_6
+  def d_6_t_6
     generic_google_authentication
 
     @day = Date.today + 6
@@ -357,6 +357,7 @@ class AppointmentsController < ApplicationController
     @t_2 = Time.parse("23:00").seconds_since_midnight.seconds
     @event_time = time_slots
   end
+
 private
 
   def load_user
@@ -433,7 +434,7 @@ private
      ]
    })
 
-   appt = @service.insert_event('primary', event)
+   invitation = @service.insert_event('primary', event)
    @appointment = Appointment.create(
      event_start_time: DateTime.parse("#{upper}"),
      event_end_time: DateTime.parse("#{lower}"),
