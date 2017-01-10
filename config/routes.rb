@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     get "d_7_t_5" => "appointments"
     get "d_7_t_6" => "appointments"
   end
+
   resources :user_sessions, only: [:new, :create, :destroy]
 
   get 'login' => 'user_sessions#new', :as => :login
@@ -63,5 +64,5 @@ Rails.application.routes.draw do
   delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
 
   get "weekly_hourly" => "availabilities", :as => :refresh_availability
-
+  
 end
