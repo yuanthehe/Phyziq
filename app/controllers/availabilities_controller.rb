@@ -43,8 +43,6 @@ class AvailabilitiesController < ApplicationController
     @day = Date.today + 1
 
     @availability_day_1 = availability_check
-
-    # @availability = Availability.create(day_1: @availability_day_1)
   end
 
   def day_2
@@ -53,8 +51,6 @@ class AvailabilitiesController < ApplicationController
     @day = Date.today + 2
 
     @availability_day_2 = availability_check
-
-    # @availability = Availability.create(day_2: @availability_day_2)
   end
 
   def day_3
@@ -63,8 +59,6 @@ class AvailabilitiesController < ApplicationController
     @day = Date.today + 3
 
     @availability_day_3 = availability_check
-
-    # @availability = Availability.create(day_3: @availability_day_3)
   end
 
   def day_4
@@ -73,8 +67,6 @@ class AvailabilitiesController < ApplicationController
     @day = Date.today + 4
 
     @availability_day_4 = availability_check
-
-    # @availability = Availability.create(day_4: @availability_day_4)
   end
 
   def day_5
@@ -83,8 +75,6 @@ class AvailabilitiesController < ApplicationController
     @day = Date.today + 5
 
     @availability_day_5 = availability_check
-
-    # @availability = Availability.create(day_5: @availability_day_5)
   end
 
   def day_6
@@ -93,8 +83,6 @@ class AvailabilitiesController < ApplicationController
     @day = Date.today + 6
 
     @availability_day_6 = availability_check
-
-    # @availability = Availability.create(day_6: @availability_day_6)
   end
 
   def day_7
@@ -103,8 +91,6 @@ class AvailabilitiesController < ApplicationController
     @day = Date.today + 7
 
     @availability_day_7 = availability_check
-
-    # @availability = Availability.create(day_7: @availability_day_7)
   end
 
 
