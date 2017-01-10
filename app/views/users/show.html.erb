@@ -22,7 +22,9 @@
               </div>
             </div>
           <div class="card-action">
+          <% if current_user == @user %>
             <p class="edit_link"><%= link_to "Edit your profile", "/users/#{@user.id}/edit" %></p>
+          <% end %>
           </div>
         </div>
       </div>
