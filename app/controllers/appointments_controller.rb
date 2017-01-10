@@ -495,6 +495,6 @@ private
      trainee_id: "#{current_user.id}",
      trainer_id: "#{@user.id}"
    )
-   flash[:notice] = "Invitation sent for #{@appointment.event_start_time} to #{@appointment.event_end_time}!"
+   flash[:notice] = "Invitation sent for #{upper} to #{lower}!"
  end
 end
