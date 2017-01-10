@@ -12,15 +12,6 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.new(appointment_params)
-
-    # if @appointment.save
-    #   @appointment.trainee_id = current_user
-    #   @appointment.trainer_id = @user.id
-    #   redirect_to user_url(@user, alert: "Appointment request sent!")
-    # else
-    #   flash[:alert] = "Failed to process appointment request"
-    #   render user_url(@user)
-    # end
   end
 
   def index
@@ -50,7 +41,105 @@ class AppointmentsController < ApplicationController
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     @t_2 = Time.parse("15:30").seconds_since_midnight.seconds
     @event_time = time_slots
+  end
 
+  def d_1_t_2
+    generic_google_authentication
+
+    @day = Date.today + 1
+    @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("17:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_1_t_3
+    generic_google_authentication
+
+    @day = Date.today + 1
+    @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("18:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_1_t_4
+    generic_google_authentication
+
+    @day = Date.today + 1
+    @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("20:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_1_t_5
+    generic_google_authentication
+
+    @day = Date.today + 1
+    @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("21:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_1_t_6
+    generic_google_authentication
+
+    @day = Date.today + 1
+    @t_1 = Time.parse("20:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("22:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_2_t_1
+    generic_google_authentication
+
+    @day = Date.today + 2
+    @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("15:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_2_t_2
+    generic_google_authentication
+
+    @day = Date.today + 2
+    @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("17:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_2_t_3
+    generic_google_authentication
+
+    @day = Date.today + 2
+    @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("18:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_2_t_4
+    generic_google_authentication
+
+    @day = Date.today + 2
+    @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("19:00").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_2_t_5
+    generic_google_authentication
+
+    @day = Date.today + 2
+    @t_1 = Time.parse("19:00").seconds_since_midnight.seconds
+    @t_2 = Time.parse("20:30").seconds_since_midnight.seconds
+    @event_time = time_slots
+  end
+
+  def d_2_t_6
+    generic_google_authentication
+
+    @day = Date.today + 2
+    @t_1 = Time.parse("20:30").seconds_since_midnight.seconds
+    @t_2 = Time.parse("22:00").seconds_since_midnight.seconds
+    @event_time = time_slots
   end
 
 private
@@ -108,34 +197,11 @@ private
   end
 
   def time_slots
-  #  t_1 = Time.parse("14:00").seconds_since_midnight.seconds
-  #  t_2 = Time.parse("15:30").seconds_since_midnight.seconds
-  #  t_3 = Time.parse("17:30").seconds_since_midnight.seconds
-  #  t_4 = Time.parse("19:00").seconds_since_midnight.seconds
-  #  t_5 = Time.parse("20:30").seconds_since_midnight.seconds
-  #  t_6 = Time.parse("22:00").seconds_since_midnight.seconds
+   upper_i = (@day + @t_1).to_i
+   lower_i = (@day + @t_2).to_i
 
-   upper_i_1 = (@day + @t_1).to_i
-   lower_i_1 = (@day + @t_2).to_i
-  #  upper_i_2 = (@day + t_2).to_i
-  #  lower_i_2 = (@day + t_3).to_i
-  #  upper_i_3 = (@day + t_3).to_i
-  #  lower_i_3 = (@day + t_4).to_i
-  #  upper_i_4 = (@day + t_4).to_i
-  #  lower_i_4 = (@day + t_5).to_i
-  #  upper_i_5 = (@day + t_5).to_i
-  #  lower_i_5 = (@day + t_6).to_i
-
-   upper = Time.at(upper_i_1)
-   lower = Time.at(lower_i_1)
-  #  @upper_2 = Time.at(upper_i_1)
-  #  @lower_2 = Time.at(lower_i_1)
-  #  @upper_3 = Time.at(upper_i_1)
-  #  @lower_3 = Time.at(lower_i_1)
-  #  @upper_4 = Time.at(upper_i_1)
-  #  @lower_4 = Time.at(lower_i_1)
-  #  @upper_5 = Time.at(upper_i_1)
-  #  @lower_5 = Time.at(lower_i_1)
+   upper = Time.at(upper_i)
+   lower = Time.at(lower_i)
 
    event = Google::Apis::CalendarV3::Event.new({
      'summary':"Training Sessions with #{current_user.email}",
@@ -160,6 +226,6 @@ private
      trainee_id: "#{current_user.id}",
      trainer_id: "#{@user.id}"
    )
-   flash[:alert] = "Invitation sent!"
+   flash[:notice] = "Invitation sent for #{@appointment.event_start_time} to #{@appointment.event_end_time}!"
  end
 end

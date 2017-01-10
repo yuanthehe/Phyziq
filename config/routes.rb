@@ -3,11 +3,17 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :appointments
-    get "d_1_t_1" => "appointments", :as => :d_1_t_1
-    get "d_1_t_2" => "appointments", :as => :d_1_t_2
-    get "d_1_t_3" => "appointments", :as => :d_1_t_3
-    get "d_1_t_4" => "appointments", :as => :d_1_t_4
-    get "d_1_t_5" => "appointments", :as => :d_1_t_5
+    get "d_1_t_1" => "appointments"
+    get "d_1_t_2" => "appointments"
+    get "d_1_t_3" => "appointments"
+    get "d_1_t_4" => "appointments"
+    get "d_1_t_5" => "appointments"
+
+    get "d_2_t_1" => "appointments"
+    get "d_2_t_2" => "appointments"
+    get "d_2_t_3" => "appointments"
+    get "d_2_t_4" => "appointments"
+    get "d_2_t_5" => "appointments"
   end
   resources :user_sessions, only: [:new, :create, :destroy]
 

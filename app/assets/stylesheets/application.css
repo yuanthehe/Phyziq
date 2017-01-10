@@ -188,6 +188,15 @@ font-weight: 300px;
   padding-bottom: 65px;
 }
 
+.time_slot a {
+  font-size: 13px;
+  font-weight: bold;
+  color: #37474f;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 65px;
+}
+
 .medium material-icons {
   text-align: center;
 }
