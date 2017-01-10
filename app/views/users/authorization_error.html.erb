@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <body>
-    </br><a class="waves-effect waves-blue-grey blue-grey lighten-2 btn">
-      NOT AUTHORIZED, PLEASE LOG IN!!!!
-    </a>
+  </br><div class="trainer_list">
+      <%= link_to "NOT AUTHORIZED, PLEASE LOG IN THROUGH", auth_at_provider_path(:provider => :google) %>
+    </div>
   </body>
 </html>
