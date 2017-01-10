@@ -14,6 +14,12 @@ Rails.application.routes.draw do
     get "d_2_t_3" => "appointments"
     get "d_2_t_4" => "appointments"
     get "d_2_t_5" => "appointments"
+
+    get "d_3_t_1" => "appointments"
+    get "d_3_t_2" => "appointments"
+    get "d_3_t_3" => "appointments"
+    get "d_3_t_4" => "appointments"
+    get "d_3_t_5" => "appointments"
   end
   resources :user_sessions, only: [:new, :create, :destroy]
 
