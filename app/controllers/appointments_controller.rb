@@ -471,16 +471,18 @@ private
 
    upper = Time.at(upper_i)
    lower = Time.at(lower_i)
+   up = DateTime.parse("#{upper}")
+   low = DateTime.parse("#{lower}")
 
    event = Google::Apis::CalendarV3::Event.new({
      'summary':"Training Sessions with #{current_user.email}",
      # 'location':'Bitmaker',
      'description':'Testing insert event',
      'start':{
-       'date_time': DateTime.parse("#{upper}")
+       'date_time': "#{up}"
      },
      'end':{
-       'date_time': DateTime.parse("#{lower}")
+       'date_time': "#{low}"
      },
      'attendees':[
        {'email':"#{@user.email}"},
@@ -489,12 +491,12 @@ private
 
    invitation = @service.insert_event('primary', event)
    @appointment = Appointment.create(
-     event_start_time: DateTime.parse("#{upper}"),
-     event_end_time: DateTime.parse("#{lower}"),
+     event_start_time: "#{up}",
+     event_end_time: "#{low}",
      event_invitation_status: true,
      trainee_id: "#{current_user.id}",
      trainer_id: "#{@user.id}"
    )
-   flash[:notice] = "Invitation sent for #{upper} to #{lower}!"
+   flash[:notice] = "Invitation sent for #{up} to #{low}!"
  end
 end

@@ -62,6 +62,7 @@ class UsersController < ApplicationController
   def update
    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
+       flash[:alert] = "Account settings updated!"
        redirect_to user_url
     else
        render :edit
