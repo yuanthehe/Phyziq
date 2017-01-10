@@ -20,6 +20,30 @@ Rails.application.routes.draw do
     get "d_3_t_3" => "appointments"
     get "d_3_t_4" => "appointments"
     get "d_3_t_5" => "appointments"
+
+    get "d_4_t_1" => "appointments"
+    get "d_4_t_2" => "appointments"
+    get "d_4_t_3" => "appointments"
+    get "d_4_t_4" => "appointments"
+    get "d_4_t_5" => "appointments"
+
+    get "d_5_t_1" => "appointments"
+    get "d_5_t_2" => "appointments"
+    get "d_5_t_3" => "appointments"
+    get "d_5_t_4" => "appointments"
+    get "d_5_t_5" => "appointments"
+
+    get "d_6_t_1" => "appointments"
+    get "d_6_t_2" => "appointments"
+    get "d_6_t_3" => "appointments"
+    get "d_6_t_4" => "appointments"
+    get "d_6_t_5" => "appointments"
+
+    get "d_7_t_1" => "appointments"
+    get "d_7_t_2" => "appointments"
+    get "d_7_t_3" => "appointments"
+    get "d_7_t_4" => "appointments"
+    get "d_7_t_5" => "appointments"
   end
   resources :user_sessions, only: [:new, :create, :destroy]
 
