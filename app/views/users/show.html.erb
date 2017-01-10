@@ -22,7 +22,9 @@
               </div>
             </div>
           <div class="card-action">
+          <% if current_user == @user %>
             <p class="edit_link"><%= link_to "Edit your profile", "/users/#{@user.id}/edit" %></p>
+          <% end %>
           </div>
         </div>
       </div>
@@ -46,7 +48,7 @@
 <div class="row">
   <div class="col s2 m3 l2">
     <div class="weekly_day_one">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[0] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[0] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_1[0] %></br>
