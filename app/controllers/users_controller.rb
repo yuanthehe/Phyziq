@@ -35,8 +35,8 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    if @client != nil
-      render :new
+    if session[:access_token] != nil
+      weekly_event_list
     else
       redirect_to :authorization_error
     end
@@ -90,15 +90,16 @@ private
   end
 
   def google_authentication
-    @client = Signet::OAuth2::Client.new({
+    client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
     access_token: session[:access_token]
     })
-    @client.expires_in = Time.now + 1_000_000
+    client.expires_in = Time.now + 1_000_000
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
+
     @result = service.list_events('primary')
   end
 
