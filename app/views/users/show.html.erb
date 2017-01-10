@@ -46,7 +46,7 @@
 <div class="row">
   <div class="col s2 m3 l2">
     <div class="weekly_day_one">
-      <a class="waves-effect waves-red btn-flat"><%= @next_six_days[0] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn modal-trigger" href="#modal1"><%= @next_six_days[0] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_1[0] %></br>
@@ -81,6 +81,17 @@
       </div>
     </div>
   </div>
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Check your email!</h4>
+      <p>The trainer is reviewing your request. A confirmation email will be send to you momentarily. </b>Thank you for using Phyziq Fitness.</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-blue-grey blue-grey lighten-1 btn-flat">Exit!</a>
+    </div>
+  </div>
+
 <div class="col s2 m3 l2">
   <div class="weekly_day_two">
     <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[1] %></a></br>
