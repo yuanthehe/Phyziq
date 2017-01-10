@@ -46,7 +46,7 @@ class UsersController < ApplicationController
          e.start.date
        }.compact
 
-    next_six_days.map {|day|
+    @next_six_days = next_six_days.map {|day|
       if weekly.include?(day)
         next "Busy on #{day}"
       else
@@ -101,6 +101,6 @@ private
 
   def next_six_days
     tomorrow = Date.today + 1
-    @next_six_days = (tomorrow .. tomorrow + 6).map {|date| "#{date}"}
+    (tomorrow .. tomorrow + 6).map {|date| "#{date}"}
   end
 end
