@@ -475,28 +475,41 @@ private
    low = DateTime.parse("#{lower}")
 
    event = Google::Apis::CalendarV3::Event.new({
-     'summary':"Training Sessions with #{current_user.email}",
-     # 'location':'Bitmaker',
-     'description':'Testing insert event',
-     'start':{
-       'date_time': "#{up}"
-     },
-     'end':{
-       'date_time': "#{low}"
-     },
-     'attendees':[
-       {'email':"#{@user.email}"},
-     ]
-   })
+        'summary':"#{current_user.name}'s Training Session with #{@user.name}",
+        'description':'Booked through Phyziq.com',
+        'start':{
+          'date_time': "#{up}"
+        },
+        'end':{
+          'date_time': "#{low}"
+        },
+        'attendees':[
+          {'email':"#{@user.email}"},
+        ],
+        'reminders': {
+          'useDefault': false
+        }
+      })
 
    invitation = @service.insert_event('primary', event)
-   @appointment = Appointment.create(
-     event_start_time: "#{up}",
-     event_end_time: "#{low}",
-     event_invitation_status: true,
-     trainee_id: "#{current_user.id}",
-     trainer_id: "#{@user.id}"
-   )
-   flash[:notice] = "Invitation sent for #{up} to #{low}!"
- end
+
+   if current_user.trainer == false
+      @appointment = Appointment.create(
+        summary: "#{current_user.name}'s Training Session with #{@user.name}",
+        event_start_time: "#{up}",
+        event_end_time: "#{low}",
+        event_invitation_status: true,
+        trainee_id: "#{current_user.id}",
+        trainer_id: "#{@user.id}"
+      )
+   else
+      @appointment = Appointment.create(
+        summary: "#{@user.name}'s Training Session with #{current_user.name}",
+        event_start_time: "#{up}",
+        event_end_time: "#{low}",
+        event_invitation_status: true,
+        trainee_id: "#{@user.id}",
+        trainer_id: "#{current_user.id}"
+      )
+   end
 end
