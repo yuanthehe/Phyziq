@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105210034) do
+ActiveRecord::Schema.define(version: 20170110202450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170105210034) do
     t.datetime "event_end_time"
     t.boolean  "event_invitation_status"
     t.boolean  "event"
+    t.string   "summary"
   end
 
   create_table "authentications", force: :cascade do |t|
@@ -64,7 +65,7 @@ ActiveRecord::Schema.define(version: 20170105210034) do
     t.string   "address"
     t.boolean  "trainer"
     t.string   "password_digest"
-    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
 end

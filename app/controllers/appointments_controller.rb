@@ -6,20 +6,8 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new
   end
 
-  def show
-
-  end
-
   def create
     @appointment = Appointment.new(appointment_params)
-  end
-
-  def index
-    if @user.trainer_appointments != nil
-      @user.trainer_appointments
-    else
-      @user.trainee_appointments
-    end
   end
 
   def edit
@@ -31,7 +19,8 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-
+    @appointment.destroy
+    render "/users/#{@user.id}"
   end
 
   def d_1_t_1
@@ -411,6 +400,7 @@ class AppointmentsController < ApplicationController
     @t_2 = Time.parse("23:00").seconds_since_midnight.seconds
     @event_time = time_slots
   end
+
 private
 
   def load_user
@@ -423,7 +413,6 @@ private
 
   def generic_google_authentication
     client = Signet::OAuth2::Client.new({
-    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -436,7 +425,6 @@ private
 
   def event_list_google_authentication
     client = Signet::OAuth2::Client.new({
-    # grant_type: "refresh_token",
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
@@ -471,30 +459,46 @@ private
 
    upper = Time.at(upper_i)
    lower = Time.at(lower_i)
+   up = DateTime.parse("#{upper}")
+   low = DateTime.parse("#{lower}")
 
    event = Google::Apis::CalendarV3::Event.new({
-     'summary':"Training Sessions with #{current_user.email}",
-     # 'location':'Bitmaker',
-     'description':'Testing insert event',
-     'start':{
-       'date_time': DateTime.parse("#{upper}")
-     },
-     'end':{
-       'date_time': DateTime.parse("#{lower}")
-     },
-     'attendees':[
-       {'email':"#{@user.email}"},
-     ]
-   })
-
+        'summary':"#{current_user.name}'s Training Session with #{@user.name}",
+        'description':'Booked through Phyziq.com',
+        'start':{
+          'date_time': "#{up}"
+        },
+        'end':{
+          'date_time': "#{low}"
+        },
+        'attendees':[
+          {'email':"#{@user.email}"},
+        ],
+        'reminders': {
+          'useDefault': false
+        }
+      })
    invitation = @service.insert_event('primary', event)
-   @appointment = Appointment.create(
-     event_start_time: DateTime.parse("#{upper}"),
-     event_end_time: DateTime.parse("#{lower}"),
-     event_invitation_status: true,
-     trainee_id: "#{current_user.id}",
-     trainer_id: "#{@user.id}"
-   )
-   flash[:notice] = "Invitation sent for #{@appointment.event_start_time} to #{@appointment.event_end_time}!"
- end
+
+   if current_user.trainer == false
+      @appointment = Appointment.create(
+        summary: "#{current_user.name}'s Training Session with #{@user.name}",
+        event_start_time: "#{up}",
+        event_end_time: "#{low}",
+        event_invitation_status: true,
+        trainee_id: "#{current_user.id}",
+        trainer_id: "#{@user.id}"
+      )
+   else
+      @appointment = Appointment.create(
+        summary: "#{@user.name}'s Training Session with #{current_user.name}",
+        event_start_time: "#{up}",
+        event_end_time: "#{low}",
+        event_invitation_status: true,
+        trainee_id: "#{@user.id}",
+        trainer_id: "#{current_user.id}"
+      )
+   end
+   flash[:notice] = "Invitation sent for #{up.strftime("%A %d/%m/%Y %T")} to #{low.strftime("%A %d/%m/%Y %T")}"
+  end
 end
