@@ -13,6 +13,8 @@ class User < ApplicationRecord
 	  validates :password_confirmation, presence: true, on: :create
 
   accepts_nested_attributes_for :authentications
+  accepts_nested_attributes_for :trainee_appointments, allow_destroy: true
+  accepts_nested_attributes_for :trainer_appointments, allow_destroy: true
 
   def has_linked_google?
      authentications.where(provider: 'google').present?

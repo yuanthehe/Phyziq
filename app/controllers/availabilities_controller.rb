@@ -100,18 +100,6 @@ private
     params.require(:availability).permit(:day_1, :day_2, :day_3, :day_4, :day_5, :day_6, :day_7, :user_id)
   end
 
-  def generic_google_authentication
-    client = Signet::OAuth2::Client.new({
-    client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-  end
-
   def event_list_google_authentication
     client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
