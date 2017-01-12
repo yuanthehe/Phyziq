@@ -1,8 +1,23 @@
 <!DOCTYPE html>
 <html>
   <body>
-    </br><a class="waves-effect waves-blue-grey blue-grey lighten-2 btn">
-    <%= @event_time %>
-    </a>
+    </br>
+    <div class="container">
+      <div class="row">
+        <div class="col s10 pull-s1">
+          <div class="card grey lighten-4">
+            <div class="card-content black-text center">
+              <span class="card-title">You are booked!</span>
+              <p>Please review your requested time slot below. An email confirmation is on its way. </br>Check your email so you can view it in your Google Calendar.</p>
+              </br>
+              <%= @event_time %>
+              <div class="section">
+                <%= link_to "update your availability", :refresh_availability, class: "waves-effect waves-light orange lighten-1 btn" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
