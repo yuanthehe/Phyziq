@@ -353,6 +353,11 @@
     <% end %>
   <% end %>
 <% end %>
+<% if @user.trainer_appointments == [] %>
+  <h5>Currently no events!</h5>
+<% elsif @user.trainee_appointments == [] %>
+  <h5>Currently no events!</h5>
+<% end %>
 <div class="divider"></div></br>
 <div style="text-align: center;">
 <% if logged_in? %>
