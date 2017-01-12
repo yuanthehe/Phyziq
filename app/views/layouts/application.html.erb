@@ -27,6 +27,7 @@
           <% if current_user %>
               <li><%= link_to "Profile", "/users/#{session[:user_id]}" %></li>
               <li><%= link_to "Settings", "/users/#{session[:user_id]}/edit" %></li>
+              <li><%= link_to "Update Availability", :refresh_availability %></li>
               <li><%= link_to 'Logout', :logout %></li>
           <% else %>
               <li><%= link_to "Login with Google", auth_at_provider_path(:provider => :google) %></li>

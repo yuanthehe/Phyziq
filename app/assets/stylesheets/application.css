@@ -186,7 +186,7 @@ font-weight: 300px;
 .time_slot {
   font-size: 13px;
   font-weight: bold;
-  color: #37474f;
+  color: black;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 65px;
@@ -195,7 +195,7 @@ font-weight: 300px;
 .time_slot a {
   font-size: 13px;
   font-weight: bold;
-  color: #37474f;
+  color: black;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 65px;
