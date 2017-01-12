@@ -35,27 +35,11 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    if @user.has_linked_google?
-      weekly_event_list
-    else
-      redirect_to :authorization_error
-    end
-  end
-
-  def weekly_event_list
-    google_authentication
-
-    weekly = @result.items.map {|e|
-         e.start.date
-       }.compact
-
-    @next_six_days = next_six_days.map {|day|
-      if weekly.include?(day)
-        next "Busy on #{day}"
-      else
-        next "Free on #{day}"
-      end
-      }
+    # if session[:access_token] != nil
+      daily_google_authentication
+    # else
+    #   redirect_to :authorization_error
+    # end
   end
 
   def edit
@@ -90,7 +74,7 @@ private
     trainee_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy])
   end
 
-  def google_authentication
+  def daily_google_authentication
     client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
@@ -98,10 +82,22 @@ private
     access_token: session[:access_token]
     })
     client.expires_in = Time.now + 1_000_000
-    @service = Google::Apis::CalendarV3::CalendarService.new
-    @service.authorization = client
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
 
-    @result = @service.list_events('primary')
+    result = service.list_events('primary')
+
+    weekly = result.items.map {|e|
+         e.start.date
+       }.compact
+
+    @next_six_days = next_six_days.map {|day|
+      if weekly.include?(day)
+        next "Busy on #{day}"
+      else
+        next "Free on #{day}"
+      end
+      }
   end
 
   def next_six_days
