@@ -35,11 +35,11 @@ class UsersController < ApplicationController
 
   def show
     # @user = User.find(params[:id])
-    # if session[:access_token] != nil
+    if session[:access_token] != nil
       daily_google_authentication
-    # else
-    #   redirect_to :authorization_error
-    # end
+    else
+      redirect_to :authorization_error
+    end
   end
 
   def edit
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def update
-   @user = User.find(params[:id])
+  #  @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:alert] = "Account settings updated!"
       redirect_to user_url
