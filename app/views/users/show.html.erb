@@ -314,20 +314,42 @@
       <% if Time.at(e.event_end_time) < Time.now %>
         <% e.destroy %>
       <% else %>
+      <ul>
         <%= e.summary %>:
         <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
         <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
       <% end %>
+      </ul>
+    <% end %>
+    <%= form_for @user do |f| %>
+      <ul>
+      <%= f.fields_for :trainer_appointments do |app_form| %>
+        <%= app_form.check_box :_destroy %>
+        <%= app_form.label :_destroy, "Delete Event" %>
+        <%= app_form.submit :Confirm %></br>
+      <% end %>
+      </ul>
     <% end %>
   <% else %>
     <% @user.trainee_appointments.each do |e| %>
       <% if Time.at(e.event_end_time) < Time.now %>
         <% e.destroy %>
       <% else %>
+      <ul>
         <%= e.summary %>:
         <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
         <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
       <% end %>
+      </ul>
+    <% end %>
+    <%= form_for @user do |f| %>
+      <ul>
+      <%= f.fields_for :trainee_appointments do |app_form| %>
+        <%= app_form.check_box :_destroy %>
+        <%= app_form.label :_destroy, "Delete Event" %>
+        <%= app_form.submit :Confirm %></br>
+      <% end %>
+      </ul>
     <% end %>
   <% end %>
 <% end %>
