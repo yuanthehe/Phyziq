@@ -315,8 +315,8 @@
       <% else %>
       <ul>
         <%= e.summary %>:
-        <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
-        <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
+        <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
+        <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
       <% end %>
       </ul>
     <% end %>
@@ -336,8 +336,8 @@
       <% else %>
       <ul>
         <%= e.summary %>:
-        <%= e.event_start_time.strftime("%A %d/%m/%Y %T") %> to
-        <%= e.event_end_time.strftime("%A %d/%m/%Y %T") %>
+        <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
+        <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
       <% end %>
       </ul>
     <% end %>
