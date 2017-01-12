@@ -48,9 +48,9 @@ class AvailabilitiesController < ApplicationController
 
     @next_six_days = next_six_days.map {|day|
       if weekly.include?(day)
-        next "Busy on #{day}"
+        next "Busy"
       else
-        next "Free on #{day}"
+        next "#{day}"
       end
       }
   end
