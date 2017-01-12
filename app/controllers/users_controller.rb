@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def show
     # @user = User.find(params[:id])
     if session[:access_token] != nil
-      daily_google_authentication
+      render :show
     else
       redirect_to :authorization_error
     end
@@ -72,36 +72,5 @@ private
     params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation,
     trainer_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy],
     trainee_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy])
-  end
-
-  def daily_google_authentication
-    client = Signet::OAuth2::Client.new({
-    client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    result = service.list_events('primary')
-
-    weekly = result.items.map {|e|
-         e.start.date
-       }.compact
-
-    @next_six_days = next_six_days.map {|day|
-      if weekly.include?(day)
-        next "Busy on #{day}"
-      else
-        next "Free on #{day}"
-      end
-      }
-  end
-
-  def next_six_days
-    tomorrow = Date.today + 1
-    (tomorrow .. tomorrow + 6).map {|date| "#{date}"}
   end
 end
