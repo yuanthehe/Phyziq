@@ -325,7 +325,8 @@
       <%= f.fields_for :trainer_appointments do |app_form| %>
         <%= app_form.check_box :_destroy %>
         <%= app_form.label :_destroy, "Delete Event" %>
-        <%= app_form.submit :Confirm %></br>
+        <%= app_form.submit :Confirm %>
+        </br>
       <% end %>
       </ul>
     <% end %>
