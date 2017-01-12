@@ -20,6 +20,7 @@ class AppointmentsController < ApplicationController
 
   def destroy
     @appointment.destroy
+    client.delete_event('primary', 'event_id')
 
     render "/users/#{@user.id}"
   end
