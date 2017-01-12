@@ -19,10 +19,13 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    @appointment.destroy
-    client.delete_event('primary', 'event_id')
-
-    render "/users/#{@user.id}"
+    if @appointment.destroy
+      google_authentication
+      @client.delete_event('primary', "#{@appointment.google_event_id}")
+      render "/users/#{@user.id}"
+    else
+      flash[:alert] = "Failed to delete event!"
+    end
   end
 
   def d_1_t_1
@@ -410,19 +413,19 @@ private
   end
 
   def appointment_params
-    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
+    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at, :google_event_id)
   end
 
   def google_authentication
-    client = Signet::OAuth2::Client.new({
+    @client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
     access_token: session[:access_token]
     })
-    client.expires_in = Time.now + 1_000_000
+    @client.expires_in = Time.now + 1_000_000
     @service = Google::Apis::CalendarV3::CalendarService.new
-    @service.authorization = client
+    @service.authorization = @client
   end
 
   def time_slots
@@ -437,6 +440,7 @@ private
    event = Google::Apis::CalendarV3::Event.new({
         'summary':"#{current_user.name}'s Training Session with #{@user.name}",
         'description':'Booked through Phyziq.com',
+        # 'id':"12345",
         'start':{
           'date_time': "#{up}"
         },
@@ -450,7 +454,7 @@ private
           'useDefault': false
         }
       })
-   invitation = @service.insert_event('primary', event)
+   @result = @service.insert_event('primary', event)
 
    if current_user.trainer == false
       @appointment = Appointment.create(
@@ -459,7 +463,8 @@ private
         event_end_time: "#{low}",
         event_invitation_status: true,
         trainee_id: "#{current_user.id}",
-        trainer_id: "#{@user.id}"
+        trainer_id: "#{@user.id}",
+        google_event_id: "#{@result.id}"
       )
    else
       @appointment = Appointment.create(
@@ -468,7 +473,8 @@ private
         event_end_time: "#{low}",
         event_invitation_status: true,
         trainee_id: "#{@user.id}",
-        trainer_id: "#{current_user.id}"
+        trainer_id: "#{current_user.id}",
+        google_event_id: "#{@result.id}"
       )
    end
    flash[:notice] = "Invitation sent for #{up.strftime("%A %d/%m/%Y %T")} to #{low.strftime("%A %d/%m/%Y %T")}"
