@@ -1,5 +1,4 @@
 class AvailabilitiesController < ApplicationController
-
   def new
     @availability = Availability.new
   end
