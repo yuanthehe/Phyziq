@@ -8,6 +8,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def weekly_hourly
+    daily_availability_check
     day_1
     day_2
     day_3
@@ -16,6 +17,7 @@ class AvailabilitiesController < ApplicationController
     day_6
     day_7
     @availability = Availability.create(
+      next_six_days: @next_six_days,
       day_1: @availability_day_1,
       day_2: @availability_day_2,
       day_3: @availability_day_3,
@@ -25,6 +27,7 @@ class AvailabilitiesController < ApplicationController
       day_7: @availability_day_7,
       user_id: current_user.id
       )
+    flash[:alert] = "Availabilty updated!"
     redirect_to root_path
   end
 
@@ -36,8 +39,24 @@ class AvailabilitiesController < ApplicationController
 
   end
 
+  def daily_availability_check
+    google_authentication
+
+    weekly = @result.items.map {|e|
+         e.start.date
+       }.compact
+
+    @next_six_days = next_six_days.map {|day|
+      if weekly.include?(day)
+        next "Busy on #{day}"
+      else
+        next "Free on #{day}"
+      end
+      }
+  end
+
   def day_1
-    event_list_google_authentication
+    hourly_google_availability
 
     @day = Date.today + 1
 
@@ -45,7 +64,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def day_2
-    event_list_google_authentication
+    hourly_google_availability
 
     @day = Date.today + 2
 
@@ -53,7 +72,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def day_3
-    event_list_google_authentication
+    hourly_google_availability
 
     @day = Date.today + 3
 
@@ -61,7 +80,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def day_4
-    event_list_google_authentication
+    hourly_google_availability
 
     @day = Date.today + 4
 
@@ -69,7 +88,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def day_5
-    event_list_google_authentication
+    hourly_google_availability
 
     @day = Date.today + 5
 
@@ -77,7 +96,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def day_6
-    event_list_google_authentication
+    hourly_google_availability
 
     @day = Date.today + 6
 
@@ -85,7 +104,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def day_7
-    event_list_google_authentication
+    hourly_google_availability
 
     @day = Date.today + 7
 
@@ -99,7 +118,12 @@ private
     params.require(:availability).permit(:day_1, :day_2, :day_3, :day_4, :day_5, :day_6, :day_7, :user_id)
   end
 
-  def event_list_google_authentication
+  def next_six_days
+    tomorrow = Date.today + 1
+    (tomorrow .. tomorrow + 6).map {|date| "#{date}"}
+  end
+
+  def google_authentication
     client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
@@ -110,9 +134,13 @@ private
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
 
-    result = service.list_events('primary')
+    @result = service.list_events('primary')
+  end
 
-    @start_time = result.items.map {|e|
+  def hourly_google_availability
+    google_authentication
+
+    @start_time = @result.items.map {|e|
       if e.start.date_time != nil
          e.start.date_time.to_i
       else
@@ -120,7 +148,7 @@ private
       end
     }.compact
 
-    @end_time = result.items.map {|e|
+    @end_time = @result.items.map {|e|
       if e.end.date_time != nil
          e.end.date_time.to_i
       else

@@ -19,13 +19,9 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    if @appointment.destroy
-      google_authentication
-      @client.delete_event('primary', "#{@appointment.google_event_id}")
-      render "/users/#{@user.id}"
-    else
-      flash[:alert] = "Failed to delete event!"
-    end
+    delete_google
+    @appointment.destroy
+    render "/users/#{@user.id}"
   end
 
   def d_1_t_1
@@ -428,6 +424,11 @@ private
     @service.authorization = @client
   end
 
+  def delete_google
+    google_authentication
+    @client.delete_event('primary', @appointment.google_event_id)
+  end
+
   def time_slots
    upper_i = (@day + @t_1).to_i
    lower_i = (@day + @t_2).to_i
@@ -440,7 +441,6 @@ private
    event = Google::Apis::CalendarV3::Event.new({
         'summary':"#{current_user.name}'s Training Session with #{@user.name}",
         'description':'Booked through Phyziq.com',
-        # 'id':"12345",
         'start':{
           'date_time': "#{up}"
         },
