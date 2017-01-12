@@ -19,12 +19,13 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
+    delete_google
     @appointment.destroy
     render "/users/#{@user.id}"
   end
 
   def d_1_t_1
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 1
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -33,7 +34,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_1_t_2
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 1
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -42,7 +43,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_1_t_3
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 1
     @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
@@ -51,7 +52,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_1_t_4
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 1
     @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
@@ -60,7 +61,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_1_t_5
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 1
     @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
@@ -69,7 +70,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_1_t_6
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 1
     @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
@@ -78,7 +79,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_2_t_1
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 2
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -87,7 +88,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_2_t_2
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 2
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -96,7 +97,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_2_t_3
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 2
     @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
@@ -105,7 +106,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_2_t_4
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 2
     @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
@@ -114,7 +115,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_2_t_5
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 2
     @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
@@ -123,7 +124,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_2_t_6
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 2
     @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
@@ -132,7 +133,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_3_t_1
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 3
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -141,7 +142,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_3_t_2
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 3
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -150,7 +151,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_3_t_3
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 3
     @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
@@ -159,7 +160,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_3_t_4
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 3
     @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
@@ -168,7 +169,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_3_t_5
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 3
     @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
@@ -177,7 +178,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_3_t_6
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 3
     @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
@@ -186,7 +187,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_4_t_1
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 4
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -195,7 +196,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_4_t_2
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 4
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -204,7 +205,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_4_t_3
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 4
     @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
@@ -213,7 +214,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_4_t_4
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 4
     @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
@@ -222,7 +223,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_4_t_5
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 4
     @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
@@ -231,7 +232,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_4_t_6
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 4
     @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
@@ -240,7 +241,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_5_t_1
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 5
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -249,7 +250,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_5_t_2
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 5
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -258,7 +259,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_5_t_3
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 5
     @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
@@ -267,7 +268,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_5_t_4
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 5
     @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
@@ -276,7 +277,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_5_t_5
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 5
     @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
@@ -285,7 +286,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_5_t_6
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 5
     @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
@@ -294,7 +295,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_6_t_1
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 6
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -303,7 +304,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_6_t_2
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 6
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -312,7 +313,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_6_t_3
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 6
     @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
@@ -321,7 +322,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_6_t_4
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 6
     @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
@@ -330,7 +331,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_6_t_5
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 6
     @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
@@ -339,7 +340,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_6_t_6
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 6
     @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
@@ -348,7 +349,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_7_t_1
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 7
     @t_1 = Time.parse("14:00").seconds_since_midnight.seconds
@@ -357,7 +358,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_7_t_2
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 7
     @t_1 = Time.parse("15:30").seconds_since_midnight.seconds
@@ -366,7 +367,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_7_t_3
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 7
     @t_1 = Time.parse("17:00").seconds_since_midnight.seconds
@@ -375,7 +376,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_7_t_4
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 7
     @t_1 = Time.parse("18:30").seconds_since_midnight.seconds
@@ -384,7 +385,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_7_t_5
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 7
     @t_1 = Time.parse("20:00").seconds_since_midnight.seconds
@@ -393,7 +394,7 @@ class AppointmentsController < ApplicationController
   end
 
   def d_7_t_6
-    generic_google_authentication
+    google_authentication
 
     @day = Date.today + 7
     @t_1 = Time.parse("21:30").seconds_since_midnight.seconds
@@ -408,49 +409,24 @@ private
   end
 
   def appointment_params
-    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at)
+    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at, :google_event_id)
   end
 
-  def generic_google_authentication
-    client = Signet::OAuth2::Client.new({
+  def google_authentication
+    @client = Signet::OAuth2::Client.new({
     client_id: "#{Rails.application.secrets.sorcery_google_key}",
     client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
     token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
     access_token: session[:access_token]
     })
-    client.expires_in = Time.now + 1_000_000
+    @client.expires_in = Time.now + 1_000_000
     @service = Google::Apis::CalendarV3::CalendarService.new
-    @service.authorization = client
+    @service.authorization = @client
   end
 
-  def event_list_google_authentication
-    client = Signet::OAuth2::Client.new({
-    client_id: "#{Rails.application.secrets.sorcery_google_key}",
-    client_secret: "#{Rails.application.secrets.sorcery_google_secret}",
-    token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
-    access_token: session[:access_token]
-    })
-    client.expires_in = Time.now + 1_000_000
-    service = Google::Apis::CalendarV3::CalendarService.new
-    service.authorization = client
-
-    result = service.list_events('primary')
-
-    @start_time = result.items.map {|e|
-      if e.start.date_time != nil
-         e.start.date_time.to_i
-      else
-         next
-      end
-    }.compact
-
-    @end_time = result.items.map {|e|
-      if e.end.date_time != nil
-         e.end.date_time.to_i
-      else
-         next
-      end
-    }.compact
+  def delete_google
+    google_authentication
+    @client.delete_event('primary', @appointment.google_event_id)
   end
 
   def time_slots
@@ -478,7 +454,7 @@ private
           'useDefault': false
         }
       })
-   invitation = @service.insert_event('primary', event)
+   @result = @service.insert_event('primary', event)
 
    if current_user.trainer == false
       @appointment = Appointment.create(
@@ -487,7 +463,8 @@ private
         event_end_time: "#{low}",
         event_invitation_status: true,
         trainee_id: "#{current_user.id}",
-        trainer_id: "#{@user.id}"
+        trainer_id: "#{@user.id}",
+        google_event_id: "#{@result.id}"
       )
    else
       @appointment = Appointment.create(
@@ -496,7 +473,8 @@ private
         event_end_time: "#{low}",
         event_invitation_status: true,
         trainee_id: "#{@user.id}",
-        trainer_id: "#{current_user.id}"
+        trainer_id: "#{current_user.id}",
+        google_event_id: "#{@result.id}"
       )
    end
    flash[:notice] = "Invitation sent for #{up.strftime("%A %d/%m/%Y %T")} to #{low.strftime("%A %d/%m/%Y %T")}"
