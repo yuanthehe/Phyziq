@@ -9,10 +9,8 @@ class OauthsController < ApplicationController
     provider = params[:provider]
 
     if @user = login_from(:google)
-
        session[:access_token] = @access_token.token
        flash[:alert] = "Logged in from Google!"
-
        redirect_to :refresh_availability
     else
       # if logged_in?
