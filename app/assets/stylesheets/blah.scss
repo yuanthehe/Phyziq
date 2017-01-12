@@ -13,3 +13,8 @@
 @media #{$large-and-up} {
   // styles for large screens and up
 }
+
+[type="checkbox"]:checked + label:before {
+border-right: 2px solid #ED1B24;
+border-bottom: 2px solid #ED1B24;
+}

@@ -52,9 +52,9 @@ class UsersController < ApplicationController
 
     @next_six_days = next_six_days.map {|day|
       if weekly.include?(day)
-        next "Busy on #{day}"
-      else
         next "Free on #{day}"
+      else
+        next "Busy on #{day}"
       end
       }
   end

@@ -31,7 +31,7 @@
     </div>
   <!-- Card 2 Bio-->
     <div class="col m6 s12">
-      <div class="card orange">
+      <div class="card orange darker-1">
         <div class="card-content white-text">
           <i class="medium material-icons">description</i></br>
           <span class="card-title">Practice Area</span>
@@ -49,7 +49,7 @@
   <div class="row">
     <div class="col s2 m3 l2">
       <div class="weekly_day_one">
-        <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn modal-trigger" href="#modal1"><%= @next_six_days[0] %></a></br>
+        <a class="waves-effect waves-blue-grey blue-grey lighten-3 lighten-1 btn"><%= @next_six_days[0] %></a></br>
         <div class="time_slot">
         <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
           <%= @user.availabilities.last.day_1[0] %></br>
@@ -84,9 +84,9 @@
         </div>
       </div>
     </div>
-  <div class="col s2 m3 l2">
+  <div class="col s3 m3 l2">
     <div class="weekly_day_two">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[1] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-3 lighten-1 btn"><%= @next_six_days[1] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_2[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_2[0] %></br>
@@ -121,20 +121,10 @@
       </div>
     </div>
   </div>
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Check your email!</h4>
-      <p>The trainer is reviewing your request. A confirmation email will be send to you momentarily. </b>Thank you for using Phyziq Fitness.</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-blue-grey blue-grey lighten-1 btn-flat">Exit!</a>
-    </div>
-  </div>
 
   <div class="col s2 m3 l2">
     <div class="weekly_day_three">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[2] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-3 lighten-1 btn"><%= @next_six_days[2] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_3[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_3[0] %></br>
@@ -171,7 +161,7 @@
   </div>
   <div class="col s2 m3 l2">
     <div class="weekly_day_four">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[3] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-3 lighten-1 btn"><%= @next_six_days[3] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_4[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_4[0] %></br>
@@ -208,7 +198,7 @@
   </div>
   <div class="col s2 m3 l2">
     <div class="weekly_day_five">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[4] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-3 lighten-1 btn"><%= @next_six_days[4] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_5[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_5[0] %></br>
@@ -245,7 +235,7 @@
   </div>
   <div class="col s2 m3 l2">
     <div class="weekly_day_six">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @next_six_days[5] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-3 lighten-1 btn"><%= @next_six_days[5] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_6[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_6[0] %></br>
@@ -282,7 +272,7 @@
   </div></br>
   <div class="col s2 m3 l2">
     <div class="weekly_day_seven">
-      <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @next_six_days[6] %></a></br>
+      <a class="waves-effect waves-blue-grey blue-grey lighten-3 lighten-1 btn"><%= @next_six_days[6] %></a></br>
       <div class="time_slot">
       <% if @user.availabilities.last.day_7[0] == "Unavailable" %>
         <%= @user.availabilities.last.day_7[0] %></br>

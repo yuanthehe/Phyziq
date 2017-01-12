@@ -14,6 +14,21 @@
  *= require_self
  */
 
+ /* These classes can be added to HTML Elements
+    * to affect visibility on certain displays.
+    */
+   .hide-on-small-only
+   .hide-on-small-and-down
+   .hide-on-med-and-down
+   .hide-on-med-and-up
+   .hide-on-med-only
+   .hide-on-large-only
+   .show-on-large
+   .show-on-medium
+   .show-on-small
+   .show-on-medium-and-up
+   .show-on-medium-and-down
+
 
 body {
   line-height: 1.5;
@@ -103,7 +118,7 @@ h3 {
 }
 
 .trainer_list a {
-  color: #607d8b;
+  color: #fb8c00;
 }
 
 .display {
@@ -150,8 +165,8 @@ form
  }
 
 footer.page-footer {
-background-color: #cddc39;
-font-weight: 300px;
+  background-color: #b0bec5;
+  font-weight: 300px;
 }
 
 #google-alert {
@@ -160,7 +175,7 @@ font-weight: 300px;
 }
 
 .card-title {
-  color: #f44336;
+  color: black;
 }
 
 .error_msg {
@@ -184,21 +199,22 @@ font-weight: 300px;
 }
 
 .time_slot {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
   color: #37474f;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 65px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 .time_slot a {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
-  color: #37474f;
+  color: black;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 65px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+
 }
 
 .medium material-icons {
@@ -208,7 +224,7 @@ font-weight: 300px;
 .title {
   font-size: 17px;
   font-weight: 300;
-  color: #37474f;
+  color: white;
 }
 
 .check_box {
@@ -229,4 +245,5 @@ a {
 
 .search_bar {
   margin-bottom: 50px;
+
 }

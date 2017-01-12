@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20170110202450) do
     t.string   "address"
     t.boolean  "trainer"
     t.string   "password_digest"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", using: :btree
   end
 
 end
