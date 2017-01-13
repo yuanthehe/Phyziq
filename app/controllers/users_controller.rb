@@ -71,12 +71,16 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation,
+    params.require(:user).permit(:name, :email, :address, :latitude, :longitude, :trainer, :password, :password_confirmation,
     trainer_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy],
     trainee_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy])
   end
 
   def nearby_trainers
     @nearby_trainers = @user.where(trainer: true).nearbys(5, units: :km)
+  end
+
+  def user_google_map(center)
+    "https://maps.googleapis.com/maps/api/staticmap?center=#{center}&size=300x300&zoom=17"
   end
 end

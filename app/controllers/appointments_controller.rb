@@ -409,7 +409,11 @@ private
   end
 
   def appointment_params
-    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :created_at, :updated_at, :google_event_id)
+    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :address, :latitude, :longitude, :created_at, :updated_at, :google_event_id)
+  end
+
+  def event_google_map(center)
+    "https://maps.googleapis.com/maps/api/staticmap?center=#{center}&size=300x300&zoom=17"
   end
 
   def google_authentication
