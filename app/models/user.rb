@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :trainer_appointments, class_name: :Appointment, foreign_key: :trainer_id
   has_many :availabilities
   has_one :category
+  accepts_nested_attributes_for :category
 
   validates :name, :email, :address, presence: true
   validates :email, uniqueness: true

@@ -1,0 +1,69 @@
+<%= form_for ([@user, @category ])do |f| %>
+  <% if @category.errors.any? %>
+  <div id="error_explanation">
+    <h4><%= pluralize(@category.errors.count, "error") %> error uccurred! Please Try again!</h4>
+    <ul class="error_msg">
+      <% @category.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+  <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="form_container">
+  <div class="form">
+  <%= f.check_box :yoga %>
+  <%= f.label :yoga %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.check_box :weight_lifting %>
+  <%= f.label :weight_lifting %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.check_box :cross_fit %>
+  <%= f.label :cross_fit %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.check_box :cardio %>
+  <%= f.label :cardio %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.check_box :running %>
+  <%= f.label :running %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.check_box :squash %>
+  <%= f.label :squash %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.check_box :boxing %>
+  <%= f.label :boxing %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.check_box :martial_arts %>
+  <%= f.label :martial_arts %></br>
+  </div><br>
+
+  <div class="form">
+  <%= f.hidden_field :user_id, :value => @user.id %>
+  </div><br>
+</div>
+
+  <div class="sub-cancel_button center-align">
+    <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
+      <i class="material-icons right">send</i>
+    </button>
+
+    <div class="btn waves-effect waves-light red white-text"></a>
+      <%= link_to "Cancel", users_url(@user) %>
+      <% end %>
+    </div>
+  </div>
+</div>
