@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
-    if params[:address]
+    if params[:address].present?
       flash[:alert] = "Listing nearby trainers!"
       @user = User.near(params[:address], 5, units: :km).order("name ASC")
     elsif params[:search]
