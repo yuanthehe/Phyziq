@@ -15,6 +15,19 @@
 }
 
 [type="checkbox"]:checked + label:before {
-border-right: 2px solid #ED1B24;
-border-bottom: 2px solid #ED1B24;
+border-right: 3px solid orange;
+border-bottom: 3px solid orange;
+}
+
+label {
+  font-size: 0.8rem;
+  color: black;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 10px;
 }

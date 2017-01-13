@@ -71,12 +71,16 @@ table {
 
 
 .nav-wrapper {
-  padding-left: 10px;
+  padding-left: 15px;
   background-color: #607d8b;
+  font-size: 15px;
+
 }
 
 .nav-wrapper a:link {
   text-decoration: none;
+  font-size: 15px;
+
 }
 
 /*.alert {
@@ -130,7 +134,7 @@ form
 ============================================================================= */
 
 .form_container {
-  width: 50%;
+  width: 35%;
   background-color: #eceff1;
   color: black;
   margin-top: 20px;
@@ -144,7 +148,7 @@ form
 }
 
 .form_container p {
-  color: #ED1B24;
+  color: orange;
   text-align: left;
 }
 
