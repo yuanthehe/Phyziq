@@ -1,6 +1,10 @@
 
-<% if current_user == @user %>
-  <h3>Edit Account Settings</h3>
+<% if current_user == @user && current_user.trainer == true %>
+  <h3>Update Your Profile</h3>
+  <%= render 'trainer_profile_form' %>
+  <%= render 'trainer_categories' %>
+<% elsif current_user == @user && current_user.trainer == nil %>
+  <h3>Update Your Profile</h3>
   <%= render 'form' %>
 <% else %>
   <h3>Please login to edit this page!</h3>

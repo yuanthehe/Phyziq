@@ -56,58 +56,37 @@ class AvailabilitiesController < ApplicationController
   end
 
   def day_1
-    hourly_google_availability
-
     @day = Date.today + 1
-
     @availability_day_1 = availability_check
   end
 
   def day_2
-    hourly_google_availability
-
     @day = Date.today + 2
-
     @availability_day_2 = availability_check
   end
 
   def day_3
-    hourly_google_availability
-
     @day = Date.today + 3
-
     @availability_day_3 = availability_check
   end
 
   def day_4
-    hourly_google_availability
-
     @day = Date.today + 4
-
     @availability_day_4 = availability_check
   end
 
   def day_5
-    hourly_google_availability
-
     @day = Date.today + 5
-
     @availability_day_5 = availability_check
   end
 
   def day_6
-    hourly_google_availability
-
     @day = Date.today + 6
-
     @availability_day_6 = availability_check
   end
 
   def day_7
-    hourly_google_availability
-
     @day = Date.today + 7
-
     @availability_day_7 = availability_check
   end
 
