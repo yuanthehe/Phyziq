@@ -28,7 +28,7 @@ class AvailabilitiesController < ApplicationController
       user_id: current_user.id
       )
     flash[:alert] = "Availabilty updated!"
-    redirect_to root_path
+    redirect_to edit_user_path(@availability.user_id)
   end
 
   def edit
