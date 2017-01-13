@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112205311) do
+ActiveRecord::Schema.define(version: 20170113003151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,9 +52,10 @@ ActiveRecord::Schema.define(version: 20170112205311) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "genre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "description"
+    t.boolean  "status"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,7 +68,7 @@ ActiveRecord::Schema.define(version: 20170112205311) do
     t.string   "address"
     t.boolean  "trainer"
     t.string   "password_digest"
-    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
 end
