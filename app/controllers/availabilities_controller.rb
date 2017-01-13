@@ -8,7 +8,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def weekly_hourly
-    daily_availability_check
+    weekly_google_availability
     day_1
     day_2
     day_3
@@ -37,22 +37,6 @@ class AvailabilitiesController < ApplicationController
 
   def update
 
-  end
-
-  def daily_availability_check
-    google_authentication
-
-    weekly = @result.items.map {|e|
-         e.start.date
-       }.compact
-
-    @next_six_days = next_six_days.map {|day|
-      if weekly.include?(day)
-        next "Busy"
-      else
-        next "#{day}"
-      end
-      }
   end
 
   def day_1
@@ -116,8 +100,21 @@ private
     @result = service.list_events('primary')
   end
 
-  def hourly_google_availability
+
+  def weekly_google_availability
     google_authentication
+
+    weekly = @result.items.map {|e|
+         e.start.date
+       }.compact
+
+    @next_six_days = next_six_days.map {|day|
+      if weekly.include?(day)
+        next "Busy"
+      else
+        next "#{day}"
+      end
+      }
 
     @start_time = @result.items.map {|e|
       if e.start.date_time != nil
