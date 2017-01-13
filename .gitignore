@@ -2,4 +2,3 @@ tmp/*
 *.log
 .DS-Store
 *.sqlite3
-config/secrets.yml
