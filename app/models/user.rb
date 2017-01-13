@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :trainee_appointments, class_name: :Appointment, foreign_key: :trainee_id
   has_many :trainer_appointments, class_name: :Appointment, foreign_key: :trainer_id
   has_many :availabilities
-  has_many :categories
+  has_one :category
 
   validates :name, :email, :address, presence: true
   validates :email, uniqueness: true
