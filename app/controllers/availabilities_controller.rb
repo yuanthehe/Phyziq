@@ -28,7 +28,7 @@ class AvailabilitiesController < ApplicationController
       user_id: current_user.id
       )
     flash[:alert] = "Availabilty updated!"
-    redirect_to root_path
+    redirect_to edit_user_path(@availability.user_id)
   end
 
   def edit
@@ -48,9 +48,9 @@ class AvailabilitiesController < ApplicationController
 
     @next_six_days = next_six_days.map {|day|
       if weekly.include?(day)
-        next "Busy on #{day}"
+        next "Busy"
       else
-        next "Free on #{day}"
+        next "#{day}"
       end
       }
   end
