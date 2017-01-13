@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.build_category
   end
 
   def index
@@ -44,6 +45,10 @@ class UsersController < ApplicationController
 
   def edit
   #  @user = User.find(params[:id])
+    if current_user
+      @category = @user.category
+    end
+
   end
 
   def update
@@ -51,6 +56,8 @@ class UsersController < ApplicationController
     if @user.update_attributes(user_params)
       flash[:alert] = "Account settings updated!"
       redirect_to user_url
+    elsif @user.trainer == true && @user.category == nil
+      redirect_to :edit
     else
       render :edit
     end

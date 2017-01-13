@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-Category.create(genre: "yoga")
-Category.create(genre: "body building")
-Category.create(genre: "spinning")
-Category.create(genre: "step")
-Category.create(genre: "aerobicks")
-Category.create(genre: "meditation")
-Category.create(genre: "pitates")
+# Category.create(name: "Yoga", status: false, description: "empty for now")
+# Category.create(name: "Body Building", status: false, description: "empty for now")
+# Category.create(name: "Spinning", status: false, description: "empty for now")
+# Category.create(name: "Step", status: false, description: "empty for now")
+# Category.create(name: "Aerobicks", status: false, description: "empty for now")
+# Category.create(name: "Meditation", status: false, description: "empty for now")
+# Category.create(name: "Pitates", status: false, description: "empty for now")

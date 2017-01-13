@@ -53,6 +53,10 @@ Rails.application.routes.draw do
     get "d_7_t_6" => "appointments"
   end
 
+  resources :users do
+    resources :categories, only: [:create, :update, :destroy, :edit]
+  end
+
   resources :user_sessions, only: [:new, :create, :destroy]
 
   get 'logout' => 'user_sessions#destroy', :as => :logout
