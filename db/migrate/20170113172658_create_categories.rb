@@ -1,6 +1,5 @@
 class CreateCategories < ActiveRecord::Migration[5.0]
-  def up
-    drop_table :categories
+  def change
 
     create_table :categories do |t|
 
