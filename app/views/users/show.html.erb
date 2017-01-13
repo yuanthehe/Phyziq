@@ -309,55 +309,61 @@
   </div>
 <% else %>
   <h4> Your upcoming training events: </h4>
-  <% if @user.trainer == true %>
-    <% @user.trainer_appointments.each do |e| %>
-      <% if Time.at(e.event_end_time) < Time.now %>
-        <% e.destroy %>
-      <% else %>
-      <ul>
-        <%= e.summary %>:
-        <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
-        <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
+  <div class="divider"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col l9 s12">
+    <% if @user.trainer == true %>
+      <% @user.trainer_appointments.each do |e| %>
+        <% if Time.at(e.event_end_time) < Time.now %>
+          <% e.destroy %>
+        <% else %>
+        <ul>
+          <%= e.summary %>:
+          <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
+          <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
+        <% end %>
+        </ul>
       <% end %>
-      </ul>
-    <% end %>
-    <%= form_for @user do |f| %>
-      <ul>
-      <%= f.fields_for :trainer_appointments do |app_form| %>
-        <%= app_form.check_box :_destroy %>
-        <%= app_form.label :_destroy, "Delete Event" %>
-        <%= app_form.submit :Confirm %>
-        </br>
+    </div>
+    <div class="col l3 s12">
+      <%= form_for @user do |f| %>
+        <ul>
+        <%= f.fields_for :trainer_appointments do |app_form| %>
+          <%= app_form.check_box :_destroy %>
+          <%= app_form.label :_destroy, "Delete Event" %>
+          <%= app_form.submit :Confirm %>
+          </br>
+        <% end %>
+        </ul>
       <% end %>
-      </ul>
-    <% end %>
-  <% else %>
-    <% @user.trainee_appointments.each do |e| %>
-      <% if Time.at(e.event_end_time) < Time.now %>
-        <% e.destroy %>
-      <% else %>
-      <ul>
-        <%= e.summary %>:
-        <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
-        <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
+    <% else %>
+      <% @user.trainee_appointments.each do |e| %>
+        <% if Time.at(e.event_end_time) < Time.now %>
+          <% e.destroy %>
+        <% else %>
+        <ul>
+          <%=cla e.summary %>:
+          <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
+          <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
+        <% end %>
+        </ul>
       <% end %>
-      </ul>
-    <% end %>
-    <%= form_for @user do |f| %>
-      <ul>
-      <%= f.fields_for :trainee_appointments do |app_form| %>
-        <%= app_form.check_box :_destroy %>
-        <%= app_form.label :_destroy, "Delete Event" %>
-        <%= app_form.submit :Confirm %></br>
+      <%= form_for @user do |f| %>
+        <ul>
+        <%= f.fields_for :trainee_appointments do |app_form| %>
+          <%= app_form.check_box :_destroy %>
+          <%= app_form.label :_destroy, "Delete Event" %>
+          <%= app_form.submit :Confirm %></br>
+        <% end %>
+        </ul>
       <% end %>
-      </ul>
     <% end %>
   <% end %>
-<% end %>
-<% if @user.trainer_appointments == [] %>
-  <h5>Currently no events!</h5>
-<% elsif @user.trainee_appointments == [] %>
-  <h5>Currently no events!</h5>
+  </div>
+</div>
+<% if @user.trainer_appointments == [] && @user.trainee_appointments == [] %>
+  <h6>Currently no events!</h6>
 <% end %>
 <div class="divider"></div></br>
 <div style="text-align: center;">

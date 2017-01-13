@@ -19,10 +19,9 @@
 </div>
 
 <h3>Trainer Index:</h3>
-
-<div class="trainer_count">
-  <p><%= @user.where(:trainer => true).count %> Trainers found!</p>
-</div>
+  <div class="trainer_count">
+    <p><%= @user.where(:trainer => true).count %> Trainers found!</p>
+  </div>
 
   <div class="trainer_list">
     <% @user.each do |t|%>
