@@ -8,16 +8,18 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
-      if params[:search]
-        @user = User.search(params[:search]).order("name ASC")
-      else
-        @user = User.all
-      end
+    if params[:address].present?
+      flash[:alert] = "Listing nearby trainers!"
+      @user = User.near(params[:address], 5, units: :km).order("name ASC")
+    elsif params[:search]
+      @user = User.search(params[:search]).order("name ASC")
+    else
+      @user = User.all
+    end
   end
 
   def create
     @user = User.new(user_params)
-
     if @user.save
       if @user.trainer == true
         auto_login(@user)
@@ -76,8 +78,16 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :trainer, :password, :password_confirmation,
+    params.require(:user).permit(:name, :email, :address, :latitude, :longitude, :trainer, :password, :password_confirmation,
     trainer_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy],
     trainee_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy])
+  end
+
+  def nearby_trainers
+    @nearby_trainers = @user.where(trainer: true).nearbys(5, units: :km)
+  end
+
+  def user_google_map(center)
+    "https://maps.googleapis.com/maps/api/staticmap?center=#{center}&size=300x300&zoom=17"
   end
 end

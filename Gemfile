@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
+gem 'geocoder'
+
 gem 'materialize-sass'
 
 # Use jquery as the JavaScript library

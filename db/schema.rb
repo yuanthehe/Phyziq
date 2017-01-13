@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20170113183835) do
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.integer  "trainer_id"
     t.integer  "trainee_id"
     t.datetime "event_start_time"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20170113183835) do
     t.boolean  "event"
     t.string   "summary"
     t.string   "google_event_id"
+    t.decimal  "latitude",                precision: 9, scale: 6
+    t.decimal  "longitude",               precision: 9, scale: 6
+    t.string   "address"
   end
 
   create_table "authentications", force: :cascade do |t|
@@ -66,7 +69,7 @@ ActiveRecord::Schema.define(version: 20170113183835) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",            null: false
+    t.string   "email",                                    null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.datetime "created_at"
@@ -75,6 +78,8 @@ ActiveRecord::Schema.define(version: 20170113183835) do
     t.string   "address"
     t.boolean  "trainer"
     t.string   "password_digest"
+    t.decimal  "latitude",         precision: 9, scale: 6
+    t.decimal  "longitude",        precision: 9, scale: 6
     t.text     "bio"
     t.index ["email"], name: "index_users_on_email", using: :btree
   end

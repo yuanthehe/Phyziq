@@ -18,6 +18,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :trainee_appointments, allow_destroy: true
   accepts_nested_attributes_for :trainer_appointments, allow_destroy: true
 
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+
   def has_linked_google?
      authentications.where(provider: 'google').present?
   end
