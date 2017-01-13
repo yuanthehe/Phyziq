@@ -3,5 +3,5 @@ class Appointment < ApplicationRecord
   belongs_to :trainee, class_name: :User
 
   geocoded_by :address
-  after_validation :geocode, if: address_changed?
+  after_validation :geocode, if: :address_changed?
 end
