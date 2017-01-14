@@ -8,9 +8,9 @@
           <div class="card grey lighten-4">
             <div class="card-content black-text center">
               <span class="card-title">You are booked!</span>
-              <p>Please review your requested time slot below. An email confirmation is on its way. </br>Check your email so you can view it in your Google Calendar.</p>
+              <p>Please review your requested time slot below.</br>The appointment will appear on your Google Calendar momentarily.</p>
               </br>
-              <%= @appointment %>
+              <% insert_google_event %>
               <div class="section">
                 <%= link_to "update your availability", :refresh_availability, class: "waves-effect waves-light orange lighten-1 btn" %>
               </div>
