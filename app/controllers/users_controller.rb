@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.build_category
   end
 
   def index
@@ -37,7 +36,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user = User.find(params[:id])
     if session[:access_token] != nil
       render :show
     else
@@ -46,27 +44,27 @@ class UsersController < ApplicationController
   end
 
   def edit
-  #  @user = User.find(params[:id])
-    if current_user
+    if current_user.trainer == true && @user.category == nil
+      @category = Category.create
+      render :edit
+    else
       @category = @user.category
+      render :edit
     end
-
   end
 
   def update
-  #  @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:alert] = "Account settings updated!"
       redirect_to user_url
     elsif @user.trainer == true && @user.category == nil
-      redirect_to :edit
+      render :edit
     else
       render :edit
     end
   end
 
   def destroy
-  #  @user = User.find(params[:id])
     @user.destroy
     redirect_to root_path
   end
@@ -90,4 +88,10 @@ private
   def user_google_map(center)
     "https://maps.googleapis.com/maps/api/staticmap?center=#{center}&size=300x300&zoom=17"
   end
+  # image_tag google_map(center: user.address) to call in views
+
+  # <iframe width="300" height="300" frameborder="0" style="border:0"
+  # src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=ADDRESS_OR_COORDINATES"
+  # allowfullscreen>
+  # </iframe> Embedded interactive google map on views
 end
