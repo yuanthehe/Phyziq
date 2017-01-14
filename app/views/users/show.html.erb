@@ -319,7 +319,7 @@
           <% e.destroy %>
         <% else %>
         <ul>
-          <%= e.summary %>:
+          <%= link_to "#{e.summary}", "/users/#{@user.id}/appointments/#{e.id}" %>:
           <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
           <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
         <% end %>
@@ -349,7 +349,7 @@
           <% e.destroy %>
         <% else %>
         <ul>
-          <%=cla e.summary %>:
+          <%= link_to "#{e.summary}", "/users/#{@user.id}/appointments/#{e.id}" %>:
           <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to
           <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
         <% end %>
