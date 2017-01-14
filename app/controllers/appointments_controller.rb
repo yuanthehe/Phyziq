@@ -14,6 +14,7 @@ class AppointmentsController < ApplicationController
   def create_event
     @appointment = Appointment.create(
        summary: "#{current_user.name}'s Training Session with #{@user.name}",
+       location: "#{@user.address}",
        event_start_time: "#{@up}",
        event_end_time: "#{@low}",
        event_invitation_status: true,
