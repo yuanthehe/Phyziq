@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if current_user.trainer == true && @user.category == nil
+    if @user.trainer == true && @user.category == nil
       @category = Category.create
       render :edit
     else
