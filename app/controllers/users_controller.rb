@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
+    # @category = Category.where(cross_fit: @user.ids)
     if params[:address].present?
       flash[:alert] = "Listing nearby trainers!"
       @user = User.near(params[:address], 5, units: :km).order("name ASC")
@@ -44,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if current_user.trainer == true && @user.category == nil
+    if @user.trainer == true && @user.category == nil
       @category = Category.create
       render :edit
     else

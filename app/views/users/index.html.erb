@@ -6,7 +6,7 @@
           <h1>Find a trainer in your area</h1></br>
             <div class="search_bar">
               <%= form_tag(users_url, :method => "get", id: "search-form") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "BY NAME, CATEGORY OR ADDRESS", required: true %>
+              <%= text_field_tag :search, params[:search], placeholder: "BY NAME, CATEGORY, OR ADDRESS", required: true %>
                 <div class="waves-effect waves-light orange lighten-1 btn">Submit</a></br>
                   <%= submit_tag "Search" %>
                 <% end %>
@@ -27,6 +27,11 @@
     <% @user.each do |t|%>
       <% if t.trainer == true %>
         <h4><%=link_to "#{t.name}", "/users/#{t.id}" %></h4>
+        <% t.category.attributes.each do |key, value| %>
+          <% if value == true %>
+            <h6><%= "#{key.capitalize.split('_').join("")}" %></h6>
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
   </div>
