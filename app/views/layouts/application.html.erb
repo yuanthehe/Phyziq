@@ -18,6 +18,15 @@
   </head>
   <body>
   <header class="site-header">
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+      <li><%= link_to "Profile", "/users/#{session[:user_id]}" %></li>
+      <li class="divider"></li>
+      <li><%= link_to "Settings", "/users/#{session[:user_id]}/edit" %></li>
+      <li class="divider"></li>
+      <li><%= link_to "Update Availability", :refresh_availability %></li>
+      <li class="divider"></li>
+    </ul>
     <!-- navigation bar -->
     <nav>
       <div class="nav-wrapper">
@@ -25,9 +34,6 @@
         <%= link_to "Home", users_url %>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <% if current_user %>
-              <li><%= link_to "Profile", "/users/#{session[:user_id]}" %></li>
-              <li><%= link_to "Settings", "/users/#{session[:user_id]}/edit" %></li>
-              <li><%= link_to "Update Availability", :refresh_availability %></li>
               <li><%= link_to 'Logout', :logout %></li>
           <% else %>
               <li><%= link_to "Login with Google", auth_at_provider_path(:provider => :google) %></li>
@@ -35,8 +41,11 @@
           <% if flash[:alert] %>
             <li><div id="google-alert" class="alert"><%= flash[:alert] %></div></li>
           <% end %>
+          <!-- Dropdown Trigger -->
+          <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+          </ul>
         </div>
-      </ul>
+
     </nav>
   </header>
     <%= yield %>
