@@ -20,29 +20,35 @@
   <header class="site-header">
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
+      <% if current_user %>
+      <li class="divider"></li>
       <li><%= link_to "Profile", "/users/#{session[:user_id]}" %></li>
       <li class="divider"></li>
       <li><%= link_to "Settings", "/users/#{session[:user_id]}/edit" %></li>
       <li class="divider"></li>
       <li><%= link_to "Update Availability", :refresh_availability %></li>
-      <li class="divider"></li>
+        <li class="divider"></li>
+        <li><%= link_to 'Logout', :logout %></li>
+      <% end %>
     </ul>
     <!-- navigation bar -->
     <nav>
       <div class="nav-wrapper">
         <a href="/" class="brand-logo center"><%= image_tag "phyziq-logo.png", :class => "logo" %></a>
-        <%= link_to "Home", users_url %>
+        <% if !current_user %>
+          <%= link_to "Login with Google", auth_at_provider_path(:provider => :google) %>
+        <% else %>
+          <%= link_to "Home", users_url %>
+        <% end %>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <% if current_user %>
-              <li><%= link_to 'Logout', :logout %></li>
-          <% else %>
-              <li><%= link_to "Login with Google", auth_at_provider_path(:provider => :google) %></li>
-          <% end %>
           <% if flash[:alert] %>
             <li><div id="google-alert" class="alert"><%= flash[:alert] %></div></li>
           <% end %>
+          <% if current_user %>
           <!-- Dropdown Trigger -->
           <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons right">reorder</i></a></li>
+          <% else %>
+          <% end %>
           </ul>
         </div>
 
