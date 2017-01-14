@@ -84,14 +84,4 @@ private
   def nearby_trainers
     @nearby_trainers = @user.where(trainer: true).nearbys(5, units: :km)
   end
-
-  def user_google_map(center)
-    "https://maps.googleapis.com/maps/api/staticmap?center=#{center}&size=300x300&zoom=17"
-  end
-  # image_tag google_map(center: user.address) to call in views
-
-  # <iframe width="300" height="300" frameborder="0" style="border:0"
-  # src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=ADDRESS_OR_COORDINATES"
-  # allowfullscreen>
-  # </iframe> Embedded interactive google map on views
 end
