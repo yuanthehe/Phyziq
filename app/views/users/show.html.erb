@@ -2,64 +2,30 @@
   <h3 class="user_welcome">Welcome <%= @user.name %>!</h3>
 <% else %>
   <h3 class="user_header"><%= @user.name %>'s page</h3>
-<% end %>
-</br>
+<% end %></br>
 
-<!-- Materialize Card Layout -->
-<!-- Card 1 Profile -->
-<div class="container">
-  <div class="row">
-    <div class="col m6 s12">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <i class="medium material-icons">perm_identity</i></br>
-          <span class="card-title">Profile</span>
-            <div class="user_profile">
-              <div class="user_info">
-                <p>User name: <div class="display"><%= @user.name %></div></p>
-                <p>Email address: <div class="display"><%= @user.email %></div></p>
-                <p>Street address: <div class="display"><%= @user.address %></div></p></br>
-              </div>
-            </div>
-          <div class="card-action">
-          <% if current_user == @user %>
-            <p class="edit_link"><%= link_to "Edit your profile", "/users/#{@user.id}/edit" %></p></br>
-          <% end %>
-          <% if current_user == @user && current_user.trainer == true %>
-            <p class="edit_link"><%= link_to "Choose your training categories!", "/users/#{@user.id}/categories/#{@user.category.id}/edit" %></p>
-          <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- Card 2 Bio-->
-    <div class="col m6 s12">
-      <div class="card orange darker-1">
-        <div class="card-content white-text">
-          <i class="medium material-icons">description</i></br>
-          <span class="card-title">Training Categories</span>
-            <% @user.category.attributes.each do |key, value| %>
-              <% if value == true %>
-                <div class="title"><%= "#{key.capitalize.split('_').join("")}" %></div>
-              <% end %>
-            <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div></br>
-<div class="divider"></div>
-<!-- PUBLIC PARTIAL PROFILE HERE -->
-<% if current_user != @user %>
-  <% render 'public_availability_view' %>
+<!-- TRAINER CARDS VS. TRAINEE CARDS -->
+<% if @user.trainer == true %>
+ <%= render 'trainer_cards' %>
 <% else %>
-  <% render 'private_appointments_view' %>
+ <%= render 'trainee_cards'%>
+<% end %>
+
+<div class="divider"></div>
+<!-- PUBLIC PROFILE -->
+<% if current_user != @user %>
+  <%= render 'public_availability_view' %>
+<% else %>
+<!-- PRIVATE PROFILE -->
+  <%= render 'private_appointments_view' %>
 <% end %>
 </div>
+
 <% if @user.trainer_appointments == [] && @user.trainee_appointments == [] %>
   </br><h6>Currently no events!</h6></br>
 <% end %>
 <div class="divider"></div></br>
+
 <div style="text-align: center;">
 <% if logged_in? %>
   Currently logged in as: <%= current_user.email %> | Account linked with Google!

@@ -45,23 +45,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if @user.trainer == true && @user.category == nil
-      @category = Category.create
-      render :edit
-    else
-      @category = @user.category
-      render :edit
-    end
+
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(user_params) && @user.trainer == true && @user.category == nil
+      @category = Category.create
+      @user.category = @category
+      flash[:alert] = "Pick Your Training Categories!"
+      redirect_to "/users/#{@user.id}/categories/#{@category.id}/edit"
+    else
       flash[:alert] = "Account settings updated!"
       redirect_to user_url
-    elsif @user.trainer == true && @user.category == nil
-      render :edit
-    else
-      render :edit
     end
   end
 
