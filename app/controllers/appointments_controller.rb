@@ -445,7 +445,7 @@ private
    event = Google::Apis::CalendarV3::Event.new({
         'summary':"#{current_user.name}'s Training Session with #{@user.name}",
         'description':'Booked through Phyziq.com',
-        'location':"#{@user.address}"
+        'location':"#{@user.address}",
         'start':{
           'date_time': "#{up}"
         },
