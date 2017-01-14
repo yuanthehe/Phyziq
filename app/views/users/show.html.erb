@@ -23,7 +23,10 @@
             </div>
           <div class="card-action">
           <% if current_user == @user %>
-            <p class="edit_link"><%= link_to "Edit your profile", "/users/#{@user.id}/edit" %></p>
+            <p class="edit_link"><%= link_to "Edit your profile", "/users/#{@user.id}/edit" %></p></br>
+          <% end %>
+          <% if current_user == @user && current_user.trainer == true %>
+            <p class="edit_link"><%= link_to "Choose your training categories!", "/users/#{@user.id}/categories/#{@user.category.id}/edit" %></p>
           <% end %>
           </div>
         </div>
@@ -34,10 +37,12 @@
       <div class="card orange darker-1">
         <div class="card-content white-text">
           <i class="medium material-icons">description</i></br>
-          <span class="card-title">Practice Area</span>
-            <div class="title">Aerobic Fitness: Aerobic exercise uses large muscle groups and increases your heart rate. Try walking, jogging, biking, swimming, dancing, water aerobics. </div></br>
-            <div class="title">Strength Training: Your own body weight counts, too. Try pushups, abdominal crunches and leg squats.</div></br>
-            <div class="title">Core Exercises: Your core muscles — help protect your back and connect upper and lower body movements.</div></br>
+          <span class="card-title">Training Categories</span>
+            <% @user.category.attributes.each do |key, value| %>
+              <% if value == true %>
+                <div class="title"><%= "#{key.capitalize.split('_').join("")}" %></div>
+              <% end %>
+            <% end %>
         </div>
       </div>
     </div>
@@ -52,7 +57,7 @@
 <% end %>
 </div>
 <% if @user.trainer_appointments == [] && @user.trainee_appointments == [] %>
-  <h6>Currently no events!</h6></br>
+  </br><h6>Currently no events!</h6></br>
 <% end %>
 <div class="divider"></div></br>
 <div style="text-align: center;">
