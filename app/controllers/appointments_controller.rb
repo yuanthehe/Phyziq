@@ -1,6 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
   before_action :load_user
+  before_action :load_appointment, only: [:show, :destroy]
 
   def new
     @appointment = Appointment.new
@@ -10,18 +11,18 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
   end
 
-  def edit
+  def show
 
   end
 
-  def update
+  def index
 
   end
 
   def destroy
     delete_google
     @appointment.destroy
-    render "/users/#{@user.id}"
+    # render "/users/#{@user.id}"
   end
 
   def d_1_t_1
@@ -408,8 +409,15 @@ private
     @user = User.find(params[:user_id])
   end
 
+  def load_appointment
+    @appointment = Appointment.find(params[:id])
+  end
+
   def appointment_params
-    params.require(:appointment).permit(:event_start_time, :event_end_time, :event_invitation_status, :trainer_id, :trainee_id, :address, :latitude, :longitude, :created_at, :updated_at, :google_event_id)
+    params.require(:appointment).permit(:event_start_time,
+    :event_end_time, :event_invitation_status, :trainer_id,
+    :trainee_id, :address, :latitude, :longitude, :created_at,
+    :updated_at, :google_event_id)
   end
 
   def event_google_map(center)
