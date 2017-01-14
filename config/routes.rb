@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "users#index"
 
   resources :users do
-    resources :appointments
+    resources :appointments, only: [:update, :show, :destroy, :index, :edit]
     get "d_1_t_1" => "appointments"
     get "d_1_t_2" => "appointments"
     get "d_1_t_3" => "appointments"
