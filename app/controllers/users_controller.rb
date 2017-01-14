@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
-    @category = Category.find_by(user_id: @user.ids)
+    # @category = Category.where(cross_fit: @user.ids)
     if params[:address].present?
       flash[:alert] = "Listing nearby trainers!"
       @user = User.near(params[:address], 5, units: :km).order("name ASC")
