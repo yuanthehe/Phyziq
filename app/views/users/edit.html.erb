@@ -1,9 +1,6 @@
-
 <% if current_user == @user && current_user.trainer == true %>
   <h3>Update Your Profile</h3>
-  <%= render 'trainer_profile_form' %>
-  <h3>What's Your Specialty?</h3>
-  <%= render 'trainer_categories' %>
+  <%= render 'trainer_profile_form' %>>
 <% elsif current_user == @user && current_user.trainer == false %>
   <h3>Update Your Profile</h3>
   <%= render 'form' %>
