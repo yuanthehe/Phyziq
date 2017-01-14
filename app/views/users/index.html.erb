@@ -29,7 +29,7 @@
         <h4><%=link_to "#{t.name}", "/users/#{t.id}" %></h4>
         <% t.category.attributes.each do |key, value| %>
           <% if value == true %>
-            <h6><%= "#{key.capitalize}" %></h6>
+            <h6><%= "#{key.capitalize.split('_').join("")}" %></h6>
           <% end %>
         <% end %>
       <% end %>
