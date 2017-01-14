@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :categories, only: [:create, :update, :destroy, :edit]
+    resources :categories, only: [:create, :update, :destroy, :index, :edit]
   end
 
   resources :user_sessions, only: [:new, :create, :destroy]
