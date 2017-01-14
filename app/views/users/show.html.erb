@@ -331,11 +331,17 @@
         <ul>
         <%= f.fields_for :trainer_appointments do |app_form| %>
           <%= app_form.check_box :_destroy %>
-          <%= app_form.label :_destroy, "Delete Event" %>
-          <%= app_form.submit :Confirm %>
+          <%= app_form.label :_destroy %>
           </br>
         <% end %>
         </ul>
+        <% if @user.trainee_appointments != [] %>
+        <div class="sub-cancel_button center-align">
+          <button class="btn waves-effect waves-light orange" type="submit" name="action">Delete Events
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+        <% end %>
       <% end %>
     <% else %>
       <% @user.trainee_appointments.each do |e| %>
@@ -353,10 +359,16 @@
         <ul>
         <%= f.fields_for :trainee_appointments do |app_form| %>
           <%= app_form.check_box :_destroy %>
-          <%= app_form.label :_destroy, "Delete Event" %>
-          <%= app_form.submit :Confirm %></br>
+          <%= app_form.label :_destroy %>
         <% end %>
         </ul>
+        <% if @user.trainee_appointments != [] %>
+        <div class="sub-cancel_button center-align">
+          <button class="btn waves-effect waves-light orange" type="submit" name="action">Delete Events
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
