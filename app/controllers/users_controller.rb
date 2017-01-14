@@ -77,7 +77,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :latitude, :longitude, :trainer, :password, :password_confirmation,
+    params.require(:user).permit(:name, :email, :address, :bio, :latitude, :longitude, :trainer, :password, :password_confirmation,
     trainer_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy],
     trainee_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy])
   end
