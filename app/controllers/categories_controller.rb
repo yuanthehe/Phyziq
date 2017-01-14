@@ -24,7 +24,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     if @category.update_attributes(category_params)
-      flash[:alert] = "Settings updated!"
+      flash[:alert] = "Categories updated!"
       redirect_to user_url(@user)
     else
       render :edit
@@ -46,7 +46,7 @@ private
   end
 
   def category_params
-    params.require(:category).permit(:user_id, :weight_lifting, :cross_fit,
-    :yoga, :cardio, :running, :squash, :boxing, :martial_arts)
+    params.require(:category).permit(:user_id, :weightlifting, :crossfit,
+    :yoga, :cardio, :running, :squash, :boxing, :kickboxing)
   end
 end
