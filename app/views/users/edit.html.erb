@@ -3,7 +3,7 @@
   <h3>Update Your Profile</h3>
   <%= render 'trainer_profile_form' %>
   <%= render 'trainer_categories' %>
-<% elsif current_user == @user && current_user.trainer == nil %>
+<% elsif current_user == @user && current_user.trainer == false %>
   <h3>Update Your Profile</h3>
   <%= render 'form' %>
 <% else %>
