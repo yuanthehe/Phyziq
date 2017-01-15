@@ -208,7 +208,7 @@ footer.page-footer {
 }
 
 .time_slot {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   color: black;
   text-align: center;
@@ -218,7 +218,7 @@ footer.page-footer {
 }
 
 .time_slot a {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   color: black;
   text-align: center;
@@ -256,4 +256,9 @@ a {
 .search_bar {
   margin-bottom: 50px;
 
+}
+
+.striped {
+  margin-left: 15px;
+  margin-right: 15px;
 }
