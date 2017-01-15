@@ -10,7 +10,7 @@ class OauthsController < ApplicationController
 
     if @user = login_from(:google)
        session[:access_token] = @access_token.token
-       redirect_to :refresh_availability
+       redirect_to :update_availability
     else
       if logged_in?
         link_account(:google)
@@ -21,7 +21,7 @@ class OauthsController < ApplicationController
         reset_session # protect from session fixation attack
         session[:access_token] = @access_token.token
         auto_login(@user)
-        redirect_to :refresh_availability
+        redirect_to :create_availability
       end
     end
   end

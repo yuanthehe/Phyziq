@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   # delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
 
-  get "weekly_hourly" => "availabilities", :as => :refresh_availability
+  get "create_weekly_hourly" => "availabilities", :as => :create_availability
+  get "update_weekly_hourly" => "availabilities", :as => :update_availability
 
 end
