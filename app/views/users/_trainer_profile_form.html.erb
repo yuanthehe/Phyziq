@@ -26,9 +26,9 @@
     <%= f.text_field :address, placeholder: "Enter your street address" %>
   </div>
 
-  <div class="form">
-    <label for="textarea1">Tell us who you are, 200 words or less:</label>
-    <textarea id="textarea1" class="materialize-textarea"></textarea></br>
+  <div class="trainer_bio">
+    <%= f.label :bio, "Tell us who you are, 200 words or less:" %>
+    <%= f.text_area :bio %></br>
   </div>
 
   <div class="check_box">
@@ -36,7 +36,7 @@
     <%= f.check_box :trainer %>
     <%= f.label :trainer %>
   </div>
-  
+
   <div class="sub-cancel_button center-align">
     <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
       <i class="material-icons right">send</i>
