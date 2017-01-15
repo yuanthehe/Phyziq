@@ -3,10 +3,14 @@
   <body>
     <h4>Available Times:</h4></br>
     <div class="row">
-          <table class="striped">
+      <table class="striped">
         <thead>
           <tr>
+            <% if @user.availabilities.last.next_six_days[0] != "Busy" %>
               <th data-field="weekly_day_one"><%= @user.availabilities.last.next_six_days[0] %></th>
+            <% else %>
+              <h6>Busy today</h6>
+            <% end %>
               <th data-field="weekly_day_two"><%= @user.availabilities.last.next_six_days[1] %></th>
               <th data-field="weekly_day_three"><%= @user.availabilities.last.next_six_days[2] %></th>
               <th data-field="weekly_day_four"><%= @user.availabilities.last.next_six_days[3] %></th>
@@ -48,7 +52,26 @@
       </table>
 
 
-
+      <div class="col s12 m4 l2 center">
+        <% if @user.availabilities.last.next_six_days[0] != "Busy" %>
+        <div class="weekly_day_one">
+          <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @user.availabilities.last.next_six_days[0] %></a></br>
+          <div class="time_slot">
+          <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
+            <%= @user.availabilities.last.day_1[0] %></br>
+          <% else %>
+            <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %></br>
+          <% end %>
+          <% if @user.availabilities.last.day_1[1] == "Unavailable" %>
+            <%= @user.availabilities.last.day_1[1] %></br>
+          <% else %>
+            <%= link_to "#{@user.availabilities.last.day_1[1]}", "/users/#{@user.id}/d_1_t_2" %></br>
+          <% end %>
+          <% if @user.availabilities.last.day_1[2] == "Unavailable" %>
+            <%= @user.availabilities.last.day_1[2] %></br>
+          <% else %>
+            <%= link_to "#{@user.availabilities.last.day_1[2]}", "/users/#{@user.id}/d_1_t_3" %></br>
+          <% end %>
           <% if @user.availabilities.last.day_1[3] == "Unavailable" %>
             <%= @user.availabilities.last.day_1[3] %></br>
           <% else %>
@@ -66,8 +89,12 @@
           <% end %>
           </div>
         </div>
+        <% else %>
+          <h6>Busy today</h6>
+        <% end %>
       </div>
     <div class="col s12 m4 l2 center">
+      <% if @user.availabilities.last.next_six_days[1] != "Busy" %>
       <div class="weekly_day_two">
         <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @user.availabilities.last.next_six_days[1] %></a></br>
         <div class="time_slot">
@@ -103,9 +130,13 @@
         <% end %>
         </div>
       </div>
+      <% else %>
+        <h6>Busy today</h6>
+      <% end %>
     </div>
 
     <div class="col s12 m4 l2 center">
+      <% if @user.availabilities.last.next_six_days[2] != "Busy" %>
       <div class="weekly_day_three">
         <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @user.availabilities.last.next_six_days[2] %></a></br>
         <div class="time_slot">
@@ -141,8 +172,12 @@
         <% end %>
         </div>
       </div>
+      <% else %>
+        <h6>Busy today</h6>
+      <% end %>
     </div>
     <div class="col s12 m4 l2 center">
+      <% if @user.availabilities.last.next_six_days[3] != "Busy" %>
       <div class="weekly_day_four">
         <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @user.availabilities.last.next_six_days[3] %></a></br>
         <div class="time_slot">
@@ -178,8 +213,12 @@
         <% end %>
         </div>
       </div>
+      <% else %>
+        <h6>Busy today</h6>
+      <% end %>
     </div>
     <div class="col s12 m4 l2 center">
+      <% if @user.availabilities.last.next_six_days[4] != "Busy" %>
       <div class="weekly_day_five">
         <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @user.availabilities.last.next_six_days[4] %></a></br>
         <div class="time_slot">
@@ -215,8 +254,12 @@
         <% end %>
         </div>
       </div>
+      <% else %>
+        <h6>Busy today</h6>
+      <% end %>
     </div>
     <div class="col s12 m4 l2 center">
+      <% if @user.availabilities.last.next_six_days[5] != "Busy" %>
       <div class="weekly_day_six">
         <a class="waves-effect waves-blue-grey blue-grey lighten-2 btn"><%= @user.availabilities.last.next_six_days[5] %></a></br>
         <div class="time_slot">
@@ -252,8 +295,12 @@
         <% end %>
         </div>
       </div>
-    </div></br>
+      <% else %>
+        <h6>Busy today</h6>
+      <% end %>
+    </div>
     <div class="col s12 m4 l2 center">
+      <% if @user.availabilities.last.next_six_days[7] != "Busy" %>
       <div class="weekly_day_seven">
         <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @user.availabilities.last.next_six_days[6] %></a></br>
         <div class="time_slot">
@@ -289,6 +336,9 @@
         <% end %></div>
        </div>
       </div>
+      <% else %>
+        <h6>Busy today</h6>
+      <% end %>
     </div>
   </body>
 </html>
