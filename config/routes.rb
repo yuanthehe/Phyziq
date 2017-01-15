@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "users#index"
 
   resources :users do
-    resources :appointments
+    resources :appointments, only: [:update, :show, :destroy, :index, :edit]
     get "d_1_t_1" => "appointments"
     get "d_1_t_2" => "appointments"
     get "d_1_t_3" => "appointments"
@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :categories, only: [:create, :update, :destroy, :edit]
+    resources :categories, only: [:create, :update, :destroy, :index, :edit]
   end
 
   resources :user_sessions, only: [:new, :create, :destroy]
@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   # delete "oauth/:provider" => "oauths#destroy", :as => :delete_oauth
 
-  get "weekly_hourly" => "availabilities", :as => :refresh_availability
+  get "create_weekly_hourly" => "availabilities", :as => :create_availability
+  get "update_weekly_hourly" => "availabilities", :as => :update_availability
 
 end

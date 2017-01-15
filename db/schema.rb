@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113214724) do
+ActiveRecord::Schema.define(version: 20170114212600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,30 +55,29 @@ ActiveRecord::Schema.define(version: 20170113214724) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.boolean  "weight_lifting", default: false
-    t.boolean  "cross_fit",      default: false
-    t.boolean  "yoga",           default: false
-    t.boolean  "cardio",         default: false
-    t.boolean  "running",        default: false
-    t.boolean  "squash",         default: false
-    t.boolean  "boxing",         default: false
-    t.boolean  "martial_arts",   default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "weightlifting", default: false
+    t.boolean  "crossfit",      default: false
+    t.boolean  "yoga",          default: false
+    t.boolean  "cardio",        default: false
+    t.boolean  "running",       default: false
+    t.boolean  "squash",        default: false
+    t.boolean  "boxing",        default: false
     t.integer  "user_id"
+    t.boolean  "kickboxing",    default: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                    null: false
+    t.string   "email",                                                    null: false
     t.string   "crypted_password"
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.string   "address"
-    t.boolean  "trainer"
+    t.boolean  "trainer",                                  default: false
     t.string   "password_digest"
-    t.text     "bio"
     t.decimal  "latitude",         precision: 9, scale: 6
     t.decimal  "longitude",        precision: 9, scale: 6
     t.text     "bio"

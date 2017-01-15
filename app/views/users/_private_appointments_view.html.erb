@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h4> Your upcoming training events: </h4>
+    <div class="divider"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col l9 s12">
+        <% current_user.trainer_appointments.each do |e| %>
+          <% if Time.at(e.event_end_time) < Time.now %>
+            <% e.destroy %>
+          <% else %>
+          <ul>
+            <%= e.summary %>:</br>
+            <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to</br>
+            <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
+            <%= link_to "Event Details", "/users/#{@user.id}/appointments/#{e.id}"%>
+          <% end %>
+          </ul>
+        <% end %>
+        <% current_user.trainee_appointments.each do |e| %>
+          <% if Time.at(e.event_end_time) < Time.now %>
+            <% e.destroy %>
+          <% else %>
+          <ul>
+            <%= e.summary %>:</br>
+            <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to</br>
+            <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %></br>
+            <%= link_to "Event Details", "/users/#{@user.id}/appointments/#{e.id}"%>
+          <% end %>
+          </ul>
+        <% end %>
+    </div>
+    <% if current_user.trainer_appointments == [] && current_user.trainee_appointments == [] %>
+      </br><h6>Currently no events!</h6></br>
+    <% end %>
+  </body>
+</html>

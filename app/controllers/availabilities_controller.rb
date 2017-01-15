@@ -7,29 +7,18 @@ class AvailabilitiesController < ApplicationController
     @availability = Availability.new(availability_params)
   end
 
-  def weekly_hourly
-    weekly_google_availability
-    day_1
-    day_2
-    day_3
-    day_4
-    day_5
-    day_6
-    day_7
-    @availability = Availability.create(
-      next_six_days: @next_six_days,
-      day_1: @availability_day_1,
-      day_2: @availability_day_2,
-      day_3: @availability_day_3,
-      day_4: @availability_day_4,
-      day_5: @availability_day_5,
-      day_6: @availability_day_6,
-      day_7: @availability_day_7,
-      user_id: current_user.id
-      )
+  def create_weekly_hourly
+    availability_update
     flash[:alert] = "Availabilty updated!"
     redirect_to edit_user_path(@availability.user_id)
   end
+
+  def update_weekly_hourly
+    availability_update
+    flash[:alert] = "Availabilty updated!"
+    redirect_to user_path(@availability.user_id)
+  end
+
 
   def edit
     @availability = Availability.find(params[:id])
@@ -74,6 +63,27 @@ class AvailabilitiesController < ApplicationController
     @availability_day_7 = availability_check
   end
 
+  def availability_update
+    weekly_google_availability
+    day_1
+    day_2
+    day_3
+    day_4
+    day_5
+    day_6
+    day_7
+    @availability = Availability.create(
+      next_six_days: @next_six_days,
+      day_1: @availability_day_1,
+      day_2: @availability_day_2,
+      day_3: @availability_day_3,
+      day_4: @availability_day_4,
+      day_5: @availability_day_5,
+      day_6: @availability_day_6,
+      day_7: @availability_day_7,
+      user_id: current_user.id
+      )
+  end
 
 private
 

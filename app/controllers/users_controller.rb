@@ -3,11 +3,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @user.build_category
   end
 
   def index
     @user = User.where(trainer: true)
+    # @category = Category.where(cross_fit: @user.ids)
     if params[:address].present?
       flash[:alert] = "Listing nearby trainers!"
       @user = User.near(params[:address], 5, units: :km).order("name ASC")
@@ -37,7 +37,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user = User.find(params[:id])
     if session[:access_token] != nil
       render :show
     else
@@ -46,27 +45,22 @@ class UsersController < ApplicationController
   end
 
   def edit
-  #  @user = User.find(params[:id])
-    if current_user
-      @category = @user.category
-    end
 
   end
 
   def update
-  #  @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(user_params) && @user.trainer == true && @user.category == nil
+      @category = Category.create
+      @user.category = @category
+      flash[:alert] = "Pick Your Training Categories!"
+      redirect_to "/users/#{@user.id}/categories/#{@category.id}/edit"
+    else
       flash[:alert] = "Account settings updated!"
       redirect_to user_url
-    elsif @user.trainer == true && @user.category == nil
-      redirect_to :edit
-    else
-      render :edit
     end
   end
 
   def destroy
-  #  @user = User.find(params[:id])
     @user.destroy
     redirect_to root_path
   end
@@ -78,16 +72,12 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :latitude, :longitude, :trainer, :password, :password_confirmation,
+    params.require(:user).permit(:name, :email, :address, :bio, :latitude, :longitude, :trainer, :password, :password_confirmation,
     trainer_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy],
     trainee_appointments_attributes: [:id, :summary, :event_start_time, :event_end_time, :event_invitation_status, :_destroy])
   end
 
   def nearby_trainers
     @nearby_trainers = @user.where(trainer: true).nearbys(5, units: :km)
-  end
-
-  def user_google_map(center)
-    "https://maps.googleapis.com/maps/api/staticmap?center=#{center}&size=300x300&zoom=17"
   end
 end
