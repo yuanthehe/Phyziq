@@ -8,9 +8,10 @@
           <a class="waves-effect waves-blue-grey blue-grey lighten-1 btn"><%= @user.availabilities.last.next_six_days[0] %></a></br>
           <div class="time_slot">
           <% if @user.availabilities.last.day_1[0] == "Unavailable" %>
-            <%= @user.availabilities.last.day_1[0] %></br>
+            <%= @user.availabilities.last.day_1[0] %>
+            <div class="divider"></div>
           <% else %>
-            <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %></br>
+            <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %><div class="divider"></div>
           <% end %>
           <% if @user.availabilities.last.day_1[1] == "Unavailable" %>
             <%= @user.availabilities.last.day_1[1] %></br>

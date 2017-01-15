@@ -208,22 +208,23 @@ footer.page-footer {
 }
 
 .time_slot {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
   color: black;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 5px;
+  padding-bottom: 10px;
 }
 
 .time_slot a {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
   color: black;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 5px;
-
+  padding-bottom: 10px;
 }
 
 .medium material-icons {
