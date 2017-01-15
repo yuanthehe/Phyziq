@@ -6,7 +6,6 @@
     <div class="container">
       <div class="row">
         <div class="col l9 s12">
-      <!-- <% if current_user.trainer == true %> -->
         <% current_user.trainer_appointments.each do |e| %>
           <% if Time.at(e.event_end_time) < Time.now %>
             <% e.destroy %>
@@ -19,7 +18,6 @@
           <% end %>
           </ul>
         <% end %>
-      <!-- <% else %> -->
         <% current_user.trainee_appointments.each do |e| %>
           <% if Time.at(e.event_end_time) < Time.now %>
             <% e.destroy %>
@@ -32,7 +30,6 @@
           <% end %>
           </ul>
         <% end %>
-      <!-- <% end %> -->
     </div>
     <% if current_user.trainer_appointments == [] && current_user.trainee_appointments == [] %>
       </br><h6>Currently no events!</h6></br>
