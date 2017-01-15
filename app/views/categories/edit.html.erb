@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <h1> Choose your training categories: </h1>
   <%= form_for ([@user, @category]) do |f| %>
     <% if @category.errors.any? %>
     <div id="error_explanation">

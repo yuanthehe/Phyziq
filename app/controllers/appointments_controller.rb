@@ -14,7 +14,7 @@ class AppointmentsController < ApplicationController
   def create_event
     @appointment = Appointment.create(
        summary: "#{current_user.name}'s Training Session with #{@user.name}",
-       location: "#{@user.address}",
+       address: "#{@user.address}",
        event_start_time: "#{@up}",
        event_end_time: "#{@low}",
        event_invitation_status: true,
@@ -447,6 +447,5 @@ private
     google_authentication
     time_slots
     google_event_call
-    flash[:notice] = "Invitation sent for #{@up.strftime("%A %d/%m/%Y %T")} to #{@low.strftime("%A %d/%m/%Y %T")}"
   end
 end
