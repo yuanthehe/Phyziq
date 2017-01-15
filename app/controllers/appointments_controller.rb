@@ -35,7 +35,8 @@ class AppointmentsController < ApplicationController
   def destroy
     delete_google
     @appointment.destroy
-    # render "/users/#{@user.id}"
+    flash[:alert] = "Appointment Deleted!"
+    redirect_to "/users/#{@user.id}"
   end
 
   def d_1_t_1
