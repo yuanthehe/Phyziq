@@ -90,7 +90,7 @@ table {
   padding: 5px;
 }*/
 
-h1, h2, h3, h4, h6 {
+h1, h2, h3, h4 {
   text-align: center;
   font-weight: 300;
 }
@@ -108,6 +108,11 @@ h2 {
 
 h3 {
   margin-top: 65px;
+}
+
+h6 {
+  text-align: center;
+  font-weight: 400px;
 }
 
 .search_bar {

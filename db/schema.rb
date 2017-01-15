@@ -78,10 +78,10 @@ ActiveRecord::Schema.define(version: 20170114212600) do
     t.string   "address"
     t.boolean  "trainer",                                  default: false
     t.string   "password_digest"
+    t.text     "bio"
     t.decimal  "latitude",         precision: 9, scale: 6
     t.decimal  "longitude",        precision: 9, scale: 6
-    t.text     "bio"
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", using: :btree
   end
 
 end
