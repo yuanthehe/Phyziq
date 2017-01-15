@@ -5,7 +5,7 @@
     <div class="divider"></div>
     <div class="container">
       <div class="row">
-        <div class="col l9 s12">
+        <div class="col s12 l9">
         <% current_user.trainer_appointments.each do |e| %>
           <% if Time.at(e.event_end_time) < Time.now %>
             <% e.destroy %>
@@ -30,9 +30,12 @@
           <% end %>
           </ul>
         <% end %>
+
+        <% if current_user.trainer_appointments == [] && current_user.trainee_appointments == [] %></br>
+        <h6>Currently no events!</h6></br>
+        <% end %>
+      </div>
+      </div>
     </div>
-    <% if current_user.trainer_appointments == [] && current_user.trainee_appointments == [] %>
-      </br><h6>Currently no events!</h6></br>
-    <% end %>
   </body>
 </html>

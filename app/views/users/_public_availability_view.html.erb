@@ -3,6 +3,55 @@
   <body>
     <h4>Available Times:</h4></br>
     <div class="row">
+      <table class="striped">
+        <thead>
+          <tr>
+            <% if @user.availabilities.last.next_six_days[0] != "Busy" %>
+              <th data-field="weekly_day_one"><%= @user.availabilities.last.next_six_days[0] %></th>
+            <% else %>
+              <h6>Busy today</h6>
+            <% end %>
+              <th data-field="weekly_day_two"><%= @user.availabilities.last.next_six_days[1] %></th>
+              <th data-field="weekly_day_three"><%= @user.availabilities.last.next_six_days[2] %></th>
+              <th data-field="weekly_day_four"><%= @user.availabilities.last.next_six_days[3] %></th>
+              <th data-field="weekly_day_five"><%= @user.availabilities.last.next_six_days[4] %></th>
+              <th data-field="weekly_day_six"><%= @user.availabilities.last.next_six_days[5] %></th>
+              <th data-field="weekly_day_seven"><%= @user.availabilities.last.next_six_days[6] %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td><% if @user.availabilities.last.day_1[0] == "Unavailable" %>
+              <%= @user.availabilities.last.day_1[0] %></br>
+            <% else %>
+              <%= link_to "#{@user.availabilities.last.day_1[0]}", "/users/#{@user.id}/d_1_t_1" %></br>
+            <% end %></td>
+            <td>Eclair</td>
+            <td>$0.87</td>
+          </tr>
+          <tr>
+            <td><% if @user.availabilities.last.day_1[1] == "Unavailable" %>
+              <%= @user.availabilities.last.day_1[1] %></br>
+            <% else %>
+              <%= link_to "#{@user.availabilities.last.day_1[1]}", "/users/#{@user.id}/d_1_t_2" %></br>
+            <% end %></td>
+            <td>Jellybean</td>
+            <td>$3.76</td>
+          </tr>
+          <tr>
+            <td><% if @user.availabilities.last.day_1[2] == "Unavailable" %>
+              <%= @user.availabilities.last.day_1[2] %></br>
+            <% else %>
+              <%= link_to "#{@user.availabilities.last.day_1[2]}", "/users/#{@user.id}/d_1_t_3" %></br>
+            <% end %></td>
+            <td>Lollipop</td>
+            <td>$7.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+
       <div class="col s12 m4 l2 center">
         <% if @user.availabilities.last.next_six_days[0] != "Busy" %>
         <div class="weekly_day_one">
