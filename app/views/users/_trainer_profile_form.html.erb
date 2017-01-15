@@ -5,10 +5,10 @@
     <ul class="error_msg">
       <% @user.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
-  <% end %>
+      <% end %>
     </ul>
   </div>
-<% end %>
+  <% end %>
 
 <div class="form_container">
   <div class="form">
@@ -44,7 +44,7 @@
 
     <div class="btn waves-effect waves-light red white-text"></a>
       <%= link_to "Cancel", users_url(@user) %>
-      <% end %>
     </div>
   </div>
 </div>
+<% end %>
