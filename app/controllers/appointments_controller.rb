@@ -408,8 +408,8 @@ private
   end
 
   def delete_google
-    insert_google_event
-    @client.delete_event('primary', @appointment.google_event_id)
+    google_authentication
+    @service.delete_event('primary', @appointment.google_event_id)
   end
 
   def time_slots
