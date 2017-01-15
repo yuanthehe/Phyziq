@@ -13,7 +13,7 @@
               <% @appointment %>
               <%= flash[:notice] = "Invitation sent for #{@up.strftime("%A %d/%m/%Y %T")} to #{@low.strftime("%A %d/%m/%Y %T")}" %>
               <div class="section">
-                <%= link_to "update your availability", :refresh_availability, class: "waves-effect waves-light orange lighten-1 btn" %>
+                <%= link_to "update your availability", :update_availability, class: "waves-effect waves-light orange lighten-1 btn" %>
               </div>
             </div>
           </div>
