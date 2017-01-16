@@ -24,17 +24,25 @@
     <p><%= @user.where(:trainer => true).count %> Trainers found!</p>
   </div>
 
-  <div class="trainer_list">
-    <% @user.each do |t|%>
-      <% if t.trainer == true %>
-        <h4><%=link_to "#{t.name}", "/users/#{t.id}" %></h4>
-          <% if t.category != nil %>
-            <% t.category.attributes.each do |key, value| %>
-              <% if value == true %>
-              <h6><%= "#{key.capitalize}" %></h6>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
+<% @user.each do |t|%>
+  <% if t.trainer == true %>
+  <div class="row">
+    <div class="col s10 m4 offset-l4">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <div class="trainer_list">
+              <h4><%=link_to "#{t.name}", "/users/#{t.id}" %></h4>
+                <% if t.category != nil %>
+                  <% t.category.attributes.each do |key, value| %>
+                    <% if value == true %>
+                    <h6><%= "#{key.capitalize}" %></h6>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
