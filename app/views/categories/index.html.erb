@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <!-- Search Yoga -->
+    <!-- Search Boxing -->
     <div class="trainer_list">
       <% @user.each do |t|%>
         <% if t.category != nil %>
           <% t.category.attributes.each do |key, value| %>
-            <% if value == true && key == "yoga" %>
+            <% if value == true && key == "boxing" %>
               <h4><%= link_to "#{t.name}", "/users/#{t.id}" %></h4>
             <% end %>
           <% end %>
@@ -14,12 +14,12 @@
       <% end %>
     </div>
 
-    <!-- Search Weightlifting -->
+    <!-- Search Cardio -->
     <div class="trainer_list">
       <% @user.each do |t|%>
         <% if t.category != nil %>
           <% t.category.attributes.each do |key, value| %>
-            <% if value == true && key == "weightlifting" %>
+            <% if value == true && key == "cardio" %>
               <h4><%= link_to "#{t.name}", "/users/#{t.id}" %></h4>
             <% end %>
           <% end %>
@@ -40,12 +40,12 @@
       <% end %>
     </div>
 
-    <!-- Search Cardio -->
+    <!-- Search Kickboxing -->
     <div class="trainer_list">
       <% @user.each do |t|%>
         <% if t.category != nil %>
           <% t.category.attributes.each do |key, value| %>
-            <% if value == true && key == "cardio" %>
+            <% if value == true && key == "Kickboxing" %>
               <h4><%= link_to "#{t.name}", "/users/#{t.id}" %></h4>
             <% end %>
           <% end %>
@@ -79,12 +79,12 @@
       <% end %>
     </div>
 
-    <!-- Search Boxing -->
+    <!-- Search Weightlifting -->
     <div class="trainer_list">
       <% @user.each do |t|%>
         <% if t.category != nil %>
           <% t.category.attributes.each do |key, value| %>
-            <% if value == true && key == "boxing" %>
+            <% if value == true && key == "weightlifting" %>
               <h4><%= link_to "#{t.name}", "/users/#{t.id}" %></h4>
             <% end %>
           <% end %>
@@ -92,12 +92,12 @@
       <% end %>
     </div>
 
-    <!-- Search Kickboxing -->
+    <!-- Search Yoga -->
     <div class="trainer_list">
       <% @user.each do |t|%>
         <% if t.category != nil %>
           <% t.category.attributes.each do |key, value| %>
-            <% if value == true && key == "Kickboxing" %>
+            <% if value == true && key == "yoga" %>
               <h4><%= link_to "#{t.name}", "/users/#{t.id}" %></h4>
             <% end %>
           <% end %>
