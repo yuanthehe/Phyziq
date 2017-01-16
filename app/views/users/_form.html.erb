@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
   <div id="error_explanation">
-    <h4><%= pluralize(@user.errors.count, "error") %> error uccurred! Please Try again!</h4>
+    <h4><%= pluralize(@user.errors.count, "error") %> Error occurred! Please Try Again!</h4>
     <ul class="error_msg">
       <% @user.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
@@ -38,7 +38,7 @@
     </button>
 
     <div class="btn waves-effect waves-light orange white-text"></a>
-      <%= link_to "Cancel", users_url(@user) %>
+      <%= link_to "Cancel", user_url(@user) %>
     </div>
   </div>
 </div>
