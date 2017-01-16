@@ -63,6 +63,10 @@ table {
   font-weight: 400;
 }
 
+.waves-effect a {
+  color: white;
+}
+
 .logo {
   margin-top: 6px;
   height: 52px;
