@@ -18,8 +18,9 @@
                   <ul>
                     <%= e.summary %>:</br>
                     <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to</br>
-                    <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %>
-                    <%= link_to "Event Details", "/users/#{@user.id}/appointments/#{e.id}"%>
+                    <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %></br>
+                    <%= link_to "Event Details", "/users/#{@user.id}/appointments/#{e.id}", class: "waves-effect waves-light orange lighten-1 btn"%>
+                  </br>
                   <% end %>
                   </ul>
                 <% end %>
@@ -31,8 +32,8 @@
                     <%= e.summary %>:</br>
                     <%= Time.at(e.event_start_time).strftime("%A %d/%m/%Y %T") %> to</br>
                     <%= Time.at(e.event_end_time).strftime("%A %d/%m/%Y %T") %></br>
+                    <%= link_to "Event Details", "/users/#{@user.id}/appointments/#{e.id}", class: "waves-effect waves-light orange lighten-1 btn" %>
                   </br>
-                    <%= link_to "Event Details", "/users/#{@user.id}/appointments/#{e.id}",class: "waves-effect waves-light orange lighten-1 btn" %>
                   <% end %>
                   </ul>
                 <% end %>
