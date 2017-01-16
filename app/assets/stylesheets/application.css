@@ -131,7 +131,11 @@ h6 {
 }
 
 .display {
-  color: #cddc39;
+  color: #ffb74d;
+}
+
+.display_event {
+  color: #ef6c00;
 }
 
 /* =============================================================================
@@ -231,7 +235,7 @@ footer.page-footer {
 }
 
 a {
-  color: orange;
+  color: white;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
