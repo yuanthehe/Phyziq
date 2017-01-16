@@ -4,14 +4,14 @@
       <div class="row">
         <div class="col l10 offset-l1 white-text">
           <h1>Find a trainer in your area</h1>
-          <h3><%= link_to "Search by Training Category", "/categories" %></h3></br>
             <div class="search_bar">
               <%= form_tag(users_url, :method => "get", id: "search-form") do %>
               <%= text_field_tag :search, params[:search], placeholder: "BY NAME OR ADDRESS", required: true %>
                 <div class="waves-effect waves-light orange lighten-1 btn">Submit</a></br>
                   <%= submit_tag "Search" %>
                 <% end %>
-              </div>
+               </div>
+              <h3>Or... <%= link_to "search by training category", "/categories" %></h3></br>
             </div>
           </div>
       </div>
