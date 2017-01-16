@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
 
   def index
     @user = User.where(trainer: true)
-    @category = @user.category
+    @category = Category.where(user_id: :user_id)
   end
 
   def create
