@@ -29,7 +29,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     if @category.update_attributes(category_params)
-      flash[:alert] = "Training categories updated!"
+      flash[:alert] = "Training Categories Updated!"
       redirect_to user_url(@user)
     else
       render :edit

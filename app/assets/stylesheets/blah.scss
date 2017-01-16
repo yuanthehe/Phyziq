@@ -32,7 +32,8 @@ select {
 }
 
 .dropdown-content {
-  overflow: hidden;
+  // overflow: hidden;
+  width: 110px;
 }
 
 .dropdown-content li > a, .dropdown-content li > span {

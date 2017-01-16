@@ -19,15 +19,15 @@ class UsersController < ApplicationController
     if @user.save
       if @user.trainer == true
         auto_login(@user)
-        flash[:alert] = "Trainer signed up!"
+        flash[:alert] = "Trainer Signed Up!"
         redirect_to user_url(@user)
       else
         auto_login(@user)
-        flash[:alert] = "Trainee signed up!"
+        flash[:alert] = "Trainee Signed Up!"
         redirect_to users_url
       end
     else
-      flash[:alert] = "Failed to signed up!"
+      flash[:alert] = "Failed to Signed Up!"
       render 'new'
     end
   end
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       flash[:alert] = "Pick Your Training Categories!"
       redirect_to "/users/#{@user.id}/categories/#{@category.id}/edit"
     else
-      flash[:alert] = "Account settings updated!"
+      flash[:alert] = "Account Settings Updated!"
       redirect_to user_url
     end
   end
