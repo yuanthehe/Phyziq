@@ -22,7 +22,7 @@
             <p class="edit_link"><%= link_to "Choose your training categories!", "/users/#{@user.id}/categories/#{@user.category.id}/edit" %></p>
           <% end %>
           <% if current_user != @user %>
-            <p><%= @user.bio %></p>
+            <%= @user.bio %>
           <% end %>
           </div>
         </div>
