@@ -56,20 +56,21 @@
       </div><br>
 
       <div class="form">
-      <%= f.hidden_field :user_id, :value => @user.id %>
+        <%= f.hidden_field :user_id, :value => @user.id %>
       </div><br>
-    </div>
 
-    <div class="sub-cancel_button center-align">
-      <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
-        <i class="material-icons right">send</i>
-      </button>
+      <div class="sub-cancel_button center-align">
+        <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
 
-      <div class="btn waves-effect waves-light red white-text"></a>
-        <%= link_to "Cancel", user_url(@user) %>
-        <% end %>
+        <button class="btn waves-effect waves-light orange white-text" type="submit" name="action">
+          <%= link_to "Cancel", user_url(@user) %>
+          <i class="material-icons right">loop</i>
+        </button>
       </div>
+    <% end %>
     </div>
-   </div>
+
   </body>
 </html>
