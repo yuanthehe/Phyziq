@@ -73,7 +73,6 @@ table {
   width: 52px;
 }
 
-
 .nav-wrapper {
   padding-left: 15px;
   background-color: #607d8b;
@@ -86,13 +85,6 @@ table {
   font-size: 15px;
 
 }
-
-/*.alert {
-  text-align: cen ter;
-  background-color: black;
-  color: #ED1B24;
-  padding: 5px;
-}*/
 
 h1, h2, h3, h4 {
   text-align: center;
