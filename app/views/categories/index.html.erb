@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div class="trainer_list">
+      <% @user.each do |t|%>
+        <% if t.category != true %>
+          <% t.category.attributes.each do |key, value| %>
+            <% if value == true && key == "crossfit" %>
+              <h4><%= "#{t.name}" %></h4>
+              <h6><%= "#{key}" %></h6>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </body>
+</html>
