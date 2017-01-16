@@ -30,7 +30,7 @@
           <% if t.category != nil %>
             <% t.category.attributes.each do |key, value| %>
               <% if value == true %>
-              <h6><%= "#{key.capitalize.split('_').join("")}" %></h6>
+              <h6><%= "#{key.capitalize}" %></h6>
             <% end %>
           <% end %>
         <% end %>
