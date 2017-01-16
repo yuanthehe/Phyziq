@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <% if current_user.trainer_appointments == [] && current_user.trainee_appointments == [] %>
+      <h4>Currently no events!</h4></br>
+      <h6><%= link_to "Click here to book an appointment with our trainers!", category_index_path %></h6>
+    <% else %>
     <h4> Your upcoming training events: </h4>
     <div class="divider"></div>
     <div class="container">
@@ -30,9 +34,6 @@
           <% end %>
           </ul>
         <% end %>
-
-        <% if current_user.trainer_appointments == [] && current_user.trainee_appointments == [] %></br>
-        <h6>Currently no events!</h6></br>
         <% end %>
       </div>
       </div>
