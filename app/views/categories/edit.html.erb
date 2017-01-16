@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <h3>Choose Your Training Categories</h3>
     <%= form_for ([@user, @category]) do |f| %>
       <% if @category.errors.any? %>
       <div id="error_explanation">
@@ -12,7 +13,7 @@
         </ul>
       </div>
     <% end %>
-    </br><div class="form_container">
+    <div class="form_container">
       <div class="form">
       <%= f.check_box :boxing %>
       <%= f.label :boxing %></br>
