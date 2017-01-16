@@ -9,7 +9,7 @@ class AvailabilitiesController < ApplicationController
 
   def create_weekly_hourly
     availability_update
-    flash[:alert] = "Availabilty updated!"
+    flash[:alert] = "Availabilty created!"
     redirect_to edit_user_path(@availability.user_id)
   end
 
@@ -146,10 +146,11 @@ private
   def availability_check
     t_1 = Time.parse("14:00").seconds_since_midnight.seconds
     t_2 = Time.parse("15:30").seconds_since_midnight.seconds
-    t_3 = Time.parse("17:30").seconds_since_midnight.seconds
-    t_4 = Time.parse("19:00").seconds_since_midnight.seconds
-    t_5 = Time.parse("20:30").seconds_since_midnight.seconds
-    t_6 = Time.parse("22:00").seconds_since_midnight.seconds
+    t_3 = Time.parse("17:00").seconds_since_midnight.seconds
+    t_4 = Time.parse("18:30").seconds_since_midnight.seconds
+    t_5 = Time.parse("20:00").seconds_since_midnight.seconds
+    t_6 = Time.parse("21:30").seconds_since_midnight.seconds
+    t_7 = Time.parse("23:00").seconds_since_midnight.seconds
 
     upper_1 = (@day + t_1).to_i
     lower_1 = (@day + t_2).to_i
@@ -161,18 +162,22 @@ private
     lower_4 = (@day + t_5).to_i
     upper_5 = (@day + t_5).to_i
     lower_5 = (@day + t_6).to_i
+    upper_6 = (@day + t_6).to_i
+    lower_6 = (@day + t_7).to_i
 
     i_1 = 0
     i_2 = 0
     i_3 = 0
     i_4 = 0
     i_5 = 0
+    i_6 = 0
 
     availability_1 = []
     availability_2 = []
     availability_3 = []
     availability_4 = []
     availability_5 = []
+    availability_6 = []
 
     @availability_day = []
 
@@ -294,6 +299,30 @@ private
       @availability_day.insert(-1, "Unavailable")
     else
       @availability_day.insert(-1, "15:00PM-17:30PM")
+    end
+
+    #Time Slot 6 Availablity Check
+      if @start_time != nil
+        @start_time.each do |time|
+          if time >= lower_6
+            i_6 += 1
+            availability_6.insert(0, "free")
+          elsif @end_time[i_6] <= upper_6
+            availability_6.insert(0, "free")
+            i_6 += 1
+          else
+            i_6 += 1
+            availability_6.insert(0, "busy")
+          end
+        end
+      else
+        availability_6.insert(0, "free")
+      end
+
+    if availability_6.include?("busy")
+      @availability_day.insert(-1, "Unavailable")
+    else
+      @availability_day.insert(-1, "17:30PM-19:00PM")
     end
   end
 end
