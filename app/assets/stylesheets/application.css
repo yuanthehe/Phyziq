@@ -110,6 +110,11 @@ h3 {
   margin-top: 65px;
 }
 
+h4 {
+  font-weight: 100;
+  margin-top: 50px;
+}
+
 h6 {
   text-align: center;
   font-weight: 400px;
@@ -235,9 +240,13 @@ footer.page-footer {
 }
 
 a {
-  color: white;
+  color: orange;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+.search_category a {
+  border-bottom: 1px solid orange;
 }
 
 .search_bar {
