@@ -54,8 +54,10 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :categories, only: [:create, :update, :destroy, :index, :edit]
+    resources :categories, only: [:create, :update, :destroy, :edit]
   end
+
+  get 'categories' => 'categories#index', :as => :category_index
 
   resources :user_sessions, only: [:new, :create, :destroy]
 

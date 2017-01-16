@@ -1,28 +1,31 @@
 <div class="container">
   <div class="row">
-    <div class="col m6 s12">
+    <div class="col m7 offset-l3">
       <div class="card blue-grey darken-1">
         <div class="card-content white-text">
           <i class="medium material-icons">perm_identity</i></br>
           <span class="card-title">Profile</span>
-            <div class="user_profile">
-              <div class="user_info">
-                <h5><%= @appointment.summary %></h5>
-                <p>Start Time: <div class="display"><%= @appointment.event_start_time  %></div></p>
-                <p>End Time: <div class="display"><%= @appointment.event_end_time %></div></p></br>
-                <p>Trainer Location: <div class="display"><%= @appointment.address %></div></p></br>
-              </div>
+          <div class="user_profile">
+            <div class="user_info">
+              <h5><%= @appointment.summary %></h5>
+              <p>Start Time: <div class="display"><%= @appointment.event_start_time  %></div></p>
+              <p>End Time: <div class="display"><%= @appointment.event_end_time %></div></p></br>
+              <p>Trainer Location: <div class="display"><%= @appointment.address %></div></p></br>
             </div>
-            <div class="sub-cancel_button center-align">
-              <button class="btn waves-effect waves-light orange" type="submit" name="action">
-                <%= button_to "delete", {:controller => :appointments, :action => 'destroy', :id => @appointment.id }, :method => :delete %>
-                <i class="material-icons right">send</i>
-              </button>
+          </div>
+          <div class="sub-cancel_button center-align">
+            <button class="btn waves-effect waves-light orange" type="submit" name="action">
+              <%= button_to "delete", {:controller => :appointments, :action => 'destroy', :id => @appointment.id }, :method => :delete %>
+              <i class="material-icons right">send</i>
+            </button>
 
-              <div class="btn waves-effect waves-light orange white-text"></a>
-                <%= link_to "Back to your profile", users_url(@user) %>
-              </div>
-            </div>
+            <button class="btn waves-effect waves-light orange white-text" type="submit" name="action">
+              <%= link_to "Back to your profile", user_url(@user) %>
+              <i class="material-icons right">loop</i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

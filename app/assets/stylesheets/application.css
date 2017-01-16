@@ -226,6 +226,10 @@ footer.page-footer {
   padding-top: 15px;
 }
 
+.sub-cancel_button a {
+  color: white;
+}
+
 a {
   color: orange;
   text-decoration: none;

@@ -26,6 +26,10 @@
       <li class="divider"></li>
       <li><%= link_to "Settings", "/users/#{session[:user_id]}/edit" %></li>
       <li class="divider"></li>
+      <% if current_user.trainer == true %>
+        <li><%= link_to "Training Categories", "/users/#{session[:user_id]}/categories/#{current_user.category.id}/edit" %></li>
+        <li class="divider"></li>
+      <% end %>
       <li><%= link_to "Update Availability", :update_availability %></li>
         <li class="divider"></li>
         <li><%= link_to 'Logout', :logout %></li>
@@ -49,13 +53,11 @@
           <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons right">reorder</i></a></li>
           <% else %>
           <% end %>
-          </ul>
-        </div>
-
+        </ul>
+      </div>
     </nav>
   </header>
     <%= yield %>
-    </div>
   <!--Import jQuery before materialize.js-->
       <!-- <script type="text/javascript" src="js/materialize.min.js"></script> -->
   <footer class="page-footer">
