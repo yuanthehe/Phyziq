@@ -27,7 +27,6 @@ class User < ApplicationRecord
   end
 
   def self.search(search)
-    # joins(:category)
     where("name ILIKE ? OR address ILIKE ?", "%#{search}%", "%#{search}%")
   end
 end
