@@ -300,29 +300,29 @@ private
     else
       @availability_day.insert(-1, "15:00PM-17:30PM")
     end
-  end
 
-  # #Time Slot 6 Availablity Check
-  #   if @start_time != nil
-  #     @start_time.each do |time|
-  #       if time >= lower_6
-  #         i_6 += 1
-  #         availability_6.insert(0, "free")
-  #       elsif @end_time[i_6] <= upper_6
-  #         availability_6.insert(0, "free")
-  #         i_6 += 1
-  #       else
-  #         i_6 += 1
-  #         availability_6.insert(0, "busy")
-  #       end
-  #     end
-  #   else
-  #     availability_6.insert(0, "free")
-  #   end
-  #
-  # if availability_6.include?("busy")
-  #   @availability_day.insert(-1, "Unavailable")
-  # else
-  #   @availability_day.insert(-1, "17:30PM-19:00PM")
-  # end
+    #Time Slot 6 Availablity Check
+      if @start_time != nil
+        @start_time.each do |time|
+          if time >= lower_6
+            i_6 += 1
+            availability_6.insert(0, "free")
+          elsif @end_time[i_6] <= upper_6
+            availability_6.insert(0, "free")
+            i_6 += 1
+          else
+            i_6 += 1
+            availability_6.insert(0, "busy")
+          end
+        end
+      else
+        availability_6.insert(0, "free")
+      end
+
+    if availability_6.include?("busy")
+      @availability_day.insert(-1, "Unavailable")
+    else
+      @availability_day.insert(-1, "17:30PM-19:00PM")
+    end
+  end
 end
