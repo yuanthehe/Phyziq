@@ -6,8 +6,7 @@
         <% if t.category != true %>
           <% t.category.attributes.each do |key, value| %>
             <% if value == true && key == "crossfit" %>
-              <h4><%= "#{t.name}" %></h4>
-              <h6><%= "#{key}" %></h6>
+              <h4><%= link_to "#{t.name}", "/users/#{t.id}" %></h4>
             <% end %>
           <% end %>
         <% end %>
