@@ -62,10 +62,7 @@
       <div class="sub-cancel_button center-align">
         <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
         </button>
-
-        <button class="btn waves-effect waves-light orange white-text" type="submit" name="action">
-          <%= link_to "Cancel", user_url(@user) %>
-        </button>
+          <%= link_to "Cancel", user_url(@user), class:"waves-effect waves-light orange btn" %>
       </div>
     <% end %>
     </div>
