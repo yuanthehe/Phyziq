@@ -7,8 +7,7 @@
             <div class="search_bar">
               <%= form_tag(users_url, :method => "get", id: "search-form") do %>
               <%= text_field_tag :search, params[:search], placeholder: "BY NAME OR ADDRESS", required: true %>
-                <div class="waves-effect waves-light orange lighten-1 btn">Submit</a></br>
-                  <%= submit_tag "Search" %>
+                <%= submit_tag "Search", class:"waves-effect waves-light orange lighten-1 btn" %></br>
                 <% end %>
                </div>
                <div class="search_category">
