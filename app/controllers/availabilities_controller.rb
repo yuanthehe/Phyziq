@@ -9,13 +9,13 @@ class AvailabilitiesController < ApplicationController
 
   def create_weekly_hourly
     availability_update
-    flash[:alert] = "Availabilty created!"
+    flash[:alert] = "Availabilty Created!"
     redirect_to edit_user_path(@availability.user_id)
   end
 
   def update_weekly_hourly
     availability_update
-    flash[:alert] = "Availabilty updated!"
+    flash[:alert] = "Availabilty Updated!"
     redirect_to user_path(@availability.user_id)
   end
 

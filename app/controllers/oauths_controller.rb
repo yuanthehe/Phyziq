@@ -33,9 +33,9 @@ class OauthsController < ApplicationController
     if authentication.present?
       authentication.destroy
       # logout
-      flash[:alert] = "You have successfully logged out."
+      flash[:alert] = "You Have Successfully Logged Out."
     else
-      flash[:alert] = "Logout failed."
+      flash[:alert] = "Logout Failed."
     end
     redirect_to root_path
   end
