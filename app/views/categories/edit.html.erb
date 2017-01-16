@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <h3>Choose Your Training Categories</h3>
     <%= form_for ([@user, @category]) do |f| %>
       <% if @category.errors.any? %>
       <div id="error_explanation">
@@ -12,63 +13,64 @@
         </ul>
       </div>
     <% end %>
-
     <div class="form_container">
-      <div class="form">
-      <%= f.check_box :yoga %>
-      <%= f.label :yoga %></br>
-      </div><br>
-
-      <div class="form">
-      <%= f.check_box :weightlifting %>
-      <%= f.label :weightlifting %></br>
-      </div><br>
-
-      <div class="form">
-      <%= f.check_box :crossfit %>
-      <%= f.label :crossfit %></br>
-      </div><br>
-
-      <div class="form">
-      <%= f.check_box :cardio %>
-      <%= f.label :cardio %></br>
-      </div><br>
-
-      <div class="form">
-      <%= f.check_box :running %>
-      <%= f.label :running %></br>
-      </div><br>
-
-      <div class="form">
-      <%= f.check_box :squash %>
-      <%= f.label :squash %></br>
-      </div><br>
-
       <div class="form">
       <%= f.check_box :boxing %>
       <%= f.label :boxing %></br>
       </div><br>
 
       <div class="form">
-      <%= f.check_box :kickboxing %>
-      <%= f.label :kickboxing %></br>
+        <%= f.check_box :cardio %>
+        <%= f.label :cardio %></br>
       </div><br>
 
       <div class="form">
-      <%= f.hidden_field :user_id, :value => @user.id %>
+        <%= f.check_box :crossfit %>
+        <%= f.label :crossfit %></br>
       </div><br>
-    </div>
 
-    <div class="sub-cancel_button center-align">
-      <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
-        <i class="material-icons right">send</i>
-      </button>
+      <div class="form">
+        <%= f.check_box :kickboxing %>
+        <%= f.label :kickboxing %></br>
+      </div><br>
 
-      <div class="btn waves-effect waves-light red white-text"></a>
-        <%= link_to "Cancel", users_url(@user) %>
-        <% end %>
+      <div class="form">
+        <%= f.check_box :running %>
+        <%= f.label :running %></br>
+      </div><br>
+
+      <div class="form">
+        <%= f.check_box :squash %>
+        <%= f.label :squash %></br>
+      </div><br>
+
+      <div class="form">
+        <%= f.check_box :weightlifting %>
+        <%= f.label :weightlifting %></br>
+      </div><br>
+
+
+      <div class="form">
+        <%= f.check_box :yoga %>
+        <%= f.label :yoga %></br>
+      </div><br>
+
+      <div class="form">
+        <%= f.hidden_field :user_id, :value => @user.id %>
+      </div><br>
+
+      <div class="sub-cancel_button center-align">
+        <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+
+        <button class="btn waves-effect waves-light orange white-text" type="submit" name="action">
+          <%= link_to "Cancel", user_url(@user) %>
+          <i class="material-icons right">loop</i>
+        </button>
       </div>
+    <% end %>
     </div>
-   </div>
+
   </body>
 </html>

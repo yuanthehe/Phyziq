@@ -31,6 +31,10 @@ select {
   margin: 10px;
 }
 
+.dropdown-content {
+  overflow: hidden;
+}
+
 .dropdown-content li > a, .dropdown-content li > span {
   color: #fb8c00;
 }

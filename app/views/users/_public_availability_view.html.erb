@@ -4,14 +4,12 @@
     <h4>Available Times:</h4></br>
     <div class="table_container">
       <div class="row">
+        <!--  Day One -->
         <table class="highlight">
         <thead>
           <tr>
-            <% if @user.availabilities.last.next_six_days[0] != "Busy" %>
-              <th data-field="weekly_day_one"><%= @user.availabilities.last.next_six_days[0] %></th>
-            <% else %>
-              <h6>Busy today</h6>
-            <% end %>
+          <% if @user.availabilities.last.next_six_days[0] != "Busy" %>
+            <th data-field="weekly_day_one"><%= @user.availabilities.last.next_six_days[0] %></th>
           </tr>
         </thead>
         <tbody>
@@ -59,16 +57,16 @@
           </tr>
         </tbody>
       </table>
+      <% else %>
+        <th data-field="weekly_day_one">Busy today</th>
+      <% end %>
 
-     <!--  Day Two -->
-        <table class="highlight">
+       <!--  Day Two -->
+       <table class="highlight">
        <thead>
          <tr>
-       <% if @user.availabilities.last.next_six_days[1] != "Busy" %>
-         <th data-field="weekly_day_two"><%= @user.availabilities.last.next_six_days[1] %></th>
-       <% else %>
-         <h6>Busy today</h6>
-       <% end %>
+         <% if @user.availabilities.last.next_six_days[1] != "Busy" %>
+          <th data-field="weekly_day_two"><%= @user.availabilities.last.next_six_days[1] %></th>
          </tr>
         </thead>
         <tbody>
@@ -116,19 +114,19 @@
           </tr>
         </tbody>
       </table>
+      <% else %>
+        <th data-field="weekly_day_two">Busy today</th>
+      <% end %>
 
-        <!--  Day Three -->
+      <!--  Day Three -->
       <table class="highlight">
-        <thead>
-          <tr>
+      <thead>
+      <tr>
         <% if @user.availabilities.last.next_six_days[2] != "Busy" %>
           <th data-field="weekly_day_three"><%= @user.availabilities.last.next_six_days[2] %></th>
-        <% else %>
-          <h6>Busy today</h6>
-        <% end %>
       </tr>
-     </thead>
-     <tbody>
+      </thead>
+      <tbody>
        <tr>
          <td><% if @user.availabilities.last.day_3[0] == "Unavailable" %>
            <%= @user.availabilities.last.day_3[0] %></br>
@@ -173,27 +171,27 @@
         </tr>
         </tbody>
       </table>
+      <% else %>
+        <th data-field="weekly_day_three">Busy today</th>
+      <% end %>
 
-         <!--  Day Four -->
+       <!--  Day Four -->
        <table class="highlight">
          <thead>
-           <tr>
-         <% if @user.availabilities.last.next_six_days[3] != "Busy" %>
-         <th data-field="weekly_day_four"><%= @user.availabilities.last.next_six_days[3] %></th>
-         <% else %>
-           <h6>Busy today</h6>
-         <% end %>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
+         <tr>
+           <% if @user.availabilities.last.next_six_days[3] != "Busy" %>
+            <th data-field="weekly_day_four"><%= @user.availabilities.last.next_six_days[3] %></th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr>
           <td><% if @user.availabilities.last.day_4[0] == "Unavailable" %>
             <%= @user.availabilities.last.day_4[0] %></br>
           <% else %>
             <%= link_to "#{@user.availabilities.last.day_4[0]}", "/users/#{@user.id}/d_4_t_1" %></br>
           <% end %></td>
-        </tr>
-        <tr>
+         </tr>
+         <tr>
           <td><% if @user.availabilities.last.day_4[1] == "Unavailable" %>
             <%= @user.availabilities.last.day_4[1] %></br>
           <% else %>
@@ -230,16 +228,16 @@
         </tr>
         </tbody>
       </table>
+      <% else %>
+        <th data-field="weekly_day_four">Busy today</th>
+      <% end %>
 
-        <!--  Day Five -->
+      <!--  Day Five -->
       <table class="highlight">
         <thead>
-          <tr>
+        <tr>
         <% if @user.availabilities.last.next_six_days[4] != "Busy" %>
-        <th data-field="weekly_day_five"><%= @user.availabilities.last.next_six_days[4] %></th>
-        <% else %>
-          <h6>Busy today</h6>
-        <% end %>
+          <th data-field="weekly_day_five"><%= @user.availabilities.last.next_six_days[4] %></th>
         </tr>
         </thead>
         <tbody>
@@ -287,16 +285,16 @@
         </tr>
         </tbody>
       </table>
+      <% else %>
+        <th data-field="weekly_day_five">Busy today</th>
+      <% end %>
 
-        <!--  Day Six -->
+      <!--  Day Six -->
       <table class="highlight">
         <thead>
-          <tr>
+        <tr>
         <% if @user.availabilities.last.next_six_days[5] != "Busy" %>
-        <th data-field="weekly_day_six"><%= @user.availabilities.last.next_six_days[5] %></th>
-        <% else %>
-          <h6>Busy today</h6>
-        <% end %>
+          <th data-field="weekly_day_six"><%= @user.availabilities.last.next_six_days[5] %></th>
         </tr>
         </thead>
         <tbody>
@@ -344,16 +342,16 @@
         </tr>
         </tbody>
       </table>
+      <% else %>
+        <th data-field="weekly_day_six">Busy today</th>
+      <% end %>
 
-        <!--  Day Seven -->
+      <!--  Day Seven -->
       <table class="highlight">
         <thead>
-          <tr>
+        <tr>
         <% if @user.availabilities.last.next_six_days[6] != "Busy" %>
-        <th data-field="weekly_day_seven"><%= @user.availabilities.last.next_six_days[6] %></th>
-        <% else %>
-          <h6>Busy today</h6>
-        <% end %>
+          <th data-field="weekly_day_seven"><%= @user.availabilities.last.next_six_days[6] %></th>
         </tr>
         </thead>
         <tbody>
@@ -401,5 +399,8 @@
         </tr>
         </tbody>
       </table>
+      <% else %>
+        <th data-field="weekly_day_seven">Busy today</th>
+      <% end %>
     </div>
   </div>

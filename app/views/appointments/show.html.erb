@@ -17,19 +17,18 @@
                   </div>
                 </div>
 
-          <div class="sub-cancel_button center-align">
-            <button class="btn waves-effect waves-light orange" type="submit" name="action">
-              <%= button_to "delete", {:controller => :appointments, :action => 'destroy', :id => @appointment.id }, :method => :delete %>
-              <i class="material-icons right">send</i>
-            </button>
-
-            <div class="btn waves-effect waves-light orange white-text"></a>
-              <%= link_to "Back to your profile", user_url(@user) %>
+                <div class="sub-cancel_button center-align">
+                <button class="btn waves-effect waves-light orange" type="submit" name="action">
+                  <%= button_to "delete", {:controller => :appointments, :action => 'destroy', :id => @appointment.id }, :method => :delete %>
+                  <i class="material-icons right">send</i>
+                </button>
+                <div class="btn waves-effect waves-light orange white-text"></a>
+                  <%= link_to "Back to your profile", user_url(@user) %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  </body>
+   </body>
 </html>
