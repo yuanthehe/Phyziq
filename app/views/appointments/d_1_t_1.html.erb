@@ -8,7 +8,7 @@
           <div class="card grey lighten-4">
             <div class="card-content black-text center">
               <span class="card-title">You are booked!</span>
-              <p>Please review your requested time slot below. An email confirmation is on its way. </br>Check your email so you can view it in your Google Calendar.</p>
+              <p>Please review your requested time slot below.</br>The appointment will appear on your Google Calendar momentarily.</p>
               </br>
               <% @appointment %>
                             <%= flash[:notice] = "Invitation sent for #{@up.strftime("%A %d/%m/%Y %T")} to #{@low.strftime("%A %d/%m/%Y %T")}" %>

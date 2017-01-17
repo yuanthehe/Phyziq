@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if params[:search]
       @user = User.search(params[:search]).order("name ASC")
     else
-      @user = User.all
+      @user = User.all.order("name ASC")
     end
   end
 
